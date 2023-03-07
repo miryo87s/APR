@@ -1,0 +1,55 @@
+/*-- scss:defaults --*/
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+@import url(https://fonts.googleapis.com/css?family=Fira+Mono:400,700);
+
+// fonts
+$font-family-sans-serif: "Lato", sans-serif !default;
+$font-family-serif: "Lato", serif !default;
+$font-family-monospace: "Fira Mono", monospace !default;
+
+// colors
+$body-bg: #fff !default;
+$body-color: #000 !default;
+$link-color: #00008b !default;
+$code-block-bg: #f2f2f2;
+$code-block-font-size: 0.7em;
+
+$presentation-font-smaller: 0.7rem;
+
+$theme-red: #f34213;
+$theme-orange: #ff8811;;
+$theme-yellow: #F4BA02;
+$theme-blue: #1381B0;
+
+/*-- scss:rules --*/
+
+h1 {
+  font-family: "Fira Mono";
+  font-size: 24px;
+}
+
+.author, .date {
+  font-size: 34px;
+}
+
+.blue {
+  color: $theme-blue;
+  font-weight: bold;
+}
+
+.yellow {
+  color: $theme-yellow;
+  font-weight: bold;
+}
+
+.orange {
+  color: $theme-orange;
+  font-weight: bold;
+}
+
+.red {
+  color: $theme-red;
+  font-weight: bold;
+}
