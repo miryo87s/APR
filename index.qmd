@@ -14,7 +14,7 @@ format:
     height: 1080
     width: 1920
     chalkboard: true
-    fontsize: 30pt
+    fontsize: 28pt
     linestretch: 1.7
     auto-stretch: false
     html-math-method: mathjax
