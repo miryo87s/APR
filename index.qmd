@@ -334,9 +334,13 @@ Adequate overlap so that the bias mostly come form negative weights
 
 ### Dist of $e(x)$
 
+White bins: $e(x)$. Shadow bins: $1 - e(x)$
+
 ![](fig/psplot.png){fig-align="center" width=50%}
 
 ### Dist of Weight
+
+White bins: OLS weights under misspecification. Red bins: True overlap weight
 
 ![](fig/misplot.png){fig-align="center" width=50%}
 
@@ -358,11 +362,17 @@ Estimate the propensity score by OLS and logit, and plot the distribution of fit
 
 ![](fig/lalondeps.png){fig-align="center" width=50%}
 
-### Estimator Performance
+### Full data
 
 The experimental benchmark is $\$1794$, corresponding to ATT
 
-![](fig/app.png){fig-align="center" width=45%}
+![](fig/app1.png){fig-align="center" width=45%}
+
+### Trimmed data
+
+The trimmed data should be more similar to the experiment data.
+
+![](fig/app2.png){fig-align="center" width=45%}
 
 :::
 

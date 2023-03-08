@@ -654,12 +654,14 @@ Y = \beta_0 + X\beta + D\tau(X) + \epsilon
 <p>Adequate overlap so that the bias mostly come form negative weights</p>
 </div>
 <div id="tabset-2-2">
+<p>White bins: <span class="math inline">\(e(x)\)</span>. Shadow bins: <span class="math inline">\(1 - e(x)\)</span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure><p><img data-src="fig/psplot.png" style="width:50.0%"></p>
 </figure>
 </div>
 </div>
 <div id="tabset-2-3">
+<p>White bins: OLS weights under misspecification. Red bins: True overlap weight</p>
 <div class="quarto-figure quarto-figure-center">
 <figure><p><img data-src="fig/misplot.png" style="width:50.0%"></p>
 </figure>
@@ -678,7 +680,8 @@ Y = \beta_0 + X\beta + D\tau(X) + \epsilon
 <div class="panel-tabset">
 <ul id="tabset-3" class="panel-tabset-tabby">
 <li><a data-tabby-default="" href="#tabset-3-1">Lack of Overlap</a></li>
-<li><a href="#tabset-3-2">Estimator Performance</a></li>
+<li><a href="#tabset-3-2">Full data</a></li>
+<li><a href="#tabset-3-3">Trimmed data</a></li>
 </ul>
 <div class="tab-content">
 <div id="tabset-3-1">
@@ -691,7 +694,14 @@ Y = \beta_0 + X\beta + D\tau(X) + \epsilon
 <div id="tabset-3-2">
 <p>The experimental benchmark is <span class="math inline">\(\$1794\)</span>, corresponding to ATT</p>
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="fig/app.png" style="width:45.0%"></p>
+<figure><p><img data-src="fig/app1.png" style="width:45.0%"></p>
+</figure>
+</div>
+</div>
+<div id="tabset-3-3">
+<p>The trimmed data should be more similar to the experiment data.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="fig/app2.png" style="width:45.0%"></p>
 </figure>
 </div>
 </div>
