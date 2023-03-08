@@ -82,6 +82,8 @@ In this paper, I propose a new interpretation of $\tau_{ols}$ with less assumpti
 
 ## The Potential Outcome Framework
 
+<br>
+
 The potential outcome framework [@rubin1974estimating] is the most popular tool for treatment effect analysis
 
 Potential outcomes: $Y_i(1)$/$Y_i(0)$ if unit $i$ were treated/untreated
@@ -115,6 +117,9 @@ There are two assumptions to identify treatment effects
 - Unconfoundedness
   - @angrist1998estimating: convex combination of ATEs in strata defined by discrete $X_i$
   - @aronow2016does: weighted average of individual treatment effects
+    - A slightly different form of unconfoundedness
+    - [Linear propensity score]{.blue}
+    - ~~Overlap~~
 
 :::
 
@@ -123,8 +128,8 @@ There are two assumptions to identify treatment effects
 - Exogeneity
   - @sloczynski2022interpreting: convex combination of ATT and ATU
     - Not clear what exogeneity means in potential outcome framework
-    - Linear propensity score
-    - **$Y$ is a linear function of propensity score** instead of covariates
+    - [Linear propensity score]{.blue}
+    - [**$Y(1)$ and $Y(0)$ are linear functions of propensity score** instead of covariates]{.red}
     - ~~Overlap~~
     
 :::
@@ -136,13 +141,13 @@ There are two assumptions to identify treatment effects
 **Under the potential outcome framework**
 
 - Connect OLS to inverse propensity weighting (IPW)
-  - OLS + Linear propensity score = Weighted IPW
+  - OLS + [Linear propensity score]{.blue} = Weighted IPW
   - propose a new causal interpretation of OLS
   - study the properties of OLS from the literature on IPW
 
 <hr>
 
-- Explore the plausibility of Linear propensity score
+- Explore the plausibility of [Linear propensity score]{.blue}
   - Usually assumed in the literature on causal interpretation of OLS
   - Violation can lead to negative weights in OLS and thus non-causal interpretation
   - Not a concern in one-way fixed effect model and $2 \times 2$ Difference-in-Differences (DiD)
@@ -150,13 +155,11 @@ There are two assumptions to identify treatment effects
 
 ## Weighted IPW
 
-Define the ATE 
-
-$\tau_{ate} = \mathbb{E}[Y(1) - Y(0)]$
+Define the ATE: $\tau_{ate} = \mathbb{E}[Y(1) - Y(0)]$
 
 Under the unconfounded and overlap assumptions, 
 
-The identification strategy of IPW is
+Let $e(X_i) = P(D_i = 1|X_i)$ be the propensity score. The identification strategy of IPW is
 $$
 \tau_{ipw} = \mathbb{E}\left[\underbrace{\frac{Y_iD_i}{e(X_i)} - \frac{Y_i(1 - D_i)}{1 - e(X_i)}}_{\tau_i := }\right] = \tau_{ate}
 $$
@@ -232,10 +235,10 @@ $$\begin{aligned}
 
 - OLS is Weighted IPW, thus has a **causal interpretation**
 
-- The only assumption required is the linear propensity assumption, the **identification of causal effect fully relies on $\tau_i$**
+- The only assumption required is linear propensity, the **identification of causal effect fully relies on $\tau_i$**
   - Both unconfoundedness and overlap assumption required
   
-- In general, OLS does not identify ATE. Extra assumptions required **to identify ATE**:
+- In general, OLS does not identify ATE. Extra assumptions required:
   - Homogeneous treatment effect (constant $\tau_i$) or
   - Randomized treatment assignment (constant $h(X_i)$)
 
@@ -243,9 +246,13 @@ $$\begin{aligned}
 
 ## Properties of OLS estimator
 
+### --- Properties of overlap weight
+
+<br>
+
 - $Var(\hat\tau_{ols}) \leqslant Var(\hat\tau_{wipw})$ for all $h(\cdot)$^[This explains why OLS estimators have smaller standard errors than IPW estimators, while IPW estimators with a consistent estimator of $e(x)$ is shown to be semiparametrically efficient in @hirano2003efficient]
 
-- Robust to poor overlap: less weights when $e(x)$ is away from $0.5$.
+- Robust to poor overlap: more weights when $e(x)$ close to $0.5$, less weights when $e(x)$ away from $0.5$.
 
 - Weights on $Y_i$: $(1 - e(X_i), e(X_i))$, probability of being assigned to the opposite group.
 
@@ -279,7 +286,7 @@ Under misspecification of the propensity score,
 $$
 \tau_{ols} = \mathbb{E}\left[\frac{D_i - l(X_i)}{D_i - e(X_i)} \cdot \frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[(D_i - l(X_i))^2]} \cdot \tau_i\right]
 $$
-where $l(Xi)$ is the best linear projection of the propensity score on the covariates.
+where $l(X_i)$ is the best linear projection of the propensity score on the covariates.
 
 Combine the linear propensity and overlap assumption
 $$
@@ -352,7 +359,7 @@ White bins: OLS weights under misspecification. Red bins: True overlap weight
 
 ## Application
 
-The NSW-CPS data (Lalonde) constructed by @lalonde1986evaluating. Same specification as in @sloczynski2022interpreting.
+The NSW-CPS data constructed by @lalonde1986evaluating. Same specification as in @sloczynski2022interpreting.
 
 ::: {.panel-tabset}
 
@@ -370,7 +377,7 @@ The experimental benchmark is $\$1794$, corresponding to ATT
 
 ### Trimmed data
 
-The trimmed data should be more similar to the experiment data.
+Trim the data according to the suggestion by @crump2009dealing
 
 ![](fig/app2.png){fig-align="center" width=45%}
 

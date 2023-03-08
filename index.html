@@ -412,6 +412,7 @@ Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
 </ul>
 <p>In this paper, I propose a new interpretation of <span class="math inline">\(\tau_{ols}\)</span> with less assumptions</p>
 </section><section id="the-potential-outcome-framework" class="slide level2"><h2>The Potential Outcome Framework</h2>
+<p><br></p>
 <p>The potential outcome framework <span class="citation" data-cites="rubin1974estimating">(<a href="#/references" role="doc-biblioref" onclick="">Rubin 1974</a>)</span> is the most popular tool for treatment effect analysis</p>
 <p>Potential outcomes: <span class="math inline">\(Y_i(1)\)</span>/<span class="math inline">\(Y_i(0)\)</span> if unit <span class="math inline">\(i\)</span> were treated/untreated</p>
 <p>Observed outcome: <span class="math inline">\(Y_i = Y_i(1)D_i + Y_i(0)(1 - D_i)\)</span></p>
@@ -445,7 +446,13 @@ Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
 <span class="citation" data-cites="angrist1998estimating">Angrist (<a href="#/references" role="doc-biblioref" onclick="">1998</a>)</span>: convex combination of ATEs in strata defined by discrete <span class="math inline">\(X_i\)</span>
 </li>
 <li>
-<span class="citation" data-cites="aronow2016does">Aronow and Samii (<a href="#/references" role="doc-biblioref" onclick="">2016</a>)</span>: weighted average of individual treatment effects</li>
+<span class="citation" data-cites="aronow2016does">Aronow and Samii (<a href="#/references" role="doc-biblioref" onclick="">2016</a>)</span>: weighted average of individual treatment effects
+<ul>
+<li>A slightly different form of unconfoundedness</li>
+<li><span class="blue">Linear propensity score</span></li>
+<li><del>Overlap</del></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -457,9 +464,8 @@ Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
 <span class="citation" data-cites="sloczynski2022interpreting">Słoczyński (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>: convex combination of ATT and ATU
 <ul>
 <li>Not clear what exogeneity means in potential outcome framework</li>
-<li>Linear propensity score</li>
-<li>
-<strong><span class="math inline">\(Y\)</span> is a linear function of propensity score</strong> instead of covariates</li>
+<li><span class="blue">Linear propensity score</span></li>
+<li><span class="red"><strong><span class="math inline">\(Y(1)\)</span> and <span class="math inline">\(Y(0)\)</span> are linear functions of propensity score</strong> instead of covariates</span></li>
 <li><del>Overlap</del></li>
 </ul>
 </li>
@@ -473,7 +479,7 @@ Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
 <ul>
 <li>Connect OLS to inverse propensity weighting (IPW)
 <ul>
-<li>OLS + Linear propensity score = Weighted IPW</li>
+<li>OLS + <span class="blue">Linear propensity score</span> = Weighted IPW</li>
 <li>propose a new causal interpretation of OLS</li>
 <li>study the properties of OLS from the literature on IPW</li>
 </ul>
@@ -481,7 +487,7 @@ Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
 </ul>
 <hr>
 <ul>
-<li>Explore the plausibility of Linear propensity score
+<li>Explore the plausibility of <span class="blue">Linear propensity score</span>
 <ul>
 <li>Usually assumed in the literature on causal interpretation of OLS</li>
 <li>Violation can lead to negative weights in OLS and thus non-causal interpretation</li>
@@ -489,10 +495,9 @@ Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
 </ul>
 </li>
 </ul></section><section id="weighted-ipw" class="slide level2"><h2>Weighted IPW</h2>
-<p>Define the ATE</p>
-<p><span class="math inline">\(\tau_{ate} = \mathbb{E}[Y(1) - Y(0)]\)</span></p>
+<p>Define the ATE: <span class="math inline">\(\tau_{ate} = \mathbb{E}[Y(1) - Y(0)]\)</span></p>
 <p>Under the unconfounded and overlap assumptions,</p>
-<p>The identification strategy of IPW is <span class="math display">\[
+<p>Let <span class="math inline">\(e(X_i) = P(D_i = 1|X_i)\)</span> be the propensity score. The identification strategy of IPW is <span class="math display">\[
 \tau_{ipw} = \mathbb{E}\left[\underbrace{\frac{Y_iD_i}{e(X_i)} - \frac{Y_i(1 - D_i)}{1 - e(X_i)}}_{\tau_i := }\right] = \tau_{ate}
 \]</span></p>
 <p>Further extended by <span class="citation" data-cites="hirano2003efficient">Hirano, Imbens, and Ridder (<a href="#/references" role="doc-biblioref" onclick="">2003</a>)</span> for ATE in a subpopulation defined by weight <span class="math inline">\(h(X_i)\)</span></p>
@@ -560,13 +565,13 @@ h(X_i) \geqslant 0 \ \forall X_i \quad \text{and} \quad \mathbb{E}\left[\frac{h(
 <li><p>OLS is implicitly using a linear specification for the propensity score</p></li>
 <li><p>OLS is Weighted IPW, thus has a <strong>causal interpretation</strong></p></li>
 <li>
-<p>The only assumption required is the linear propensity assumption, the <strong>identification of causal effect fully relies on <span class="math inline">\(\tau_i\)</span></strong></p>
+<p>The only assumption required is linear propensity, the <strong>identification of causal effect fully relies on <span class="math inline">\(\tau_i\)</span></strong></p>
 <ul>
 <li>Both unconfoundedness and overlap assumption required</li>
 </ul>
 </li>
 <li>
-<p>In general, OLS does not identify ATE. Extra assumptions required <strong>to identify ATE</strong>:</p>
+<p>In general, OLS does not identify ATE. Extra assumptions required:</p>
 <ul>
 <li>Homogeneous treatment effect (constant <span class="math inline">\(\tau_i\)</span>) or</li>
 <li>Randomized treatment assignment (constant <span class="math inline">\(h(X_i)\)</span>)</li>
@@ -577,9 +582,11 @@ h(X_i) \geqslant 0 \ \forall X_i \quad \text{and} \quad \mathbb{E}\left[\frac{h(
 <p>As a member of weighted IPW, the overlap weight has been studied by <span class="citation" data-cites="li2013weighting">Li and Greene (<a href="#/references" role="doc-biblioref" onclick="">2013</a>)</span>, we can use their results to learn the properties of OLS estimator of treatment effect</p>
 </blockquote>
 </section><section id="properties-of-ols-estimator" class="slide level2"><h2>Properties of OLS estimator</h2>
+<h3 id="properties-of-overlap-weight">— Properties of overlap weight</h3>
+<p><br></p>
 <ul>
 <li><p><span class="math inline">\(Var(\hat\tau_{ols}) \leqslant Var(\hat\tau_{wipw})\)</span> for all <span class="math inline">\(h(\cdot)\)</span><sup>1</sup></p></li>
-<li><p>Robust to poor overlap: less weights when <span class="math inline">\(e(x)\)</span> is away from <span class="math inline">\(0.5\)</span>.</p></li>
+<li><p>Robust to poor overlap: more weights when <span class="math inline">\(e(x)\)</span> close to <span class="math inline">\(0.5\)</span>, less weights when <span class="math inline">\(e(x)\)</span> away from <span class="math inline">\(0.5\)</span>.</p></li>
 <li><p>Weights on <span class="math inline">\(Y_i\)</span>: <span class="math inline">\((1 - e(X_i), e(X_i))\)</span>, probability of being assigned to the opposite group.</p></li>
 <li><p><span class="math inline">\(\tau_{ols} \approx\)</span> ATT when <span class="math inline">\(e(x) \approx 0\)</span> as <span class="math inline">\((1 - e(X_i), e(X_i)) \approx (1, \frac{e(x)}{1 - e(x)})\)</span>; <span class="math inline">\(\tau_{ols} \approx\)</span> ATU when <span class="math inline">\(e(x) \approx 1\)</span>.<sup>2</sup></p></li>
 </ul>
@@ -607,7 +614,7 @@ h(X_i) \geqslant 0 \ \forall X_i \quad \text{and} \quad \mathbb{E}\left[\frac{h(
 </section><section id="violation-of-linear-propensity-assumption" class="slide level2"><h2>Violation of Linear Propensity Assumption</h2>
 <p>Under misspecification of the propensity score, <span class="math display">\[
 \tau_{ols} = \mathbb{E}\left[\frac{D_i - l(X_i)}{D_i - e(X_i)} \cdot \frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[(D_i - l(X_i))^2]} \cdot \tau_i\right]
-\]</span> where <span class="math inline">\(l(Xi)\)</span> is the best linear projection of the propensity score on the covariates.</p>
+\]</span> where <span class="math inline">\(l(X_i)\)</span> is the best linear projection of the propensity score on the covariates.</p>
 <p>Combine the linear propensity and overlap assumption <span class="math display">\[
 P(0 &lt; X_i\beta &lt; 1)
 \]</span></p>
@@ -676,7 +683,7 @@ Y = \beta_0 + X\beta + D\tau(X) + \epsilon
 </div>
 </div>
 </section><section id="application" class="slide level2"><h2>Application</h2>
-<p>The NSW-CPS data (Lalonde) constructed by <span class="citation" data-cites="lalonde1986evaluating">LaLonde (<a href="#/references" role="doc-biblioref" onclick="">1986</a>)</span>. Same specification as in <span class="citation" data-cites="sloczynski2022interpreting">Słoczyński (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>.</p>
+<p>The NSW-CPS data constructed by <span class="citation" data-cites="lalonde1986evaluating">LaLonde (<a href="#/references" role="doc-biblioref" onclick="">1986</a>)</span>. Same specification as in <span class="citation" data-cites="sloczynski2022interpreting">Słoczyński (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>.</p>
 <div class="panel-tabset">
 <ul id="tabset-3" class="panel-tabset-tabby">
 <li><a data-tabby-default="" href="#tabset-3-1">Lack of Overlap</a></li>
@@ -699,7 +706,7 @@ Y = \beta_0 + X\beta + D\tau(X) + \epsilon
 </div>
 </div>
 <div id="tabset-3-3">
-<p>The trimmed data should be more similar to the experiment data.</p>
+<p>Trim the data according to the suggestion by <span class="citation" data-cites="crump2009dealing">Crump et al. (<a href="#/references" role="doc-biblioref" onclick="">2009</a>)</span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure><p><img data-src="fig/app2.png" style="width:45.0%"></p>
 </figure>
@@ -807,6 +814,9 @@ Angrist, and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics: An E
 </div>
 <div id="ref-aronow2016does" class="csl-entry" role="doc-biblioentry">
 Aronow, Peter M, and Cyrus Samii. 2016. <span>“Does Regression Produce Representative Estimates of Causal Effects?”</span> <em>American Journal of Political Science</em> 60 (1): 250–67.
+</div>
+<div id="ref-crump2009dealing" class="csl-entry" role="doc-biblioentry">
+Crump, Richard K, V Joseph Hotz, Guido W Imbens, and Oscar A Mitnik. 2009. <span>“Dealing with Limited Overlap in Estimation of Average Treatment Effects.”</span> <em>Biometrika</em> 96 (1): 187–99.
 </div>
 <div id="ref-hirano2003efficient" class="csl-entry" role="doc-biblioentry">
 Hirano, Keisuke, Guido W Imbens, and Geert Ridder. 2003. <span>“Efficient Estimation of Average Treatment Effects Using the Estimated Propensity Score.”</span> <em>Econometrica</em> 71 (4): 1161–89.
