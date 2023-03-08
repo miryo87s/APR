@@ -373,7 +373,7 @@ Supervised by Prof Robert Kohn &amp; AProf Seojeong Lee
 Fangzhou Yu
 </h3>
 <h3>
-2023-03-08
+2023-03-09
 </h3>
 <p><br></p>
 <p><img data-src="unsw.png" class="absolute" style="top: 370px; left: 1400px; width: 400px; "></p>
@@ -505,7 +505,7 @@ Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
 \text{Weighted IPW}: \tau_{wipw} = \mathbb{E}\left[\frac{h(X_i)}{\mathbb{E}[h(X_i)]} \cdot \tau_i\right]
 \]</span></p>
 <p>All of weighted IPW estimators have a causal interpretation in the sense that <span class="math display">\[
-h(X_i) \geqslant 0 \ \forall X_i \quad \text{and} \quad \mathbb{E}\left[\frac{h(X_i)}{\mathbb{E}[h(X_i)]}\right] = 1
+h(X_i) &gt; 0 \ \forall X_i \quad \text{and} \quad \mathbb{E}\left[\frac{h(X_i)}{\mathbb{E}[h(X_i)]}\right] = 1
 \]</span></p>
 </section><section id="weighted-ipw-1" class="slide level2"><h2>Weighted IPW</h2>
 <p>Special cases studied in the literature:</p>
@@ -531,7 +531,7 @@ h(X_i) \geqslant 0 \ \forall X_i \quad \text{and} \quad \mathbb{E}\left[\frac{h(
 <p><strong>Assumption (Linear Propensity Score)</strong></p>
 </div>
 <div class="callout-content">
-<p>The propensity score of treatment <span class="math inline">\(D_i\)</span> is a linear function of <span class="math inline">\(X_i\)</span>, namely <span class="math display">\[e(x) = P(D_i = 1|X_i) = X_i\beta_e\]</span></p>
+<p>The propensity score of treatment <span class="math inline">\(D_i\)</span> is a linear function of <span class="math inline">\(X_i\)</span>, namely <span class="math display">\[e(X_i) = P(D_i = 1|X_i) = X_i\beta_e\]</span></p>
 </div>
 </div>
 </div>
@@ -579,7 +579,7 @@ h(X_i) \geqslant 0 \ \forall X_i \quad \text{and} \quad \mathbb{E}\left[\frac{h(
 </li>
 </ul>
 <blockquote>
-<p>As a member of weighted IPW, the overlap weight has been studied by <span class="citation" data-cites="li2013weighting">Li and Greene (<a href="#/references" role="doc-biblioref" onclick="">2013</a>)</span>, we can use their results to learn the properties of OLS estimator of treatment effect</p>
+<p>As a member of weighted IPW, the overlap weight has been studied by <span class="citation" data-cites="li2018balancing">Li, Morgan, and Zaslavsky (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span>, we can use their results to learn the properties of OLS estimator of treatment effect</p>
 </blockquote>
 </section><section id="properties-of-ols-estimator" class="slide level2"><h2>Properties of OLS estimator</h2>
 <h3 id="properties-of-overlap-weight">— Properties of overlap weight</h3>
@@ -604,8 +604,8 @@ h(X_i) \geqslant 0 \ \forall X_i \quad \text{and} \quad \mathbb{E}\left[\frac{h(
 <p>(Weighted Least Squares Estimators of the ATE)</p>
 <p>ATE can be consistently estimated by the following two methods.</p>
 <ol type="1">
-<li><p>Regress <span class="math inline">\(Y_i\)</span> on <span class="math inline">\(D_i - \hat{e}(X_i)\)</span> with weight <span class="math inline">\(\left(\frac{1}{\hat{e}(X_i)}, \frac{1}{1 - \hat{e}(X_i)}\right)\)</span></p></li>
-<li><p>Regress <span class="math inline">\(Y_i\)</span> on <span class="math inline">\(1\)</span> and <span class="math inline">\(D\)</span> with weight <span class="math inline">\(\left(\frac{D_i}{\hat{e}(X_i)}, \frac{1 - D_i}{1 - \hat{e}(X_i)}\right)\)</span></p></li>
+<li><p>Regress <span class="math inline">\(Y_i\)</span> on <span class="math inline">\(D_i - \hat{e}(X_i)\)</span> with weight <span class="math inline">\(\left(\frac{1}{\hat{e}(X_i)} + \frac{1}{1 - \hat{e}(X_i)}\right)\)</span></p></li>
+<li><p>Regress <span class="math inline">\(Y_i\)</span> on <span class="math inline">\(1\)</span> and <span class="math inline">\(D_i\)</span> with weight <span class="math inline">\(\left(\frac{D_i}{\hat{e}(X_i)} + \frac{1 - D_i}{1 - \hat{e}(X_i)}\right)\)</span></p></li>
 </ol>
 <p>where <span class="math inline">\(\hat{e}(x)\)</span> is a consistent estimator of <span class="math inline">\(e(x)\)</span>.</p>
 </div>
@@ -616,7 +616,7 @@ h(X_i) \geqslant 0 \ \forall X_i \quad \text{and} \quad \mathbb{E}\left[\frac{h(
 \tau_{ols} = \mathbb{E}\left[\frac{D_i - l(X_i)}{D_i - e(X_i)} \cdot \frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[(D_i - l(X_i))^2]} \cdot \tau_i\right]
 \]</span> where <span class="math inline">\(l(X_i)\)</span> is the best linear projection of the propensity score on the covariates.</p>
 <p>Combine the linear propensity and overlap assumption <span class="math display">\[
-P(0 &lt; X_i\beta &lt; 1)
+P(0 &lt; X_i\beta_e &lt; 1) = 1
 \]</span></p>
 <p>If linear propensity fails to hold, <span class="math display">\[
 \text{fitted propensity outside} \ [0, 1] \rightarrow \text{negative weights in} \ \tau_{ols}
@@ -738,7 +738,7 @@ Y_i = \alpha_s + \tau_{owfe} D_i + \epsilon_i
 <li>
 <a href="#/prp-owfe">Proposition&nbsp;3</a> does not generalize to two-way fixed effect models (TWFE).</li>
 <li>Because the two-way fixed effects overlap with each other and thus not mutually exclusive</li>
-<li>DiD assumptions make use of the negative weights and move the goalpost from <span class="math inline">\(\tau_overlap\)</span> to ATT</li>
+<li>DiD assumptions make use of the negative weights and move the goalpost from <span class="math inline">\(\tau_{overlap}\)</span> to ATT</li>
 </ul>
 <p>Consider the general case of multi-period and multi-group DiD. For each unit <span class="math inline">\(i\)</span>:</p>
 <ul>
@@ -757,7 +757,7 @@ Y_{it} = \alpha_i + \gamma_t + \tau_{twfe} D_{it} + \epsilon_{it}
 <p><span class="theorem-title"><strong>Proposition 4 </strong></span>&nbsp;</p>
 <div class="callout-body">
 <div class="callout-content">
-<p>Decomposition of TWFE estimator of DiD</p>
+<p>(Decomposition of TWFE estimator of DiD)</p>
 <p><span class="math display">\[
 \hat\tau_{twfe} = \sum_t \sum_{c \leqslant t} w_t^c \hat\tau_t^{\infty c} + \sum_t \sum_{c &gt; t} w_t^c \hat\tau_{t}^{\infty c}
 \]</span> with properties <span class="math inline">\(\sum_t\sum_{c \leqslant t} w_t^c = 1\)</span> and <span class="math inline">\(\sum_t\sum_{c &gt; t} w_t^c = -1\)</span>.</p>
@@ -779,24 +779,29 @@ Y_{it} = \alpha_i + \gamma_t + \tau_{twfe} D_{it} + \epsilon_{it}
 <p>Under the parallel trend and no anticipation assumption, <a href="#/prp-twfe">Proposition&nbsp;4</a> implies <span class="math display">\[
 \hat\tau_{twfe} = -\hat\tau_1^{\infty2} + \hat\tau_2^{\infty2} = (\bar{Y}_2^2 - \bar{Y}_2^\infty) - (\bar{Y}_1^2 - \bar{Y}_1^\infty) \xrightarrow{p} \mathbb{E}[Y_{it}(1) - Y_{it}(0)|D_{it} = 1]
 \]</span></p>
-</section><section id="conclusion" class="slide level2"><h2>Conclusion</h2>
+</section><section id="conclusion-and-suggestions" class="slide level2"><h2>Conclusion and Suggestions</h2>
 <p><span class="blue">Under the linear propensity assumption</span></p>
 <ul>
-<li>OLS = overlap IPW</li>
-<li>OLS identifies a weighted ATE, with more weights assigned to the common support</li>
-<li>OLS has the nice properties of overlap weights</li>
+<li>Causal interpretation: OLS = overlap IPW, identifies overlap weighted ATE</li>
+<li>Some nice properties: variance minimizing, more robust to poor overlap than ATE estimators</li>
 </ul>
 <p><span class="blue">If linear propensity assumption is violated</span></p>
 <ul>
-<li>OLS has negative weights due to fitted values of propensity score outside <span class="math inline">\([0, 1]\)</span>
-</li>
-<li>OLS is non-causal</li>
-</ul>
-<p><span class="blue">Linear propensity score is not a consern for</span></p>
+<li>OLS is non-causal
 <ul>
-<li>One-way fixed effect model</li>
-<li>
-<span class="math inline">\(2 \times 2\)</span> DiD</li>
+<li>Check the fitted values of propensity score</li>
+<li>Use weighted IPW with logit propensity score</li>
+<li>Consider ATT/ATU when propensity is low/high for all units</li>
+</ul>
+</li>
+</ul>
+<p><span class="blue">Linear propensity score is not a concern for</span></p>
+<ul>
+<li>One-way fixed effect model, <span class="math inline">\(2 \times 2\)</span> DiD
+<ul>
+<li>Use OLS because it is simple</li>
+</ul>
+</li>
 </ul></section><section id="references" class="slide level2 smaller scrollable"><h2>References</h2>
 <p><img src="unsw-long.png" class="slide-logo"></p>
 <div class="footer footer-default">
@@ -830,8 +835,8 @@ Imbens, Guido W, and Donald B Rubin. 2015. <em>Causal Inference in Statistics, S
 <div id="ref-lalonde1986evaluating" class="csl-entry" role="doc-biblioentry">
 LaLonde, Robert J. 1986. <span>“Evaluating the Econometric Evaluations of Training Programs with Experimental Data.”</span> <em>The American Economic Review</em>, 604–20.
 </div>
-<div id="ref-li2013weighting" class="csl-entry" role="doc-biblioentry">
-Li, Liang, and Tom Greene. 2013. <span>“A Weighting Analogue to Pair Matching in Propensity Score Analysis.”</span> <em>The International Journal of Biostatistics</em> 9 (2): 215–34.
+<div id="ref-li2018balancing" class="csl-entry" role="doc-biblioentry">
+Li, Fan, Kari Lock Morgan, and Alan M Zaslavsky. 2018. <span>“Balancing Covariates via Propensity Score Weighting.”</span> <em>Journal of the American Statistical Association</em> 113 (521): 390–400.
 </div>
 <div id="ref-rubin1974estimating" class="csl-entry" role="doc-biblioentry">
 Rubin, Donald B. 1974. <span>“Estimating Causal Effects of Treatments in Randomized and Nonrandomized Studies.”</span> <em>Journal of Educational Psychology</em> 66 (5): 688.
