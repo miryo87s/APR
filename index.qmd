@@ -275,6 +275,8 @@ $$
 $$
 where $e(s) = \frac{n_{1s}}{n_{1s} + n_{0s}}$, $h(s) = e(s)(1 - e(s)) = \frac{n_{1s}n_{0s}}{n_{1s} + n_{0s}}$, $\tau_s = \bar{Y}_{1s} - \bar{Y}_{0s}$
 
+<br>
+
 [Example 2: TWFE for $2 \times 2$ DiD](#example2)
 
 ## Properties of OLS (overlap weighted IPW)
@@ -396,6 +398,10 @@ where $\hat{e}(x)$ is a consistent estimator of $e(x)$.
 ![](fig/app.png){fig-align="center" width=40%}
 
 ## Conclusion
+
+<br>
+
+- **Use IPW**
 
 <br>
 
