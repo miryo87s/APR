@@ -29,6 +29,7 @@ editor:
 ```{r}
 #| echo: false
 #| include: false
+#| warning: false
 
 librarian::shelf(ggplot2, quiet = T)
 ```
@@ -252,7 +253,7 @@ $$\begin{aligned}
   - Not necessarily strong because $X_i$ can include powers and interactions
   - This assumptions is inherently satisfied with saturated modela
 - OLS is Weighted IPW, thus has a **causal interpretation**
-- In general, OLS does not identify ATE. Extra assumptions required:
+- In general, OLS does not identify ATE, unless:
   - Homogeneous treatment effect (constant $\tau_i$) or
   - Randomized treatment assignment (constant $h(X_i)$)
 
@@ -279,24 +280,82 @@ where $e(s) = \frac{n_{1s}}{n_{1s} + n_{0s}}$, $h(s) = e(s)(1 - e(s)) = \frac{n_
 
 [Example 2: TWFE for $2 \times 2$ DiD](#example2)
 
-## Properties of OLS (overlap weighted IPW)
+## Properties of OLS (overlap weight)
+
+<br>
+
+[From $h(x)$ to weights on each group]{.blue}
+
+- The purpose of weighting is to achieve similar distribution of $X_i$ in the treated and control group
+- Let $f_d(x) = P(X_i = x|D_i = d)$ be the density of $X_i$ in the treated and control group
+
+```{r}
+#| out-width: 60%
+#| fig-align: center
+
+base <- ggplot() + xlim(-10, 10) + ylim(0, 0.4) + theme_minimal() +
+  ggtitle("Normally distributied groups and overlap target population density")
+
+base + geom_function(fun = dnorm, args = list(mean = -3, sd = 2), color = "black") +
+  geom_function(fun = dnorm, args = list(mean = 3, sd = 2), color = "black") + 
+  geom_function(fun = dnorm, args = list(mean = 0, sd = 2 * sqrt(2)), linetype = "dashed", color = "grey")+
+  geom_function(fun = dnorm, args = list(mean = 0, sd = 1.3), color = "red") +
+  annotate('text', x = 0, y = 0.33, label = "f(x)h(x)", color = "red") + 
+  annotate('text', x = -6.5, y = 0.1, label = expression(f[0](x))) +
+  annotate('text', x = 6.5, y = 0.1, label = expression(f[1](x))) +
+  annotate('text', x = 0, y = 0.16, label = "f(x)", color = "grey")
+
+```
+
+
+
+## Properties of OLS (overlap weight)
+
+<br>
+
+- By Bayes rule
 
 $$
-h(X_i) = \frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[e(X_i)(1 - e(X_i))]}
+f_1(x) = \frac{e(x)f(x)}{P(D_i = 1)}, \quad \quad f_0(x) = \frac{(1 - e(x))f(x)}{P(D_i = 0)}
 $$
+
+- Let $f_1(x)g_1(x) = f_0(x)g_0(x) = f(x)h(x)$, again by Bayes rule 
+
+$$
+g_1(x) \propto h(x)/e(x), \quad \quad g_0(x) \propto h(x)/(1 - e(x))
+$$
+
+- For overlap weights, $(g_1(x), g_0(x)) = (1 - e(x), e(x))$
+
+## Properties of OLS (overlap weight)
+
+<br>
 
 [Properties:]{.blue}
 
-1. **Efficiency**: $Var(\hat\tau_{ols}) \leqslant Var(\hat\tau_{wipw})$ for all $h(X_i)$
-2. **Robust to poor overlap**: 
+1. **Undesired weights**: Treated and control groups are weighted by probability of being assigned to the opposite group.
+    - @sloczynski2022interpreting weights have similar property
+    - Another way to see this is by rearranging $\tau_{ols}$
+$$
+\tau_{ols} = \frac{\mathbb{E}[\color{red}(1 - e(X_i))\color{black}D_iY_i - \color{red}e(X_i)\color{black}(1 - D_i)Y_i]}{\mathbb{E}[e(X_i)(1 - e(X_i))]}
+$$
+
+## Properties of OLS (overlap weight)
+
+<br>
+
+[Properties [@li2018balancing]:]{.blue}
+
+2. **Efficiency**: $Var(\hat\tau_{ols}) \leqslant Var(\hat\tau_{wipw})$ for all $h(X_i)$
+3. **Robust to poor overlap**: 
+    - Bounded
     - Maximized with $e(x) = 0.5$
     - More weights when $e(x)$ is close to $0.5$, less weights when $e(x)$ away from $0.5$.
-3. **Undesired weights**: Treated and control groups are weighted by probability of being assigned to the opposite group.
+4. **Exact sample balance** with logit $e(x)$
 $$
-\tau_{overlap} = \frac{\mathbb{E}[\color{red}(1 - e(X_i))\color{black}D_iY_i - \color{red}e(X_i)\color{black}(1 - D_i)Y_i]}{\mathbb{E}[e(X_i)(1 - e(X_i))]}
+\frac{\sum_i X_i D_i (1 - \hat{e}(X_i))}{D_i (1 - \hat{e}(X_i))} = \frac{\sum_i X_i (1 - D_i) \hat{e}(X_i)}{(1 - D_i) \hat{e}(X_i)}
 $$
-    - @sloczynski2022interpreting weights have similar property
-4. $\tau_{ols} \approx$ ATT when $e(x) \approx 0$ as $(1 - e(X_i), e(X_i)) \approx (1, \frac{e(x)}{1 - e(x)})$; $\tau_{ols} \approx$ ATU when $e(x) \approx 1$.
+5. $\tau_{ols} \approx$ ATT when $e(x) \approx 0$ as $(1 - e(X_i), e(X_i)) \approx (1, \frac{e(x)}{1 - e(x)})$; $\tau_{ols} \approx$ ATU when $e(x) \approx 1$.
 
 ## Is OLS Without Interactions Doubly Robust?
 
