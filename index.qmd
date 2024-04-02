@@ -137,7 +137,7 @@ $$
 $$
 Y_i = \tau_1D_{1i} + \tau_2D_{2i} + X_i\beta + \epsilon_i
 $$
-  - $\tau_1$ and $\tau_2$ are biased estimators of ATEs even in randomized experiments
+  - OLS estimators $\hat\tau_1$ and $\hat\tau_2$ are biased even in randomized experiments
   - I focus on the case with one binary treatment
 
 <br>
