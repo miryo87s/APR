@@ -586,12 +586,13 @@ h(X_i) &gt; 0 \ \forall X_i \quad \text{and} \quad \mathbb{E}\left[\frac{h(X_i)}
 <ul>
 <li>Also common in empirical studies</li>
 <li>Not necessarily strong because <span class="math inline">\(X_i\)</span> can include powers and interactions</li>
-<li>This assumptions is inherently satisfied with saturated modela</li>
+<li>
+<strong>Inherently satisfied</strong> with saturated model</li>
 </ul>
 </li>
 <li>OLS is Weighted IPW, thus has a <strong>causal interpretation</strong>
 </li>
-<li>In general, OLS does not identify ATE, unless:
+<li>In general, OLS does not identify ATE, unless one of the following holds:
 <ul>
 <li>Homogeneous treatment effect (constant <span class="math inline">\(\tau_i\)</span>) or</li>
 <li>Randomized treatment assignment (constant <span class="math inline">\(h(X_i)\)</span>)</li>
@@ -793,7 +794,6 @@ Y_i = \tau_{ob} D_i + X_i \beta + D_i(X_i - \bar{X})\gamma + \epsilon_i
 <li>OLS = overlap IPW + linear propensity assumption</li>
 <li>The interpretation of OLS estimand is overlap-weighted ATE</li>
 <li>OLS is not doubly robust and identification depends on specification of the propensity model</li>
-<li>When treated proportion <span class="math inline">\(\rightarrow 0/\rightarrow 1\)</span>, OLS approximates ATT/ATU</li>
 </ul></section><section id="example2" class="slide level2" data-visibility="uncounted"><h2>Example 2: TWFE for <span class="math inline">\(2 \times 2\)</span> DiD</h2>
 <p>TWFE estimation of DiD: <span class="math display">\[
 Y_{it} = \alpha_i + \gamma_t + \tau_{twfe} D_{it} + \epsilon_{it}

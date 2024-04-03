@@ -250,9 +250,9 @@ $$\begin{aligned}
 - Linear propensity score assumptions has been assumed in @aronow2016does; @abadie2020sampling; @sloczynski2022interpreting
   - Also common in empirical studies
   - Not necessarily strong because $X_i$ can include powers and interactions
-  - This assumptions is inherently satisfied with saturated modela
+  - **Inherently satisfied** with saturated model
 - OLS is Weighted IPW, thus has a **causal interpretation**
-- In general, OLS does not identify ATE, unless:
+- In general, OLS does not identify ATE, unless one of the following holds:
   - Homogeneous treatment effect (constant $\tau_i$) or
   - Randomized treatment assignment (constant $h(X_i)$)
 
@@ -466,7 +466,6 @@ where $\hat{e}(x)$ is a consistent estimator of $e(x)$.
 - OLS = overlap IPW + linear propensity assumption
 - The interpretation of OLS estimand is overlap-weighted ATE
 - OLS is not doubly robust and identification depends on specification of the propensity model
-- When treated proportion $\rightarrow 0/\rightarrow 1$, OLS approximates ATT/ATU
 
 ## Example 2: TWFE for $2 \times 2$ DiD {#example2 visibility="uncounted"}
 
