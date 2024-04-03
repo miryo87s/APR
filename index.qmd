@@ -65,9 +65,8 @@ For each individual $i$ we observe
 
 To estimate the treatment effect, economists often consider **OLS estimator** of $\tau_{ols}$ in
 $$
-Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
+Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i, \quad \quad \mathbb{E}[\epsilon_i|D_i, X_i] = 0
 $$
-and assume **Exogeneity** $\mathbb{E}[\epsilon_i|D_i, X_i] = 0$
 
 [But what is the causal interpretation of $\tau_{ols}$?]{.blue}
 
