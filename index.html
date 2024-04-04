@@ -734,16 +734,16 @@ Y_i = \tau_{ob} D_i + X_i \beta + D_i(X_i - \bar{X})\gamma + \epsilon_i
 <li>Two commonly used IPW estimators can be adapted to estimate weighted ATE
 <ul>
 <li>Horvitz-Thompson (HT) type estimator <span class="citation" data-cites="hirano2003efficient">(<a href="#/references" role="doc-biblioref" onclick="">Hirano, Imbens, and Ridder 2003</a>)</span> <span class="math display">\[
-\hat\tau^h_{HT} = \sum_{i = 1}^{N} h(X_i) \left(\frac{Y_i D_i}{\hat{e}(X_i)} - \frac{Y_i(1 - D_i)}{1 - \hat{e}(X_i)}\right) \bigg/ \sum_{i = 1}^{N} h(X_i)
+\hat\tau^h_{HT} = \sum_{i = 1}^{N} \hat{h}(X_i) \left(\frac{Y_i D_i}{\hat{e}(X_i)} - \frac{Y_i(1 - D_i)}{1 - \hat{e}(X_i)}\right) \bigg/ \sum_{i = 1}^{N} \hat{h}(X_i)
 \]</span>
 </li>
 <li>Hajek type estimator <span class="citation" data-cites="li2018balancing">(<a href="#/references" role="doc-biblioref" onclick="">Li, Morgan, and Zaslavsky 2018</a>)</span> <span class="math display">\[
-\hat\tau^h_{Hajek} = \frac{\sum_{i = 1}^N Y_i D_i w_1(X_i)}{\sum_{i = 1}^N D_i w_1(X_i)} - \frac{\sum_{i = 1}^N Y_i (1 - D_i) w_0(X_i)}{\sum_{i = 1}^N (1 - D_i) w_0(X_i)}
-\]</span> where <span class="math inline">\(w_1(x) = h(x) / \hat{e}(x)\)</span> and <span class="math inline">\(w_0(x) = h(x) / (1 - \hat{e}(x))\)</span>. Both estimators are consistent for <span class="math inline">\(\tau_{wipw}\)</span> and they are asymptotically equivalent.</li>
+\hat\tau^h_{Hajek} = \frac{\sum_{i = 1}^N Y_i D_i \hat{w}_1(X_i)}{\sum_{i = 1}^N D_i \hat{w}_1(X_i)} - \frac{\sum_{i = 1}^N Y_i (1 - D_i) \hat{w}_0(X_i)}{\sum_{i = 1}^N (1 - D_i) \hat{w}_0(X_i)}
+\]</span> where <span class="math inline">\(\hat{w}_1(x) = \hat{h}(x) / \hat{e}(x)\)</span> and <span class="math inline">\(\hat{w}_0(x) = \hat{h}(x) / (1 - \hat{e}(x))\)</span>. Both estimators are consistent for <span class="math inline">\(\tau_{wipw}\)</span> and they are asymptotically equivalent.</li>
 </ul>
 </li>
 <li>Proposition 4.1 shows that the two estimators are both consistent and asymptotically equivalent</li>
-<li>In finite sample, they are usually different</li>
+<li>In finite sample, they are usually numerically different</li>
 </ul></section><section id="estimating-ate-ols" class="slide level2"><h2>Estimating ATE: OLS</h2>
 <ul>
 <li>OLS does not identify ATE in general</li>

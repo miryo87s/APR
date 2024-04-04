@@ -410,16 +410,16 @@ $$\begin{aligned}
 - Two commonly used IPW estimators can be adapted to estimate weighted ATE
   - Horvitz-Thompson (HT) type estimator [@hirano2003efficient]
 $$
-\hat\tau^h_{HT} = \sum_{i = 1}^{N} h(X_i) \left(\frac{Y_i D_i}{\hat{e}(X_i)} - \frac{Y_i(1 - D_i)}{1 - \hat{e}(X_i)}\right) \bigg/ \sum_{i = 1}^{N} h(X_i)
+\hat\tau^h_{HT} = \sum_{i = 1}^{N} \hat{h}(X_i) \left(\frac{Y_i D_i}{\hat{e}(X_i)} - \frac{Y_i(1 - D_i)}{1 - \hat{e}(X_i)}\right) \bigg/ \sum_{i = 1}^{N} \hat{h}(X_i)
 $$
   - Hajek type estimator [@li2018balancing]
 $$
-\hat\tau^h_{Hajek} = \frac{\sum_{i = 1}^N Y_i D_i w_1(X_i)}{\sum_{i = 1}^N D_i w_1(X_i)} - \frac{\sum_{i = 1}^N Y_i (1 - D_i) w_0(X_i)}{\sum_{i = 1}^N (1 - D_i) w_0(X_i)}
+\hat\tau^h_{Hajek} = \frac{\sum_{i = 1}^N Y_i D_i \hat{w}_1(X_i)}{\sum_{i = 1}^N D_i \hat{w}_1(X_i)} - \frac{\sum_{i = 1}^N Y_i (1 - D_i) \hat{w}_0(X_i)}{\sum_{i = 1}^N (1 - D_i) \hat{w}_0(X_i)}
 $$
-where $w_1(x) = h(x) / \hat{e}(x)$ and $w_0(x) = h(x) / (1 - \hat{e}(x))$. Both estimators are consistent for $\tau_{wipw}$ and they are asymptotically equivalent. 
+where $\hat{w}_1(x) = \hat{h}(x) / \hat{e}(x)$ and $\hat{w}_0(x) = \hat{h}(x) / (1 - \hat{e}(x))$. Both estimators are consistent for $\tau_{wipw}$ and they are asymptotically equivalent. 
 
 - Proposition 4.1 shows that the two estimators are both consistent and asymptotically equivalent
-- In finite sample, they are usually different
+- In finite sample, they are usually numerically different
 
 ## Estimating ATE: OLS
 
