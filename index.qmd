@@ -426,7 +426,7 @@ $$
 $$
 where $\hat{w}_1(x) = \hat{h}(x) / \hat{e}(x)$ and $\hat{w}_0(x) = \hat{h}(x) / (1 - \hat{e}(x))$. Both estimators are consistent for $\tau_{wipw}$ and they are asymptotically equivalent. 
 
-- Proposition 4.1 shows that the two estimators are both consistent and asymptotically equivalent
+- @prp-wipw shows that the two estimators are both consistent and asymptotically equivalent
 - In finite sample, they are usually numerically different
 
 ## Estimating Weighted ATE: IPW
@@ -449,6 +449,8 @@ where $\mu_d(x) = \mathbb{E}[Y_i(d)|X_i = x]$ for $d = 0, 1$, $\bar{h} = \mathbb
 :::
 
 ## Estimating ATE: OLS
+
+<br>
 
 - OLS does not identify ATE in general
 - LS estimation of the class of weighted ATE is difficult
