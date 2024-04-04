@@ -74,7 +74,7 @@ $$
 
 <br>
 
-- **A general causal interpretation of $\tau_{ols}$**
+- **A general causal interpretation of $\tau_{ols}$ under heterogeneous treatment effect**
   - Under standard assumptions
   - Build connection between OLS and Inverse Propensity Weighting (IPW)
   - OLS + **linear propensity score** = Weighted IPW
