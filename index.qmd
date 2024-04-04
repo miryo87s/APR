@@ -353,6 +353,7 @@ $$
     - Maximized with $e(x) = 0.5$
     - More weights when $e(x)$ is close to $0.5$, less weights when $e(x)$ away from $0.5$.
 5. **Exact sample balance** with logit $e(x)$
+
 $$
 \frac{\sum_i X_i D_i (1 - \hat{e}(X_i))}{D_i (1 - \hat{e}(X_i))} = \frac{\sum_i X_i (1 - D_i) \hat{e}(X_i)}{(1 - D_i) \hat{e}(X_i)}
 $$
@@ -362,13 +363,20 @@ $$
 
 <br>
 
-- @kline2011oaxaca shows that OB (full interaction regression) targets ATE and is doubly robust
+- Double robustness means that $\tau_{ob}$ is consistent of ATE if either $\mathbb{E}[D_i|X_i]$ or $\mathbb{E}[Y_i(d)|X_i]$ is correctly specified
+- Is $\tau_{ols}$ a doubly robust estimand of overlap ATE?
+
+[Why do we care?]{.blue}
+
+1. Modelling choices
+    - How to choose $X_i$ when we write down the regression equation
+
+2. Robustness of OLS
+    - @kline2011oaxaca shows that OB (full interaction regression) targets ATE and is doubly robust
 $$
 Y_i = \tau_{ob} D_i + X_i \beta + D_i(X_i - \bar{X})\gamma + \epsilon_i
 $$
-- Doubly robust means that $\tau_{ob}$ is consistent of ATE if either $\mathbb{E}[D_i|X_i]$ or $\mathbb{E}[Y_i(d)|X_i]$ is correctly specified
-- IPW has a doubly robust version: Augmented IPW (AIPW)[@robins1994estimation]
-- Is $\tau_{ols}$ a doubly robust estimand of overlap ATE?
+    - IPW has a doubly robust version: Augmented IPW (AIPW)[@robins1994estimation]
 
 ## Is OLS Without Interactions Doubly Robust?
 
@@ -385,8 +393,8 @@ $$\begin{aligned}
 \end{aligned}$$
 Therefore,
 $$\begin{aligned}
-\tau_{ols} = \tau_{overlap} &+ \mathbb{E}\left[\frac{(D_i - e(X_i))(Y_i(1) - \mu_0(X_i))}{e(X_i)(1 - e(X_i))}\right] \\
-&- \mathbb{E}\left[\frac{(D_i - e(X_i))e(X_i)(Y_i(1) - Y_i(0) + \mu_1(X_i) - \mu_0(X_i))}{e(X_i)(1 - e(X_i))}\right]
+\tau_{ols} = \tau_{overlap} &+ \mathbb{E}\left[h(X_i) \cdot \frac{(D_i - e(X_i))(Y_i(1) - \mu_0(X_i))}{e(X_i)(1 - e(X_i))}\right] \\
+&- \mathbb{E}\left[h(X_i) \cdot \frac{(D_i - e(X_i))e(X_i)(Y_i(1) - Y_i(0) + \mu_1(X_i) - \mu_0(X_i))}{e(X_i)(1 - e(X_i))}\right]
 \end{aligned}$$
 
 ## Comments on Robustness of OLS {#robust}
@@ -420,6 +428,25 @@ where $\hat{w}_1(x) = \hat{h}(x) / \hat{e}(x)$ and $\hat{w}_0(x) = \hat{h}(x) / 
 
 - Proposition 4.1 shows that the two estimators are both consistent and asymptotically equivalent
 - In finite sample, they are usually numerically different
+
+## Estimating Weighted ATE: IPW
+
+::: {.callout-note #prp-wipw}
+
+## Proposition 2 (Influence Function of $\hat\tau^h_{HT}$ and $\hat\tau^h_{Hajek}$)
+
+Suppose the unconfoundedness and overlap assumptions hold, $\hat\tau^h_{HT}$ and $\hat\tau^h_{Hajek}$ shares the same influence function. Namely, 
+$$\begin{aligned}
+&\sqrt{n}(\hat\tau^h_{HT} - \tau_{wipw}) = \frac{1}{\sqrt{n}}\sum_{i = 1}^n \psi(Y_i, D_i, X_i) + o_p(1) \\
+&\sqrt{n}(\hat\tau^h_{Hajek} - \tau_{wipw}) = \frac{1}{\sqrt{n}}\sum_{i = 1}^n \psi(Y_i, D_i, X_i) + o_p(1)
+\end{aligned}$$
+with
+$$\begin{aligned}
+\psi(y, d, x) = \frac{dh(x)}{\bar{h}e(x)}(y - \mu_1(x)) - \frac{(1 - d)h(x)}{\bar{h}(1 - e(x))}(y - \mu_0(x)) + \frac{h(x)}{\bar{h}} + \frac{(d - e(x))\partial_eh(x)}{\bar{h}}(\tau_{wipw} - \tau_{wate})
+\end{aligned}$$
+where $\mu_d(x) = \mathbb{E}[Y_i(d)|X_i = x]$ for $d = 0, 1$, $\bar{h} = \mathbb{E}[h(X_i)]$ and $\partial_e h(x)$ is the Gateaux derivative of $h(x)$ with respect to $e(x)$.
+
+:::
 
 ## Estimating ATE: OLS
 
@@ -457,17 +484,31 @@ where $\hat{e}(x)$ is a consistent estimator of $e(x)$.
 
 ![](fig/app.png){fig-align="center" width=40%}
 
+## Application
+
+![](fig/app1.png){fig-align="center" width=40%}
+
+## Application
+
+![](fig/app2.png){fig-align="center" width=40%}
+
+## Application
+
+![](fig/app3.png){fig-align="center" width=40%}
+
 ## Conclusion
 
 <br>
 
 - **Use IPW**
+  - OLS = overlap IPW + linear propensity assumption
+  - AIPW can provide more robustness
 
 <br>
 
-- OLS = overlap IPW + linear propensity assumption
-- The interpretation of OLS estimand is overlap-weighted ATE
-- OLS is not doubly robust and identification depends on specification of the propensity model
+- If one uses OLS, change the interpretation of the coefficient
+  - ATE $\rightarrow$ overlap-weighted ATE
+  - OLS is not doubly robust and identification depends on specification of the propensity model
 
 ## Example 2: TWFE for $2 \times 2$ DiD {#example2 visibility="uncounted"}
 
