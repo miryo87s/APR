@@ -657,10 +657,12 @@ g_1(x) \propto h(x)/e(x), \quad \quad g_0(x) \propto h(x)/(1 - e(x))
 </li>
 </ul>
 </li>
+<li>
+<span class="math inline">\(\tau_{ols} \approx\)</span> ATT when <span class="math inline">\(e(x) \approx 0\)</span> as <span class="math inline">\((1 - e(X_i), e(X_i)) \approx (1, \frac{e(x)}{1 - e(x)})\)</span>; <span class="math inline">\(\tau_{ols} \approx\)</span> ATU when <span class="math inline">\(e(x) \approx 1\)</span>.</li>
 </ol></section><section id="properties-of-ols-overlap-weight-3" class="slide level2"><h2>Properties of OLS (overlap weight)</h2>
 <p><br></p>
 <p><span class="blue">Properties <span class="citation" data-cites="li2018balancing">(<a href="#/references" role="doc-biblioref" onclick="">Li, Morgan, and Zaslavsky 2018</a>)</span>:</span></p>
-<ol start="2" type="1">
+<ol start="3" type="1">
 <li>
 <strong>Efficiency</strong>: <span class="math inline">\(Var(\hat\tau_{ols}) \leqslant Var(\hat\tau_{wipw})\)</span> for all <span class="math inline">\(h(X_i)\)</span>
 </li>
@@ -678,8 +680,6 @@ g_1(x) \propto h(x)/e(x), \quad \quad g_0(x) \propto h(x)/(1 - e(x))
 \frac{\sum_i X_i D_i (1 - \hat{e}(X_i))}{D_i (1 - \hat{e}(X_i))} = \frac{\sum_i X_i (1 - D_i) \hat{e}(X_i)}{(1 - D_i) \hat{e}(X_i)}
 \]</span>
 </li>
-<li>
-<span class="math inline">\(\tau_{ols} \approx\)</span> ATT when <span class="math inline">\(e(x) \approx 0\)</span> as <span class="math inline">\((1 - e(X_i), e(X_i)) \approx (1, \frac{e(x)}{1 - e(x)})\)</span>; <span class="math inline">\(\tau_{ols} \approx\)</span> ATU when <span class="math inline">\(e(x) \approx 1\)</span>.</li>
 </ol></section><section id="is-ols-without-interactions-doubly-robust" class="slide level2"><h2>Is OLS Without Interactions Doubly Robust?</h2>
 <p><br></p>
 <ul>

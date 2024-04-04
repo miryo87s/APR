@@ -339,22 +339,24 @@ $$
 \tau_{ols} = \frac{\mathbb{E}[\color{red}(1 - e(X_i))\color{black}D_iY_i - \color{red}e(X_i)\color{black}(1 - D_i)Y_i]}{\mathbb{E}[e(X_i)(1 - e(X_i))]}
 $$
 
+2. $\tau_{ols} \approx$ ATT when $e(x) \approx 0$ as $(1 - e(X_i), e(X_i)) \approx (1, \frac{e(x)}{1 - e(x)})$; $\tau_{ols} \approx$ ATU when $e(x) \approx 1$.
+
 ## Properties of OLS (overlap weight)
 
 <br>
 
 [Properties [@li2018balancing]:]{.blue}
 
-2. **Efficiency**: $Var(\hat\tau_{ols}) \leqslant Var(\hat\tau_{wipw})$ for all $h(X_i)$
-3. **Robust to poor overlap**: 
+3. **Efficiency**: $Var(\hat\tau_{ols}) \leqslant Var(\hat\tau_{wipw})$ for all $h(X_i)$
+4. **Robust to poor overlap**: 
     - Bounded
     - Maximized with $e(x) = 0.5$
     - More weights when $e(x)$ is close to $0.5$, less weights when $e(x)$ away from $0.5$.
-4. **Exact sample balance** with logit $e(x)$
+5. **Exact sample balance** with logit $e(x)$
 $$
 \frac{\sum_i X_i D_i (1 - \hat{e}(X_i))}{D_i (1 - \hat{e}(X_i))} = \frac{\sum_i X_i (1 - D_i) \hat{e}(X_i)}{(1 - D_i) \hat{e}(X_i)}
 $$
-5. $\tau_{ols} \approx$ ATT when $e(x) \approx 0$ as $(1 - e(X_i), e(X_i)) \approx (1, \frac{e(x)}{1 - e(x)})$; $\tau_{ols} \approx$ ATU when $e(x) \approx 1$.
+
 
 ## Is OLS Without Interactions Doubly Robust?
 
