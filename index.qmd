@@ -119,7 +119,7 @@ $$
   - $\tau_{APLE, d}$ is the projection of potential outcome $Y_i(d)$ on $\mathbb{E}[D_i|X_i]$
   - $\tau_{APLE, d}$ is causal if **$Y_i(d)$ is a linear function of $\mathbb{E}[D_i|X_i]$** (restrictive assumption)
   - $w$ is **decreasing in the size of the treated group**
-  - This paper uses standard assumptions and the weights have similar properties
+  - I use standard assumptions and the weights have similar properties
 
 <br>
 
@@ -146,7 +146,7 @@ $$
 - @rosenbaum1983central; @robins1995semiparametric; @hahn1998role and many others
 - A class of weighted IPW was first proposed by @hirano2003efficient
 - @li2018balancing proposed **overlap-weighted IPW**
-  - I show **OLS is overlap-weighted IPW under some conditions**
+  - I show **OLS is overlap-weighted IPW with linear propensity**
 
 ## The Potential Outcome Framework
 
