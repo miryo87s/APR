@@ -500,15 +500,18 @@ where $\hat{e}(x)$ is a consistent estimator of $e(x)$.
 
 <br>
 
-- **Use IPW**
-  - OLS = overlap IPW + linear propensity assumption
-  - AIPW can provide more robustness
+- When using OLS, change the interpretation of the coefficient
+  - ATE $\rightarrow$ overlap-weighted ATE
+  - OLS is not doubly robust and identification depends on specification of the propensity model
 
 <br>
 
-- If one uses OLS, change the interpretation of the coefficient
-  - ATE $\rightarrow$ overlap-weighted ATE
-  - OLS is not doubly robust and identification depends on specification of the propensity model
+- OLS is inferior to IPW
+  - OLS = overlap IPW + linear propensity assumption
+  - IPW has more flexibility in terms of specifying the propensity model
+  - IPW can easily identify different WATEs
+  - AIPW provides more robustness
+
 
 ## Example 2: TWFE for $2 \times 2$ DiD {#example2 visibility="uncounted"}
 

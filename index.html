@@ -834,20 +834,21 @@ Y_i = \tau_{ob} D_i + X_i \beta + D_i(X_i - \bar{X})\gamma + \epsilon_i
 </section><section id="conclusion" class="slide level2"><h2>Conclusion</h2>
 <p><br></p>
 <ul>
-<li>
-<strong>Use IPW</strong>
+<li>When using OLS, change the interpretation of the coefficient
 <ul>
-<li>OLS = overlap IPW + linear propensity assumption</li>
-<li>AIPW can provide more robustness</li>
+<li>ATE <span class="math inline">\(\rightarrow\)</span> overlap-weighted ATE</li>
+<li>OLS is not doubly robust and identification depends on specification of the propensity model</li>
 </ul>
 </li>
 </ul>
 <p><br></p>
 <ul>
-<li>If one uses OLS, change the interpretation of the coefficient
+<li>OLS is inferior to IPW
 <ul>
-<li>ATE <span class="math inline">\(\rightarrow\)</span> overlap-weighted ATE</li>
-<li>OLS is not doubly robust and identification depends on specification of the propensity model</li>
+<li>OLS = overlap IPW + linear propensity assumption</li>
+<li>IPW has more flexibility in terms of specifying the propensity model</li>
+<li>IPW can easily identify different WATEs</li>
+<li>AIPW provides more robustness</li>
 </ul>
 </li>
 </ul></section><section id="example2" class="slide level2" data-visibility="uncounted"><h2>Example 2: TWFE for <span class="math inline">\(2 \times 2\)</span> DiD</h2>
