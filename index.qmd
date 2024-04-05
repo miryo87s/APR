@@ -165,7 +165,7 @@ $$
 
 <br>
 
-4. The robustness of OLS
+4. Various estimators of weighted effects
 
 <br>
 
