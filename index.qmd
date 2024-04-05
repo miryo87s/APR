@@ -432,12 +432,12 @@ $$\begin{aligned}
 
 <br>
 
-- Identification completely relies on specification of $\mathbb{E}[D_i|X_i]$
-- Be careful with linear propensity assumption
-  - [Simulations results](#sim) on bias of OLS when propensity is nonlinear
 - Counter-intuitive modelling procedure
   - When writing down the model $Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i$
   - **choose $X_i$ in the propensity model instead of variables that affects $Y_i$**
+- Identification completely relies on specification of $\mathbb{E}[D_i|X_i]$
+- Be careful with linear propensity assumption
+  - [Simulations results](#sim) on bias of OLS when propensity is nonlinear
 
 ## Estimating Weighted ATE: IPW
 
