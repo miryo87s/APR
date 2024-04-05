@@ -390,7 +390,7 @@ $$
 
 <br>
 
-- Double robustness means that $\tau_{ob}$ is consistent of ATE if either $\mathbb{E}[D_i|X_i]$ or $\mathbb{E}[Y_i(d)|X_i]$ is correctly specified
+- Double robustness means that $\hat\tau$ is consistent of ATE if either $\mathbb{E}[D_i|X_i]$ or $\mathbb{E}[Y_i(d)|X_i]$ is correctly specified
 - Is $\tau_{ols}$ a doubly robust estimand of overlap ATE?
 
 [Why do we care?]{.blue}
