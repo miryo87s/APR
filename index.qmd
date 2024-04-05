@@ -189,7 +189,7 @@ $$
 h(X_i) > 0 \ \forall X_i \quad \text{and} \quad \mathbb{E}\left[\frac{h(X_i)}{\mathbb{E}[h(X_i)]}\right] = 1
 $$
 
-## Weighted IPW
+## Weighted IPW {#wipw}
 
 Special cases studied in the literature:
 
@@ -200,6 +200,8 @@ Next, I show the equivalence of OLS estimand and overlap IPW
 $$
 \tau_{overlap} = \mathbb{E}\left[\frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[e(X_i)(1 - e(X_i))]}\cdot \delta_i\right]
 $$
+
+[Group Weights](#gweight)
 
 ## OLS as Propensity Weight
 
@@ -308,7 +310,7 @@ base + geom_function(fun = dnorm, args = list(mean = -3, sd = 2), color = "black
 
 
 
-## Properties of OLS (overlap weight)
+## Properties of OLS (overlap weight) {#gweight}
 
 <br>
 
@@ -325,6 +327,8 @@ g_1(x) \propto h(x)/e(x), \quad \quad g_0(x) \propto h(x)/(1 - e(x))
 $$
 
 - For overlap weights, $(g_1(x), g_0(x)) = (1 - e(x), e(x))$
+
+[WIPW Table](#wipw)
 
 ## Properties of OLS (overlap weight)
 
@@ -470,6 +474,10 @@ where $\hat{e}(x)$ is a consistent estimator of $e(x)$.
 <br>
 
 **NSW-CPS data constructed by @lalonde1986evaluating**
+
+- NSW: A job training experiment in the US; CPS: Survey data in the US
+
+<br>
 
 - $Y_i$: earnings in 1976
 - $D_i$: participation in NSW job training program

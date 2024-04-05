@@ -523,7 +523,7 @@ Y_i = \tau_1D_{1i} + \tau_2D_{2i} + X_i\beta + \epsilon_i
 <p>All of weighted IPW estimators have a causal interpretation in the sense that <span class="math display">\[
 h(X_i) &gt; 0 \ \forall X_i \quad \text{and} \quad \mathbb{E}\left[\frac{h(X_i)}{\mathbb{E}[h(X_i)]}\right] = 1
 \]</span></p>
-</section><section id="weighted-ipw" class="slide level2"><h2>Weighted IPW</h2>
+</section><section id="wipw" class="slide level2"><h2>Weighted IPW</h2>
 <p>Special cases studied in the literature:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure><p><img data-src="fig/wipw.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
@@ -533,6 +533,7 @@ h(X_i) &gt; 0 \ \forall X_i \quad \text{and} \quad \mathbb{E}\left[\frac{h(X_i)}
 <p><span class="math display">\[
 \tau_{overlap} = \mathbb{E}\left[\frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[e(X_i)(1 - e(X_i))]}\cdot \delta_i\right]
 \]</span></p>
+<p><a href="#/gweight">Group Weights</a></p>
 </section><section id="ols-as-propensity-weight" class="slide level2"><h2>OLS as Propensity Weight</h2>
 <div class="panel-tabset">
 <ul id="tabset-1" class="panel-tabset-tabby">
@@ -625,7 +626,7 @@ Y_i = \alpha_s + \tau_{owfe}D_i + \epsilon_i
 </div>
 </div>
 </div>
-</section><section id="properties-of-ols-overlap-weight-1" class="slide level2"><h2>Properties of OLS (overlap weight)</h2>
+</section><section id="gweight" class="slide level2"><h2>Properties of OLS (overlap weight)</h2>
 <p><br></p>
 <ul>
 <li>By Bayes rule</li>
@@ -642,7 +643,9 @@ g_1(x) \propto h(x)/e(x), \quad \quad g_0(x) \propto h(x)/(1 - e(x))
 <ul>
 <li>For overlap weights, <span class="math inline">\((g_1(x), g_0(x)) = (1 - e(x), e(x))\)</span>
 </li>
-</ul></section><section id="properties-of-ols-overlap-weight-2" class="slide level2"><h2>Properties of OLS (overlap weight)</h2>
+</ul>
+<p><a href="#/wipw">WIPW Table</a></p>
+</section><section id="properties-of-ols-overlap-weight-1" class="slide level2"><h2>Properties of OLS (overlap weight)</h2>
 <p><br></p>
 <p><span class="blue">Properties:</span></p>
 <ol type="1">
@@ -659,7 +662,7 @@ g_1(x) \propto h(x)/e(x), \quad \quad g_0(x) \propto h(x)/(1 - e(x))
 </li>
 <li>
 <span class="math inline">\(\tau_{ols} \approx\)</span> ATT when <span class="math inline">\(e(x) \approx 0\)</span> as <span class="math inline">\((1 - e(X_i), e(X_i)) \approx (1, \frac{e(x)}{1 - e(x)})\)</span>; <span class="math inline">\(\tau_{ols} \approx\)</span> ATU when <span class="math inline">\(e(x) \approx 1\)</span>.</li>
-</ol></section><section id="properties-of-ols-overlap-weight-3" class="slide level2"><h2>Properties of OLS (overlap weight)</h2>
+</ol></section><section id="properties-of-ols-overlap-weight-2" class="slide level2"><h2>Properties of OLS (overlap weight)</h2>
 <p><br></p>
 <p><span class="blue">Properties <span class="citation" data-cites="li2018balancing">(<a href="#/references" role="doc-biblioref" onclick="">Li, Morgan, and Zaslavsky 2018</a>)</span>:</span></p>
 <ol start="3" type="1">
@@ -795,6 +798,10 @@ Y_i = \tau_{ob} D_i + X_i \beta + D_i(X_i - \bar{X})\gamma + \epsilon_i
 </section><section id="application" class="slide level2"><h2>Application</h2>
 <p><br></p>
 <p><strong>NSW-CPS data constructed by <span class="citation" data-cites="lalonde1986evaluating">LaLonde (<a href="#/references" role="doc-biblioref" onclick="">1986</a>)</span></strong></p>
+<ul>
+<li>NSW: A job training experiment in the US; CPS: Survey data in the US</li>
+</ul>
+<p><br></p>
 <ul>
 <li>
 <span class="math inline">\(Y_i\)</span>: earnings in 1976</li>
