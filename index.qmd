@@ -78,6 +78,7 @@ $$
   - Under standard assumptions
   - Build connection between OLS and Inverse Propensity Weighting (IPW)
   - OLS + **linear propensity score** = Weighted IPW
+  - OLS identifies **overlap-weighted ATE**
 - **OLS is inferior to IPW**
 - **OLS identification relies on correct specification of $\mathbb{E}[D_i|X_i]$**
 
@@ -147,6 +148,28 @@ $$
 - A class of weighted IPW was first proposed by @hirano2003efficient
 - @li2018balancing proposed **overlap-weighted IPW**
   - I show **OLS is overlap-weighted IPW with linear propensity**
+  
+## Outline
+
+<br>
+
+1. The class of weighted IPW
+
+<br>
+
+2. Connection between OLS and weighted IPW
+
+<br>
+
+3. Properties of OLS as a causal method
+
+<br>
+
+4. The robustness of OLS
+
+<br>
+
+5. Application
 
 ## The Potential Outcome Framework
 
