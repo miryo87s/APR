@@ -497,20 +497,20 @@ where $\hat{e}(x)$ is a consistent estimator of $e(x)$.
 
 **NSW-CPS data constructed by @lalonde1986evaluating**
 
-- NSW: A job training experiment in the US; CPS: Survey data in the US
-
-<br>
-
+- NSW: US job training experiment in 1974; CPS: Survey data in the US
 - $Y_i$: earnings in 1976
 - $D_i$: participation in NSW job training program
 - $X_i$: demographics, earnings in previous year
+- Target is the treatment effect on earnings in 1976
+
+<br>
+
+- Experimental benchmark: ATT = $\$1794$
 
 <br>
 
 - I follow the specifications in @sloczynski2022interpreting
-- Compare $\tau_{overlap}$ estimators of OLS/IPW with linear/logit $e(x)$, IPW-ATE
-- The treated proportion is $1.1\%$
-  - Also compare with IPW-ATT because overlap approximates ATT
+- Compare $\tau_{overlap}$ OLS/IPW estimators with linear/logit $e(x)$
 
 ## Application
 

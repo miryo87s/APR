@@ -821,26 +821,25 @@ Y_i = \tau_{ob} D_i + X_i \beta + D_i(X_i - \bar{X})\gamma + \epsilon_i
 <p><br></p>
 <p><strong>NSW-CPS data constructed by <span class="citation" data-cites="lalonde1986evaluating">LaLonde (<a href="#/references" role="doc-biblioref" onclick="">1986</a>)</span></strong></p>
 <ul>
-<li>NSW: A job training experiment in the US; CPS: Survey data in the US</li>
-</ul>
-<p><br></p>
-<ul>
+<li>NSW: US job training experiment in 1974; CPS: Survey data in the US</li>
 <li>
 <span class="math inline">\(Y_i\)</span>: earnings in 1976</li>
 <li>
 <span class="math inline">\(D_i\)</span>: participation in NSW job training program</li>
 <li>
 <span class="math inline">\(X_i\)</span>: demographics, earnings in previous year</li>
+<li>Target is the treatment effect on earnings in 1976</li>
+</ul>
+<p><br></p>
+<ul>
+<li>Experimental benchmark: ATT = <span class="math inline">\(\$1794\)</span>
+</li>
 </ul>
 <p><br></p>
 <ul>
 <li>I follow the specifications in <span class="citation" data-cites="sloczynski2022interpreting">Słoczyński (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>
 </li>
-<li>Compare <span class="math inline">\(\tau_{overlap}\)</span> estimators of OLS/IPW with linear/logit <span class="math inline">\(e(x)\)</span>, IPW-ATE</li>
-<li>The treated proportion is <span class="math inline">\(1.1\%\)</span>
-<ul>
-<li>Also compare with IPW-ATT because overlap approximates ATT</li>
-</ul>
+<li>Compare <span class="math inline">\(\tau_{overlap}\)</span> OLS/IPW estimators with linear/logit <span class="math inline">\(e(x)\)</span>
 </li>
 </ul></section><section id="application-1" class="slide level2"><h2>Application</h2>
 <div class="quarto-figure quarto-figure-center">
