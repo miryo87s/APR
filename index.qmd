@@ -497,11 +497,11 @@ where $\hat{e}(x)$ is a consistent estimator of $e(x)$.
 
 **NSW-CPS data constructed by @lalonde1986evaluating**
 
-- NSW: US job training experiment in 1974; CPS: Survey data in the US
+- NSW: US job training experiment; CPS: Survey data in the US
 - $Y_i$: earnings in 1976
 - $D_i$: participation in NSW job training program
 - $X_i$: demographics, earnings in previous year
-- Target is the treatment effect on earnings in 1976
+- Target is the treatment effect on earnings
 
 <br>
 
