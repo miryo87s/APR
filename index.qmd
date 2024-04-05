@@ -308,8 +308,6 @@ where $e(s) = \frac{n_{1s}}{n_{1s} + n_{0s}}$, $h(s) = e(s)(1 - e(s)) = \frac{n_
 
 <br>
 
-[From $h(x)$ to weights on each group]{.blue}
-
 - The purpose of weighting is to achieve similar distribution of $X_i$ in the treated and control group
 - Let $f_d(x) = P(X_i = x|D_i = d)$ be the density of $X_i$ in the treated and control group
 
@@ -336,6 +334,8 @@ base + geom_function(fun = dnorm, args = list(mean = -3, sd = 2), color = "black
 ## Properties of OLS (overlap weight) {#gweight}
 
 <br>
+
+[From $h(x)$ to weights on each group]{.blue}
 
 - By Bayes rule
 
