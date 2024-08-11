@@ -34,8 +34,7 @@ editor:
 librarian::shelf(ggplot2, quiet = T)
 ```
 
-<h1>OLS as Propensity Weighting Estimators <br> and Its Causal
-Interpretation</h1>
+<h1>Causal Interpretation of Least Square Estimand under Model- and Design-Based Specification</h1>
 
 <br>
 
@@ -45,209 +44,316 @@ Interpretation</h1>
 
 <h3>Fangzhou Yu</h3>
 
-<h3>2024-04-05</h3>
+<h3>2024-08-14</h3>
 
 <br>
 
-![](unsw.png){.absolute top="390" left="1400" width="400"}
+![](unsw.png){.absolute top="550" left="1400" width="400"}
 
-## OLS Estimator of Treatment Effects
-
-<br>
-
-Consider a common scenario in policy evaluation:
-
-For each individual $i$ we observe
-
--   A binary treatment/policy $D_i$
--   Some outcome variable $Y_i$
--   Control variables/Covariates $X_i$
-
-To estimate the treatment effect, economists often consider **OLS estimator** of $\tau_{ols}$ in
-$$
-Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i, \quad \quad \mathbb{E}[\epsilon_i|D_i, X_i] = 0
-$$
-
-[But what is the causal interpretation of $\tau_{ols}$?]{.blue}
-
-## Preview of Results
+## The Literature and Motivation
 
 <br>
 
-- **A general causal interpretation of $\tau_{ols}$ under heterogeneous treatment effect**
-  - Under standard assumptions
-  - Build connection between OLS and Inverse Propensity Weighting (IPW)
-  - OLS + **linear propensity score** = Weighted IPW
-  - OLS identifies **overlap-weighted ATE**
-- **OLS is inferior to IPW**
-- **OLS identification relies on correct specification of $\mathbb{E}[D_i|X_i]$**
-
-<br>
-
-- Investigate several estimators of OLS and IPW
-- Illustrate results with an application to the NSW-CPS data [@lalonde1986evaluating]
+- A recent literature has raised concern on OLS/IV estimation of treatment effects
+  - Fail to identify a convex average of treatment effects
+  - Negative weights can lead to sign reversal <span style="font-size: 70%"> [@small2017instrumental] <span>
+- Negative weights have been observed in various research designs
+  - TWFE specification of staggered DiD <br>
+  <span style="font-size: 70%"> [@de2020two; @goodman2021difference; @sun2021estimating; @borusyak2022revisiting] <span>
+  - OLS with multiple treatments <br> 
+  <span style="font-size: 70%"> [@goldsmith2022contamination] <span>
+  - IV regression with covariates <br>
+  <span style="font-size: 70%"> [@small2017instrumental; @blandhol2022tsls] <span>
   
-
-## Literature Review
-
-[Interpretation of $\tau_{ols}$ in special cases]{.blue}
-
-- @imbens2015causal: In randomized experiments, $\tau_{ols}$ is ATE
-- @angrist2009mostly: Under homogeneous treatment effect, $\tau_{ols}$ is ATE
-
-[Under heterogeneous treatment effect]{.blue}
-
-- @angrist1998estimating: $\tau_{ols}$ is a convex combination of ATEs in strata defined by **discrete $X_i$**
-
-- Similar causal interpretation is given by @aronow2016does
-  - $\tau_{ols}$ is a weighted average of individual treatment effects
-$$
-\tau_{ols} = \frac{\mathbb{E}[w_i\tau_i]}{\mathbb{E}[w_i]}
-$$
-where $\tau_i = Y_i(1) - Y_i(0)$ is the individual treatment effect.
-  - **No connection to IPW or properties of $w_i$**
-  - **Incorrect generalization to categorical and continuous $D_i$**
-
-## Literature Review
-
-[Under heterogeneous treatment effect]{.blue}
-
-- @sloczynski2022interpreting:
-$$
-\tau_{ols} = w \times \tau_{APLE, 1} + (1 - w) \times \tau_{APLE, 0}
-$$
-
-  - $\tau_{APLE, d}$ is the projection of potential outcome $Y_i(d)$ on $\mathbb{E}[D_i|X_i]$
-  - $\tau_{APLE, d}$ is causal if **$Y_i(d)$ is a linear function of $\mathbb{E}[D_i|X_i]$** (restrictive assumption)
-  - $w$ is **decreasing in the size of the treated group**
-  - I use standard assumptions and the weights have similar properties
+## The Literature and Motivation
 
 <br>
 
-- @kline2011oaxaca: Oaxaca-Blinder (or full-interaction regression) is equivalent to IPW 
-  - Assumes that conditional treatment odds is linear in $X_i$
-  - Also shows OB is doubly robust
-  - Unclear when without interactions
-
-## Literature Review
-
-[OLS with multiple treatment]{.blue}
-
-- @goldsmith2022contamination
+- Negative weights can arise even in the most basic OLS specification
 $$
-Y_i = \tau_1D_{1i} + \tau_2D_{2i} + X_i\beta + \epsilon_i
-$$
-  - OLS estimators $\hat\tau_1$ and $\hat\tau_2$ are biased even in randomized experiments
-  - I focus on the case with one binary treatment
+Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
+$$ {#eq-ols}
+for outcome $Y_i$, single treatment $D_i$, and covariates $X_i$.
+- @borusyak2024negative show that $\tau$ identifies weighted average of treatment effects
+  - Negative weights generally exist if the specification is [model-based]{.blue}, <br>
+  i.e. @eq-ols leverages a correct model of potential outcomes
+  - No concern if the specification is [design-based]{.blue}, <br>
+  i.e. @eq-ols leverages a correct model of treatment
+
+## This Paper
 
 <br>
 
-[IPW and weighted IPW]{.blue}
+I show that negative weights are not **necessarily a concern** when specification is model-based
 
-- @rosenbaum1983central; @robins1995semiparametric; @hahn1998role and many others
-- A class of weighted IPW was first proposed by @hirano2003efficient
-- @li2018balancing proposed **overlap-weighted IPW**
-  - I show **OLS is overlap-weighted IPW with linear propensity**
+<br>
+
+- For design-based specification, the weight is guaranteed to be convex
+- For model-based specification, when treatment is **binary**
+  - $\tau_{ols}$ identifies **weighted ATT**
+  - There is potential threat of negative weight
+  - But this is due to the fact that treatment can only take $0$ or $1$ and specification is linear
+  - The threat only exists for treated units
+  - There are commonly used specifications that do not suffer from negative weight
+
+## This Paper
+
+<br>
+
+I extend to the general case: partially linear regression (PLR) with continuous treatment 
+
+<br>
+
+- Incorporate binary treatment and OLS as special cases
+- Either specification yields convex weighted average effects
+  - Continuous treatment identifies **weighted average derivative effects (WADE)**
+  - Weights depend on the marginal distribution of treatment
+- The weights of PLR is optimally efficient in the class of WADE when outcome is homoskedastic
+  - Under standard design-based assumption
+  - Encourage the use of PLR/OLS for estimating causal effect
   
-## Outline
+## More Connection to Literature: Binary Treatment
 
 <br>
 
-1. The class of weighted IPW
+[The weighting scheme of OLS/IV with a single treatment/instrument]{.blue} <br> 
+<span style="font-size: 70%"> e.g. @angrist1998estimating; @aronow2016does; @sloczynski2022interpreting; @borusyak2024negative; @imbens1994identification; @angrist1996identification; @small2017instrumental <span>
+
+- Similar model- and design-based analysis as @borusyak2024negative
+- Causal interpretation of OLS estimand based on weaker assumptions
+- Extension to IV(LATE) using a weak monotonicity assumptions introduced by @small2017instrumental
+
+[Overlap-weighted Inverse Propensity Weighting (IPW)]{.blue} <br> 
+<span style="font-size: 70%"> @crump2006moving; @li2018balancing <span>
+
+- Design-based OLS is shown to be equivalent to overlap-weighted IPW
+
+## More Connection to Literature: Continuous Treatment
+
+[Identification of continuous treatment]{.blue} <br>
+<span style="font-size: 70%"> @rothenhausler2019incremental; @callaway2024difference; @borusyak2024negative <span>
+
+- I show continuous treatment generally identifies derivative effects introduced by @rothenhausler2019incremental
+
+[Nonparametric Index Model]{.blue} <br>
+<span style="font-size: 70%"> e.g. @robinson1988root; @powell1989semiparametric; @hardle1989investigating <span>
+
+- First to connect PLR/Index Model to causal inference
+- Identification based on Riesz Representation theorem
+
+[Efficient WADE]{.blue} <br>
+
+- The efficiency result extends the efficiency bound for binary treatment established by @crump2006moving and @li2018balancing
+
+[Estimation of PLR]{.blue} <br>
+<span style="font-size: 70%"> @robins1994estimation; @chernozhukov2018double <span>
+
+## OLS with Binary Treatment
 
 <br>
 
-2. Connection between OLS and weighted IPW
+- Potential outcomes: $Y_i(1)$ and $Y_i(0)$
+- Observed outcome: $Y_i = D_iY_i(1) + (1 - D_i)Y_i(0)$
+- Rearrange to get
+$$
+Y_i = (Y_i(1) - Y_i(0))D_i + Y_i(0) = \tau_i D_i + Y_i(0)
+$$
+where $\tau_i = Y_i(1) - Y_i(0)$ is the individual treatment effect
+- Consider OLS estimation of
+$$
+Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
+$$
+
+Let $\tilde{D}_i$ be the residual of the population projection of $D_i$ on $X_i$. By Frish-Waugh-Lovell theorem, 
+$$
+\tau_{ols} = \frac{\mathbb{E}[\tilde{D}_iY_i]}{\mathbb{E}[\tilde{D}_iD_i]} = \frac{\mathbb{E}[\tau_i\tilde{D}_iD_i] + \mathbb{E}[\tilde{D}_iY_i(0)]}{\mathbb{E}[\tilde{D}_iD_i]}. 
+$$ {#eq-tau}
+
+## OLS with Binary Treatment 
 
 <br>
 
-3. Properties of OLS as a causal method
+Model-based specification: 
+
+$$
+\mathbb{E}[Y_i(0)|D_i, X_i] = X_i\eta.
+$$ {#eq-model}
+
+**Example:** parallel trend assumptions. $X_i$ includes time and unit dummies with $i$ indexing a pair of time and unit.
 
 <br>
 
-4. Various estimators of weighted effects
+Design-based specification:
+
+$$
+\mathbb{E}[D_i|Y_i(0), Y_i(1), X_i] = X_i\gamma.
+$$ {#eq-design}
+
+**Example:** $D_i$ is the eligibility for a program which is determined by some features $X_i$. $\tau_i$ is intention-to-treat effect.
 
 <br>
 
-5. Application
+- Both can be seen as a combination of **conditional mean-independence and linearity**
+- Both are weaker than what is usually assumed in empirical research
 
-## The Potential Outcome Framework
-
-<br>
-
-**The potential outcome framework** [@rubin1974estimating]
-
-- Potential outcomes: $Y_i(1)$/$Y_i(0)$ if unit $i$ were treated/untreated
-- Binary treatment $D_i$
-- Observed outcome: $Y_i = Y_i(1)D_i + Y_i(0)(1 - D_i)$
-- We observe data $(Y_i, D_i, X_i)$
+## OLS Model-Based Weight
 
 <br>
 
-Two standard assumptions to identify treatment effect
+- Under either specification, $\mathbb{E}[\tilde{D}_iY_i(0)] = 0$ by mean-independence
 
-1. **Unconfoundedness** $D_i \perp (Y_i(1), Y_i(0)) | X_i$
+<br>
 
-2. **Overlap** $0 < P(D_i = 1|X_i) < 1$
-
-## IPW Identification of Treatment Effects
-
-Define the ATE: $\tau_{ate} = \mathbb{E}[Y_i(1) - Y_i(0)]$
-
-Under the unconfounded and overlap assumptions, 
-
-Let $e(X_i) = P(D_i = 1|X_i)$ be the propensity score. The identification strategy of IPW is
+- Under model-based specification, 
 $$
-\tau_{ipw} = \mathbb{E}\left[\underbrace{\frac{Y_iD_i}{e(X_i)} - \frac{Y_i(1 - D_i)}{1 - e(X_i)}}_{\delta_i := }\right] = \tau_{ate}
+\tau_{ols} = \frac{\mathbb{E}[\lambda_i\tau_i]}{\mathbb{E}[\lambda_i]}, \quad \lambda_i = \tilde{D}_i D_i
 $$
+- $\lambda_i = 0$ when $D_i = 0$, so $\tau_{ols}$ is **weighted ATT**
+- $\lambda_i = 0$ cannot preclude negative values
+  - Negative when $D_i = 1$ and $\tilde{D}_i < 0$, i.e. the projection of $D_i$ on $X_i$ exceeds unit value
+- But @borusyak2024negative overstated the concern
+  - "... (model-based) weighting scheme is not convex. This is because $\tilde{D}_i$ necessarily takes on both positive and negative values, since $\mathbb{E}[\tilde{D}_i] = 0$"
 
-Further extended by @hirano2003efficient for ATE in a subpopulation defined by weight $h(X_i)$
+## OLS Design-Based Weight
 
-$$
-\text{Weighted IPW}: \tau_{wipw} = \mathbb{E}\left[\frac{h(X_i)}{\mathbb{E}[h(X_i)]} \cdot \delta_i\right]
-$$
+<br>
 
-All of weighted IPW estimators have a causal interpretation in the sense that
-$$
-h(X_i) > 0 \ \forall X_i \quad \text{and} \quad \mathbb{E}\left[\frac{h(X_i)}{\mathbb{E}[h(X_i)]}\right] = 1
-$$
-
-## Weighted IPW {#wipw}
-
-Special cases studied in the literature:
-
-![](fig/wipw.png){fig-align="center" width=60%}
-
-Next, I show the equivalence of OLS estimand and overlap IPW
+- Under design-based specification 
+- By the law of total expectation,
 
 $$
-\tau_{overlap} = \mathbb{E}\left[\frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[e(X_i)(1 - e(X_i))]}\cdot \delta_i\right]
+\mathbb{E}[\tau_i\tilde{D}_iD_i] = \mathbb{E}[\mathbb{E}[\tilde{D}_iD_i|Y_i(0), Y_i(1), X_i]\tau_i]
 $$
 
-[Group Weights](#gweight)
+- Therefore, we have
 
-## OLS as Propensity Weight
+$$
+\tau_{ols} = \frac{\mathbb{E}[\omega_i\tau_i]}{\mathbb{E}[\omega_i]}, \quad \omega_i = Var(D_i | Y_i(0), Y_i(1), X_i)
+$$
+
+- $\omega_i$ is guaranteed to be convex because $Var(D_i | Y_i(0), Y_i(1), X_i) \geqslant 0$
+
+## Special Model-Based Assumptions
+
+Special cases where model-based assumptions can guarantee convex weights
+
+<br>
+
+[Special Case 1: Saturated $X_i$]{.blue}
+
+- This case was studied in @angrist1998estimating
+- A common example of saturated $X_i$ is One-Way Fixed Effect
+
+$$
+Y_i = \beta_s + \tau_{owfe} D_i + \epsilon_i
+$$
+
+- Let $n_{1s} = \sum_{i \in s}D_i$, $n_{0s} = \sum_{i \in s}1 - D_i$
+- Let $\bar{Y}_{ds}$ be the sample mean of $Y_i$ in the treatment and control group for $d = 1, 0$ in stratum $s$
+
+$$
+\tau_{owfe} = \frac{\mathbb{E}[\lambda_{owfe, s}\tau_s]}{\mathbb{E}[\lambda_{owfe, s}]}, \quad \lambda_s = \frac{n_{1s}n_{0s}}{n_{1s} + n_{0s}}, \ \tau_s = \bar{Y}_{1s} - \bar{Y}_{0s}
+$$
+
+## Special Model-Based Assumptions
+
+<br>
+
+[Special Case 2: Full Interaction Regression]{.blue}
+
+- Consider an extra assumption $\mathbb{E}[\tau_i | D_i, X_i] = X_i\xi$ and the flexible specification
+
+$$
+Y_i = \tau_{ob}D_i + (X_i - \bar{X})\beta + D_i(X_i - \bar{X})\xi + \epsilon_i
+$$
+
+- $\tau_{ob}$ identifies the ATE
+- This method is equivalent to regressing $Y_i$ on $X_i$ using treatment group and control group separately
+- Also equivalent to Oaxaca-Blinder method [@oaxaca1973male; @blinder1973wage]
+- @kline2011oaxaca showed $\tau_{ob}$ is equivalent to IPW with a linear model for the conditional odds of being treated
+
+## Special Model-Based Assumptions
+
+<br>
+
+[Special Case 3: Canonical DiD]{.blue}
+
+- Canonical DiD refers to the TWFE model of $2 \times 2$ DiD
+
+$$
+Y_{it} = \beta_i + \gamma_t + \tau_{twfe} D_{it} + \epsilon_{it}
+$$
+
+- Parallel trend assumption: $Y_{it}(0)$ is a linear function of $\beta_i$ and $\gamma_t$
+- Assume balanced panel data and proportion of treatment group is $p$
+
+$$
+\tilde{D}_{it} = D_{it} - \bar{D}_i - \bar{D}_t + \bar{D}
+$$
+
+- $\bar{D}_i$ is mean over time, $\bar{D}_t$ is mean over group, and $\bar{D}$ is total mean
+
+## Special Model-Based Assumptions
+
+<br>
+
+[Special Case 3: Canonical DiD cont'd]{.blue}
+
+![](fig/tbl1.png){fig-align="center" width=40%}
+
+- $\tilde{D}_i$ is negative for treated in pre-period, or control in post-period
+- $D_{it} = 1$ for treated in post-period
+- $\lambda_{it} = (1-p)/2$ for all treated in post-period and $0$ otherwise. Therefore, $\tau_{twfe}$ is ATT
+
+
+## Stronger Design-Based Assumption
+
+Stronger design-based assumption is not necessary for convex weights, but can connect between OLS and IPW
+
+<br>
+
+::: {.callout-warning}
+
+## Assumption 1 (Linear Propensity)
+
+$$
+e(x) = \mathbb{E}[D_i | X_i = x] = X_i\delta
+$$ 
+where $e(x)$ is the propensity score of treatment.
+
+:::
+
+::: {.callout-warning}
+
+## Assumption 2 (Unconfoundedness and Overlap)
+
+1. Unconfoundedness: $D_i \perp (Y_i(0), Y_i(1)) | X_i$ . 
+2. Overlap: $\exists \ \xi > 0, \ \text{s.t.} \ \xi \leqslant e(x) \leqslant 1 - \xi$ .
+
+:::
+
+## Stronger Design-Based Assumption
 
 ::: {.panel-tabset}
 
 ### Proposition
 
-::: {.callout-warning}
-
-## Assumption (Linear Propensity Score)
-
-The propensity score of treatment $D_i$ is a linear function of $X_i$, namely
-$$e(X_i) = P(D_i = 1|X_i) = X_i\beta_e$$
-
-:::
-
 ::: {.callout-note #prp-wipw}
 
 ## Proposition 1 (Equivalence of OLS Estimand and Overlap Weighted IPW)
 
-Suppose the linear propensity assumption holds, the OLS estimator of $\tau_{ols}$
+Under Assumption 1
 $$
 \tau_{ols} = \tau_{overlap}
+$$
+where $\tau_{overlap}$ is the estimand of overlap-weighted IPW
+$$
+\tau_{overlap} = \mathbb{E}\left[\frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[e(X_i)(1 - e(X_i))]} \cdot \left(\frac{Y_iD_i}{e(X_i)} - \frac{Y_i(1 - D_i)}{1 - e(X_i)}\right)\right] .
+$$ 
+
+Assumption 2 further yields the identification of overlap-weighted ATE (@li2018balancing):
+$$
+\tau_{ols} = \mathbb{E}\left[\frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[e(X_i)(1 - e(X_i))]} \cdot \tau_i\right] .
 $$
 
 :::
@@ -262,369 +368,90 @@ where $\tilde{D}_i = D_i - X_i\beta_e$ with $\beta_e = \mathbb{E}[X'X]^{-1}\math
 $$\begin{aligned}
 \tau_{ols} &= \frac{\mathbb{E}[Y_i(D_i - e(X_i))]}{\mathbb{E}[(D_i - e(X_i))^2]} \\
 &= \frac{\mathbb{E}[Y_i(D_i - e(X_i))]}{\mathbb{E}[e(X_i)(1 - e(X_i))]} \\
-&= \mathbb{E}\left[\frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[e(X_i)(1 - e(X_i))]} \frac{Y_i(D_i - e(X_i))}{e(X_i)(1 - e(X_i))}\right] \\
-&= \mathbb{E}\left[\frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[e(X_i)(1 - e(X_i))]} \cdot \delta_i\right] = \tau_{overlap}
+&= \mathbb{E}\left[\frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[e(X_i)(1 - e(X_i))]} \frac{Y_i(D_i - e(X_i))}{e(X_i)(1 - e(X_i))}\right]  = \tau_{overlap}
 \end{aligned}$$
+
+Identification of $\tau_{overlap}$ under Assumption 2 follows standard proof of IPW.
 
 :::
 
-## Comments on @prp-wipw
+## Extension to IV
 
 <br>
 
-- Linear propensity score assumptions has been assumed in @aronow2016does; @abadie2020sampling; @sloczynski2022interpreting
-  - Also common in empirical studies
-  - Not necessarily strong because $X_i$ can include powers and interactions
-  - **Inherently satisfied** with saturated model
-- OLS is Weighted IPW, thus has a **causal interpretation**
-- In general, OLS does not identify ATE, unless one of the following holds:
-  - Homogeneous treatment effect (constant $\tau_i$) or
-  - Randomized treatment assignment (constant $h(X_i)$)
+Further follow @small2017instrumental, assume
 
-## Example: One-way Fixed Effect Model {#example1}
+::: {.callout-warning}
 
-<br>
-
-OWFE is one example of saturated model
-$$
-Y_i = \alpha_s + \tau_{owfe}D_i + \epsilon_i
-$$
-where $\alpha_s$ is strata fixed effect.
-
-Let $n_{1s} = \sum_{i \in s}D_i$, $n_{0s} = \sum_{i \in s}1 - D_i$
-
-Let $\bar{Y}_{1s}$, $\bar{Y}_{0s}$ be the sample mean of $Y_i$ in the treatment and control group in strata $s$
+## Assumption 3 (Stochastic First-Stage Monotonicity)
 
 $$
-\tau_{owfe} = \mathbb{E}\left[\frac{h(s)}{\mathbb{E}[h(x)]} \cdot \tau_s \right]
+Pr(D_i = 1 | Y_i(0), Y_i(1), Z_i = 1, X_i = x) \geqslant Pr(D_i = 1 | Y_i(0), Y_i(1), Z_i = 0, X_i = x) \ \text{for all} \ x. 
 $$
-where $e(s) = \frac{n_{1s}}{n_{1s} + n_{0s}}$, $h(s) = e(s)(1 - e(s)) = \frac{n_{1s}n_{0s}}{n_{1s} + n_{0s}}$, $\tau_s = \bar{Y}_{1s} - \bar{Y}_{0s}$
-
-<br>
-
-[Example 2: TWFE for $2 \times 2$ DiD](#example2)
-
-## Properties of OLS (overlap weight)
-
-<br>
-
-- The purpose of weighting is to achieve similar distribution of $X_i$ in the treated and control group
-- Let $f_d(x) = P(X_i = x|D_i = d)$ be the density of $X_i$ in the treated and control group
-
-```{r}
-#| out-width: 60%
-#| fig-align: center
-
-base <- ggplot() + xlim(-10, 10) + ylim(0, 0.4) + theme_minimal() +
-  ggtitle("Normally distributied groups and overlap target population density")
-
-base + geom_function(fun = dnorm, args = list(mean = -3, sd = 2), color = "black") +
-  geom_function(fun = dnorm, args = list(mean = 3, sd = 2), color = "black") + 
-  geom_function(fun = dnorm, args = list(mean = 0, sd = 2 * sqrt(2)), linetype = "dashed", color = "grey")+
-  geom_function(fun = dnorm, args = list(mean = 0, sd = 1.3), color = "red") +
-  annotate('text', x = 0, y = 0.33, label = "f(x)h(x)", color = "red") + 
-  annotate('text', x = -6.5, y = 0.1, label = expression(f[0](x))) +
-  annotate('text', x = 6.5, y = 0.1, label = expression(f[1](x))) +
-  annotate('text', x = 0, y = 0.16, label = "f(x)", color = "grey")
-
-```
-
-
-
-## Properties of OLS (overlap weight) {#gweight}
-
-<br>
-
-[From $h(x)$ to weights on each group]{.blue}
-
-- By Bayes rule
-
-$$
-f_1(x) = \frac{e(x)f(x)}{P(D_i = 1)}, \quad \quad f_0(x) = \frac{(1 - e(x))f(x)}{P(D_i = 0)}
-$$
-
-- Let $f_1(x)g_1(x) = f_0(x)g_0(x) = f(x)h(x)$, again by Bayes rule 
-
-$$
-g_1(x) \propto h(x)/e(x), \quad \quad g_0(x) \propto h(x)/(1 - e(x))
-$$
-
-- For overlap weights, $(g_1(x), g_0(x)) = (1 - e(x), e(x))$
-
-[WIPW Table](#wipw)
-
-## Properties of OLS (overlap weight)
-
-<br>
-
-[Properties:]{.blue}
-
-1. **Undesired weights**: Treated and control groups are weighted by probability of being assigned to the opposite group.
-    - @sloczynski2022interpreting weights have similar property
-    - Another way to see this is by rearranging $\tau_{ols}$
-$$
-\tau_{ols} = \frac{\mathbb{E}[\color{red}(1 - e(X_i))\color{black}D_iY_i - \color{red}e(X_i)\color{black}(1 - D_i)Y_i]}{\mathbb{E}[e(X_i)(1 - e(X_i))]}
-$$
-
-2. $\tau_{ols} \approx$ ATT when $e(x) \approx 0$ as $(1 - e(X_i), e(X_i)) \approx (1, \frac{e(x)}{1 - e(x)})$; $\tau_{ols} \approx$ ATU when $e(x) \approx 1$.
-
-## Properties of OLS (overlap weight)
-
-<br>
-
-[Properties [@li2018balancing]:]{.blue}
-
-3. **Efficiency**: $Var(\hat\tau_{ols}) \leqslant Var(\hat\tau_{wipw})$ for all $h(X_i)$
-4. **Robust to poor overlap**: 
-    - Bounded
-    - Maximized with $e(x) = 0.5$
-    - More weights when $e(x)$ is close to $0.5$, less weights when $e(x)$ away from $0.5$.
-5. **Exact sample balance** with logit $e(x)$
-
-$$
-\frac{\sum_i X_i D_i (1 - \hat{e}(X_i))}{\sum_i D_i (1 - \hat{e}(X_i))} = \frac{\sum_i X_i (1 - D_i) \hat{e}(X_i)}{\sum_i (1 - D_i) \hat{e}(X_i)}
-$$
-
-## Is OLS Without Interactions Doubly Robust?
-
-<br>
-
-- Double robustness means that $\hat\tau$ is consistent of ATE if either $\mathbb{E}[D_i|X_i]$ or $\mathbb{E}[Y_i(d)|X_i]$ is correctly specified
-- Is $\tau_{ols}$ a doubly robust estimand of overlap ATE?
-
-[Why do we care?]{.blue}
-
-1. Modelling choices
-    - How to choose $X_i$ when we write down the regression equation
-
-2. Robustness of OLS
-    - @kline2011oaxaca shows that OB (full interaction regression) targets ATE and is doubly robust
-$$
-Y_i = \tau_{ob} D_i + X_i \beta + D_i(X_i - \bar{X})\gamma + \epsilon_i
-$$
-    - IPW has a doubly robust version: Augmented IPW (AIPW)[@robins1994estimation]
-
-## Is OLS Without Interactions Doubly Robust?
-
-<br>
-
-$$
-\tau_{ols} = \mathbb{E}\left[h(X_i)(\mu_{1, ols}(X_i) - \mu_{0, ols}(X_i))\right]
-$$
-where
-$$\begin{aligned}
-&\mu_{1, ols}(X_i) = Y_i(1) + \frac{(D_i - e(X_i)Y_i(1)) - (D_i - e(X_i))e(X_i)(Y_i(1) + \mu_1(X_i))}{e(X_i)(1 - e(X_i))} \\
-&\mu_{0, ols}(X_i) = Y_i(0) + \frac{(D_i - e(X_i)\mu_0(X_i)) - (D_i - e(X_i))e(X_i)(Y_i(0) + \mu_0(X_i))}{e(X_i)(1 - e(X_i))} \\
-&\mu_d(X_i) = \mathbb{E}[Y_i(d)|X_i]
-\end{aligned}$$
-Therefore,
-$$\begin{aligned}
-\tau_{ols} = \tau_{overlap} &+ \mathbb{E}\left[h(X_i) \cdot \frac{(D_i - e(X_i))(Y_i(1) - \mu_0(X_i))}{e(X_i)(1 - e(X_i))}\right] \\
-&- \mathbb{E}\left[h(X_i) \cdot \frac{(D_i - e(X_i))e(X_i)(Y_i(1) - Y_i(0) + \mu_1(X_i) - \mu_0(X_i))}{e(X_i)(1 - e(X_i))}\right]
-\end{aligned}$$
-
-## Comments on Robustness of OLS {#robust}
-
-<br>
-
-- If $e(X_i)$ is correctly specified but $\mu_d(X_i)$ is not, $\tau_{ols} = \tau_{overlap}$
-- If $\mu_d(X_i)$ is correctly specified but $e(X_i)$ is not, $\tau_{ols} \neq \tau_{overlap}$
-
-<br>
-
-- Counter-intuitive modelling procedure
-  - When writing down the model $Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i$
-  - **choose $X_i$ in the propensity model instead of variables that affects $Y_i$**
-- Identification completely relies on specification of $\mathbb{E}[D_i|X_i]$
-- Be careful with linear propensity assumption
-  - [Simulations results](#sim) on bias of OLS when propensity is nonlinear
-
-## Estimating Weighted ATE: IPW
-
-- Two commonly used IPW estimators can be adapted to estimate weighted ATE
-  - Horvitz-Thompson (HT) type estimator [@hirano2003efficient]
-$$
-\hat\tau^h_{HT} = \sum_{i = 1}^{N} \hat{h}(X_i) \left(\frac{Y_i D_i}{\hat{e}(X_i)} - \frac{Y_i(1 - D_i)}{1 - \hat{e}(X_i)}\right) \bigg/ \sum_{i = 1}^{N} \hat{h}(X_i)
-$$
-  - Hajek type estimator [@li2018balancing]
-$$
-\hat\tau^h_{Hajek} = \frac{\sum_{i = 1}^N Y_i D_i \hat{w}_1(X_i)}{\sum_{i = 1}^N D_i \hat{w}_1(X_i)} - \frac{\sum_{i = 1}^N Y_i (1 - D_i) \hat{w}_0(X_i)}{\sum_{i = 1}^N (1 - D_i) \hat{w}_0(X_i)}
-$$
-where $\hat{w}_1(x) = \hat{h}(x) / \hat{e}(x)$ and $\hat{w}_0(x) = \hat{h}(x) / (1 - \hat{e}(x))$. Both estimators are consistent for $\tau_{wipw}$ and they are asymptotically equivalent. 
-
-- @prp-wipw shows that the two estimators are both consistent and asymptotically equivalent
-- In finite sample, they are usually numerically different
-
-## Estimating Weighted ATE: IPW
-
-::: {.callout-note #prp-wipw}
-
-## Proposition 2 (Influence Function of $\hat\tau^h_{HT}$ and $\hat\tau^h_{Hajek}$)
-
-Suppose the unconfoundedness and overlap assumptions hold, $\hat\tau^h_{HT}$ and $\hat\tau^h_{Hajek}$ shares the same influence function. Namely, 
-$$\begin{aligned}
-&\sqrt{n}(\hat\tau^h_{HT} - \tau_{wipw}) = \frac{1}{\sqrt{n}}\sum_{i = 1}^n \psi(Y_i, D_i, X_i) + o_p(1) \\
-&\sqrt{n}(\hat\tau^h_{Hajek} - \tau_{wipw}) = \frac{1}{\sqrt{n}}\sum_{i = 1}^n \psi(Y_i, D_i, X_i) + o_p(1)
-\end{aligned}$$
-with
-$$\begin{aligned}
-\psi(y, d, x) = \frac{dh(x)}{\bar{h}e(x)}(y - \mu_1(x)) - \frac{(1 - d)h(x)}{\bar{h}(1 - e(x))}(y - \mu_0(x)) + \frac{h(x)}{\bar{h}} + \frac{(d - e(x))\partial_eh(x)}{\bar{h}}(\tau_{wipw} - \tau_{wate})
-\end{aligned}$$
-where $\mu_d(x) = \mathbb{E}[Y_i(d)|X_i = x]$ for $d = 0, 1$, $\bar{h} = \mathbb{E}[h(X_i)]$ and $\partial_e h(x)$ is the Gateaux derivative of $h(x)$ with respect to $e(x)$.
 
 :::
 
-## Estimating ATE: OLS
+Model-based specification: $\mathbb{E}[Y_i(0)|Z_i, X_i] = X_i\eta$
+
+$$
+\tau_{iv} = \frac{\mathbb{E}[\lambda_i\tau_i]}{\mathbb{E}[\lambda_i]}, \quad \text{where} \ \lambda_i = \tilde{Z_i}D_i. 
+$$
+
+Design-based specification: $\mathbb{E}[Z_i|Y_i(0), Y_i(1), X_i] = X_i\gamma$
+
+$$
+\tau_{iv} = \frac{\mathbb{E}[\omega_i\tau_i]}{\mathbb{E}[\omega_i]}, \quad \text{where} \ \omega_i = Cov(\tilde{Z}_i, Pr(D_i = 1 | Y_i(0), Y_i(1), Z_i, X_i)). 
+$$
+
+## Summary of OLS with Binary Treatment
 
 <br>
 
-- OLS does not identify ATE in general
-- LS estimation of the class of weighted ATE is difficult
-- If a researcher is interested in ATE instead of $\tau_{overlap}$
-- She can use IPW or the following two regressions, both are consistent
+Design-based specification:
 
-**Weighted Least Squares Estimators of the ATE**
+- Ensures convex weight
+- Equivalent to overlap-weighted IPW under stronger assumptions
 
-1. Regress $Y_i$ on $D_i - \hat{e}(X_i)$ with weight $\left(\frac{1}{\hat{e}(X_i)} + \frac{1}{1 - \hat{e}(X_i)}\right)$
+Model-based specification:
 
-2. Regress $Y_i$ on $1$ and $D_i$ with weight $\left(\frac{D_i}{\hat{e}(X_i)} + \frac{1 - D_i}{1 - \hat{e}(X_i)}\right)$
-
-where $\hat{e}(x)$ is a consistent estimator of $e(x)$. 
-
-## Application
+- Carries a potential risk of negative weights
+- Due to the projection of $D_i$ on $X_i$ exceeding unit value
+- There are special cases where negative weights are no concern
 
 <br>
 
-**NSW-CPS data constructed by @lalonde1986evaluating**
+Next, extend to partially linear regression with continuous treatment
 
-- NSW: US job training experiment; CPS: Survey data in the US
-- $Y_i$: earnings in 1976
-- $D_i$: participation in NSW job training program
-- $X_i$: demographics, earnings in previous year
-- Target is the treatment effect on earnings
+## Causal Effect of Continuous Treatment
 
 <br>
 
-- Experimental benchmark: ATT = $\$1794$
+The causal effect of continuous treatment is still an active research topic
+
+@callaway2024difference & @borusyak2024negative: 
+
+- Restrict treatment value $D_i \neq 0$ 
+- Define causal effect as average causal derivative $\partial\mathbb{E}[Y_i(d)]/\partial d$ or the direct derivative $\partial Y_i(d)/ \partial d$
+- Limited discussion on general identification
 
 <br>
 
-- I follow the specifications in @sloczynski2022interpreting
-- Compare $\tau_{overlap}$ OLS/IPW estimators with linear/logit $e(x)$
+I follow @rothenhausler2019incremental:
 
-## Application
-
-![](fig/app.png){fig-align="center" width=40%}
-
-## Application
-
-![](fig/app1.png){fig-align="center" width=40%}
-
-## Application
-
-![](fig/app2.png){fig-align="center" width=40%}
-
-## Application
-
-![](fig/app3.png){fig-align="center" width=40%}
-
-## Conclusion
-
-<br>
-
-- When using OLS, change the interpretation of the coefficient
-  - ATE $\rightarrow$ overlap-weighted ATE
-  - OLS is not doubly robust and identification depends on specification of the propensity model
-
-<br>
-
-- OLS is inferior to IPW
-  - OLS = overlap IPW + linear propensity assumption
-  - IPW has more flexibility in terms of specifying the propensity model
-  - IPW can easily identify different WATEs
-  - AIPW provides more robustness
-
-
-## Example 2: TWFE for $2 \times 2$ DiD {#example2 visibility="uncounted"}
-
-TWFE estimation of DiD: 
-$$
-Y_{it} = \alpha_i + \gamma_t + \tau_{twfe} D_{it} + \epsilon_{it}
-$$
-
-Define $\bar{Y}_t^c = \frac{1}{N_c}\sum_{i:C_i = c} Y_{it}$ and $\hat\tau_t^{cc'} = \bar{Y}_t^{c'} - \bar{Y}_t^c$
-
-::: {.callout-note #prp-twfe}
-
-(Decomposition of TWFE estimator of DiD)
+- First define incremental effect: 
 
 $$
-\hat\tau_{twfe} = \sum_t \sum_{c \leqslant t} w_t^c \hat\tau_t^{\infty c} + \sum_t \sum_{c > t} w_t^c \hat\tau_{t}^{\infty c}
-$$
-with properties $\sum_t\sum_{c \leqslant t} w_t^c = 1$ and $\sum_t\sum_{c > t} w_t^c  = -1$.
-:::
-
-
-## Example 2: TWFE for $2 \times 2$ DiD {visibility="uncounted"}
-
-- The first term: weighted comparison of treated cohort vs never-treated cohort at $t$
-- The second term: weighted comparison of not-yet-treated vs never-treated cohort at $t$
-
-For $2 \times 2$ DiD, $t \in \{1, 2\}$ and $c \in \{2, \infty\}$
-
-![](fig/twfe.png){fig-align="center" width=40%}
-
-Under the parallel trend and no anticipation assumption, @prp-twfe implies 
-$$
-\hat\tau_{twfe} = -\hat\tau_1^{\infty2} + \hat\tau_2^{\infty2} = (\bar{Y}_2^2 - \bar{Y}_2^\infty) - (\bar{Y}_1^2 - \bar{Y}_1^\infty) \xrightarrow{p} \mathbb{E}[Y_{it}(1) - Y_{it}(0)|D_{it} = 1]
+\tau^\nu = \frac{\mathbb{E}[Y_i(d + \nu)] - \mathbb{E}[Y_i(d)]}{\nu}
 $$
 
-[Back](#example1)
+- Define the **average derivative effect** $\tau^0 = \lim_{\nu \rightarrow 0} \tau^\nu$
 
-## Simulation: Violation of Linear Propensity {#sim1 visibility="uncounted"}
 
-::: {.panel-tabset}
 
-### Design
 
-Four scenarios $\gamma = 1, 2, 3, 4$ with increasing tail of $e(x)$
 
-$X = (X_1, .. X_6)$ 1-3 continuous and 4-6 binary
 
-Logit Propensity score with nonlinear treatment effect
-$$
-e(X) = \frac{1}{1 + \exp(- \alpha_0 - X\alpha)}
-$$
-$α = (0.15γ, 0.3γ, 0.3γ, −0.2γ, −0.25γ, −0.25γ)$ 
 
-Choose $\alpha_0$ so that the proportion of treated units is approximately 0.4 for each $\gamma$
-$$
-Y = \beta_0 + X\beta + D\tau(X) + \epsilon
-$$
-
-$$\tau(X) = X_1^2 + X_4 - X_6$$
-
-Adequate overlap so that the bias mostly come form negative weights
-
-### Dist of $e(x)$
-
-White bins: $e(x)$. Shadow bins: $1 - e(x)$
-
-![](fig/psplot.png){fig-align="center" width=50%}
-
-### Dist of Weight
-
-White bins: OLS weights under misspecification. Red bins: True overlap weight
-
-![](fig/misplot.png){fig-align="center" width=50%}
-
-### 1000 Simulations
-
-![](fig/bias.png){fig-align="center" width=50%}
-
-:::
-
-[Back](#robust)
 
 ## References {visibility="uncounted"}
 
