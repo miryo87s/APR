@@ -736,7 +736,30 @@ Pr(D_i = 1 | Y_i(0), Y_i(1), Z_i = 1, X_i = x) \geqslant Pr(D_i = 1 | Y_i(0), Y_
 </ul>
 <p><br></p>
 <p>Next, extend to partially linear regression with continuous treatment</p>
-</section><section id="causal-effect-of-continuous-treatment" class="slide level2"><h2>Causal Effect of Continuous Treatment</h2>
+</section><section id="set-up" class="slide level2"><h2>Set Up</h2>
+<p><br></p>
+<ul>
+<li>Suppose we observe iid observations of <span class="math inline">\((Y_i, D_i, X_i)\)</span> with unknown distribution <span class="math inline">\(P\)</span>
+</li>
+<li>
+<span class="math inline">\(Y_i \in \mathbb{R}\)</span>, <span class="math inline">\(D_i \in \mathbb{R}\)</span>, <span class="math inline">\(X_i \in \mathbb{R}^p\)</span>
+</li>
+<li>Let <span class="math inline">\(\mathcal{H}\)</span> be a Hilbert space of functions <span class="math inline">\(l: \mathbb{R}^{p+1} \mapsto \mathbb{R}\)</span> equipped with inner-product <span class="math inline">\(\langle l, h \rangle = \mathbb{E}[l(D_i, X_i)h(D_i, X_i)]\)</span> and norm <span class="math inline">\(\Vert l \Vert = \langle l, l \rangle^{1/2}\)</span>
+</li>
+<li>Let <span class="math inline">\(\mu(D_i, X_i) = \mathbb{E}[Y_i | D_i, X_i]\)</span>. Assume <span class="math inline">\(\mu \in \mathcal{H}\)</span>
+</li>
+<li>Consider partially linear regression</li>
+</ul>
+<p><span class="math display">\[
+Y_i = \tau_{ls}D_i + g(X_i) + \epsilon_i.
+\]</span></p>
+<ul>
+<li>The least square estimand <span class="math inline">\(\tau_{ls}\)</span> and <span class="math inline">\(g\)</span> are defined by</li>
+</ul>
+<p><span class="math display">\[
+(\tau_{ls}, g) = \arg \min_{\tau \in \mathbb{R}, g^* \in \mathcal{G}} \mathbb{E}\left[(Y_i - \tau D_i - g^*(X_i))^2\right]
+\]</span> where <span class="math inline">\(\mathcal{G}\)</span> is some linear space of functions</p>
+</section><section id="set-up-1" class="slide level2"><h2>Set Up</h2>
 <p><br></p>
 <p>The causal effect of continuous treatment is still an active research topic</p>
 <p><span class="citation" data-cites="callaway2024difference">Callaway, Goodman-Bacon, and Sant’Anna (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span> &amp; <span class="citation" data-cites="borusyak2024negative">Borusyak and Hull (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span>:</p>
@@ -747,7 +770,6 @@ Pr(D_i = 1 | Y_i(0), Y_i(1), Z_i = 1, X_i = x) \geqslant Pr(D_i = 1 | Y_i(0), Y_
 </li>
 <li>Limited discussion on general identification</li>
 </ul>
-<p><br></p>
 <p>I follow <span class="citation" data-cites="rothenhausler2019incremental">Rothenhäusler and Yu (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span>:</p>
 <ul>
 <li>First define incremental effect:</li>
@@ -756,7 +778,327 @@ Pr(D_i = 1 | Y_i(0), Y_i(1), Z_i = 1, X_i = x) \geqslant Pr(D_i = 1 | Y_i(0), Y_
 \tau^\nu = \frac{\mathbb{E}[Y_i(d + \nu)] - \mathbb{E}[Y_i(d)]}{\nu}
 \]</span></p>
 <ul>
-<li>Define the <strong>average derivative effect</strong> <span class="math inline">\(\tau^0 = \lim_{\nu \rightarrow 0} \tau^\nu\)</span>
+<li>Define the <strong>average derivative effect (ADE)</strong> <span class="math inline">\(\tau^0 = \lim_{\nu \rightarrow 0} \tau^\nu\)</span>
+</li>
+</ul></section><section id="set-up-2" class="slide level2"><h2>Set Up</h2>
+<p><br></p>
+<ul>
+<li>Let <span class="math inline">\(\mu'(D_i, X_i)\)</span> be the partial derivative with respect to <span class="math inline">\(D_i\)</span>
+</li>
+<li>Will show <span class="math inline">\(\mu'(D_i, X_i)\)</span> identifies <span class="math inline">\(\tau^0\)</span> under model- and design-based specification</li>
+<li>Target is to show <span class="math inline">\(\tau_{ls}\)</span> is WADE <span class="math inline">\(\tau_{wade} = \mathbb{E}[w(D_i, X_i)\mu'(D_i, X_i)]\)</span> for some weight <span class="math inline">\(w(d, x)\)</span>
+</li>
+</ul>
+<p><br></p>
+<p>Riesz Representation Theorem:</p>
+<p>There exists a unique Riesz Representer <span class="math inline">\(\alpha_w \in \mathcal{H}\)</span> such that <span class="math inline">\(\tau_{wade} = \mathbb{E}[\alpha_w(D_i, X_i)\mu(D_i, X_i)]\)</span> and hence <span class="math inline">\(\mathbb{E}[\alpha_w(D_i, X_i)Y_i]\)</span></p>
+<ul>
+<li>
+<span class="citation" data-cites="powell1989semiparametric">Powell, Stock, and Stoker (<a href="#/references" role="doc-biblioref" onclick="">1989</a>)</span> derived Riesz Representation of a given index model</li>
+<li>In my context, Riesz Representation is given by PLR</li>
+<li>Then the target is to backtrack <span class="math inline">\(w(D_i, X_i)\)</span>
+</li>
+</ul></section><section id="set-up-3" class="slide level2"><h2>Set Up</h2>
+<p><br></p>
+<ul>
+<li>Need to restrict to normalized weights such that <span class="math inline">\(\mathbb{E}[w(D_i, X_i)] = 1\)</span>
+</li>
+<li>Allow for negative weights</li>
+<li>Instead of restricting the weights, consider <span class="math inline">\(\alpha_w\)</span> in the set</li>
+</ul>
+<p><span class="math display">\[
+\mathcal{A} = \{\alpha \in \mathcal{H} | \mathbb{E}[\alpha(D_i, X_i)D_i] = 1, \mathbb{E}[\alpha(D_i, X_i) | X_i] = 0\}.
+\]</span></p>
+<ul>
+<li>First condition ensures normalized weight</li>
+<li>Second is the property of Riesz Representer</li>
+</ul></section><section id="plr-with-continuous-treatment" class="slide level2"><h2>PLR with Continuous Treatment</h2>
+<p><br></p>
+<div class="callout callout-warning no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Assumption 4 (Model-Based Specification)</strong></p>
+</div>
+<div class="callout-content">
+<p>Let <span class="math inline">\(\mu^d(X_i) = \mathbb{E}[Y_i(d) |X_i]\)</span>.</p>
+<p><span class="math display">\[
+\mathbb{E}[Y_i(d) | D_i, X_i] = \mu^d(X_i), \ \text{and} \ \mu^d \in \mathcal{G} \ \text{for all} \ d.
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-warning no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Assumption 5 (Design-Based Specification)</strong></p>
+</div>
+<div class="callout-content">
+<p>Let <span class="math inline">\(q(X_i) = \mathbb{E}[D_i |X_i]\)</span>.</p>
+<p><span class="math display">\[
+\mathbb{E}[D_i | Y_i(d), X_i] = q(X_i) \ \text{for all} \ d, \ \text{and} \ q \in \mathcal{G}.
+\]</span></p>
+</div>
+</div>
+</div>
+</section><section id="plr-with-continuous-treatment-1" class="slide level2"><h2>PLR with Continuous Treatment</h2>
+<p><br></p>
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Theorem 1 (Weighting Scheme in LS Estimand)</strong></p>
+</div>
+<div class="callout-content">
+<p>Under Assumption 4, <span class="math display">\[
+\tau_{ls} = \mathbb{E}\left[\lambda(D_i, X_i)\mu'(D_i, X_i)\right], \text{where} \ \lambda(d, x) = - \frac{Cov(\tilde{D}_i, \mathbb{I}(D_i \leqslant d) | X_i = x)}{f(d|x)\mathbb{E}[\tilde{D}_i D_i]}
+\]</span></p>
+<p>Under Assumption 5, <span class="math display">\[
+\tau_{ls} = \mathbb{E}\left[\omega(D_i, X_i)\mu'(D_i, X_i)\right], \text{where} \ \omega(d, x) = - \frac{Cov(\tilde{D}_i, \mathbb{I}(D_i \leqslant d) | X_i = x)}{f(d|x)\mathbb{E}[Var(D_i | Y_i(\cdot), X_i)]}
+\]</span></p>
+</div>
+</div>
+</div>
+<p><span class="math inline">\(\tilde{D}_i\)</span> is increasing in <span class="math inline">\(D_i\)</span>, <span class="math inline">\(\mathbb{I}(D_i \leqslant d)\)</span> is non-increasing in <span class="math inline">\(D_i\)</span>, <span class="math inline">\(-Cov(\tilde{D}_i, \mathbb{I}(D_i \leqslant d) | X_i = x) \geqslant\)</span> is non-negative</p>
+<p>Either specification yields convex weight</p>
+</section><section id="plr-with-continuous-treatment-2" class="slide level2 scrollable"><h2>PLR with Continuous Treatment</h2>
+<p>Sketch of proof:</p>
+<ol type="1">
+<li>Show <span class="math inline">\(\mu'(D_i, X_i)\)</span> identifies <span class="math inline">\(\tau^0\)</span> under either Assumption 4 or 5</li>
+</ol>
+<p>By conditional mean-independence of <span class="math inline">\(Y_i(d)\)</span> and <span class="math inline">\(D_i\)</span> <span class="math display">\[
+\mathbb{E}[Y_i(d + \nu) - Y_i(d) | D_i = d, X_i] = \mathbb{E}[Y_i(d + \nu) | D_i = d + \nu, X_i] - \mathbb{E}[Y_i(d) | D_i = d, X_i]
+\]</span> <span class="math inline">\(\text{LHS} = \mathbb{E}[Y_i'(d)|D_i = d, X_i]\)</span>, which equals <span class="math inline">\(\tau^0\)</span> by dominated convergence</p>
+<p><span class="math inline">\(\text{RHS} = (\partial/\partial d) \mathbb{E}[Y_i(d) | D_i = d, X_i] = (\partial/\partial d) \mathbb{E}[Y_i| D_i = d, X_i] = \mu'(D_i, X_i)\)</span> by the fact that <span class="math inline">\(Y_i(d) = Y_i\)</span> when <span class="math inline">\(D_i = d\)</span>.</p>
+<ol start="2" type="1">
+<li>Extend <span class="citation" data-cites="powell1989semiparametric">Powell, Stock, and Stoker (<a href="#/references" role="doc-biblioref" onclick="">1989</a>)</span> to WADE and solve for <span class="math inline">\(w(D_i, X_i)\)</span>
+</li>
+</ol>
+<p>Under regularity conditions, for a WADE <span class="math inline">\(\mathbb{E}[w(D_i, X_i)\mu'(D_i, X_i)]\)</span>, the corresponding Riesz Representer is <span class="math display">\[
+\alpha_w(d, x) = - \frac{\partial w(d, x)}{\partial d} - w(d, x) \cdot \frac{\partial \log f(d|x) }{\partial d}
+\]</span></p>
+<p>Derivation uses integration by parts. Then solve <span class="math inline">\(\mathbb{E}[\alpha_w(D_i, X_i) | X_i] = 0\)</span> as an ordinary differential equation for <span class="math inline">\(w(D_i, X_i)\)</span> <span class="math display">\[
+w(d, z) = \frac{-1}{f(d|x)}\int_{\underline{d}}^{\bar{d}}\alpha_w(d^*, x)\mathbb{I}(d^* \leqslant d)f(d^*|x) \mathrm{d}d^*
+\]</span></p>
+<ol start="3" type="1">
+<li>Plug in <span class="math inline">\(\alpha_w(D_i, X_i) = \tilde{D}_i/\mathbb{E}[\tilde{D}_iD_i]\)</span> to get weight for <span class="math inline">\(\tau_{ls}\)</span> and evaluate under Assumption 4 and 5.</li>
+</ol></section><section id="plr-with-continuous-treatment-3" class="slide level2"><h2>PLR with Continuous Treatment</h2>
+<p><br></p>
+<ul>
+<li>LS estimand identifies WADE with convex weight under either specification</li>
+<li>The weight depends on the conditional density <span class="math inline">\(f(D_i|X_i)\)</span>
+<ul>
+<li>Design-based specification adds interpretability on the weight</li>
+<li>Further assume parametric <span class="math inline">\(f(D_i|X_i)\)</span> can simplify the weight</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<ul>
+<li>The set up incorporates binary treatment</li>
+</ul>
+<p>When <span class="math inline">\(D_i \in \{0, 1\}\)</span>, <span class="math inline">\(\mu(1, X_i) - \mu(0, X_i)\)</span> identifies treatment effect under model- and design-based specifications.</p>
+<p>Theorem 1 can be obtained by letting <span class="math inline">\(w(x) = \mathbb{E}[\alpha_w(D_i, X_i)D_i | X_i = x]\)</span> and <span class="math inline">\(\mathbb{E}[w(X_i)(\mu(1, X_i) - \mu(0, X_i)]\)</span> be the WATE</p>
+</section><section id="design-based-ls-is-optimally-efficient" class="slide level2"><h2>Design-Based LS is Optimally Efficient</h2>
+<p><br></p>
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Theorem 2 (Least Square Estimand is Optimal WADE)</strong></p>
+</div>
+<div class="callout-content">
+<p>Suppose that <span class="math inline">\(Y_i\)</span> is homoskedastic, i.e. <span class="math inline">\(Var(Y_i | D_i, X_i) = \sigma^2\)</span> is a constant and <span class="math inline">\(D_i \perp Y_i(d) | X_i\)</span> for all <span class="math inline">\(d\)</span>. Then the optimally efficient WADE is <span class="math inline">\(\tau_{ls}\)</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>Encourages the use of PLR for estimating causal effects</li>
+<li>Incorporates the efficiency result for binary treatment
+<ul>
+<li>Theorem 5.4 in <span class="citation" data-cites="crump2006moving">Crump et al. (<a href="#/references" role="doc-biblioref" onclick="">2006</a>)</span>; Theorem 2 in <span class="citation" data-cites="li2018balancing">Li, Morgan, and Zaslavsky (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span>
+</li>
+</ul>
+</li>
+</ul></section><section id="design-based-ls-is-optimally-efficient-1" class="slide level2 scrollable"><h2>Design-Based LS is Optimally Efficient</h2>
+<p>Sketch of proof:</p>
+<p>Suppose there is an efficient estimator <span class="math inline">\(\hat\tau_{wade}\)</span>. Then it follows <span class="math display">\[
+\sqrt{n}(\hat\tau_{wade} - \tau_{wade}) = \frac{1}{\sqrt{n}}\sum_{i=1}^n \phi(Y_i, D_i, X_i) + o_p(1)
+\]</span> where <span class="math inline">\(\phi(Y_i, D_i, X_i)\)</span> is the influence function of <span class="math inline">\(\tau_{wade}\)</span> which contains <span class="math inline">\(\alpha_w\)</span>. Thus, <span class="math display">\[
+\sqrt{n}(\hat\tau_{wade} - \tau_{wade}) \xrightarrow{d} N(0, V), \ \text{where} \ V = Var(\phi(Y_i, D_i, X_i)).
+\]</span></p>
+<p>The efficiency bound is obtained by minimizing <span class="math inline">\(V\)</span> with respect to <span class="math inline">\(\alpha_w\)</span>, subject to the constrain <span class="math inline">\(\alpha_w \in \mathcal{A}\)</span>. <span class="math display">\[
+\alpha(d, x) = \frac{\lambda(d - \tilde{e}(x))}{\sigma^2(d, x)}.
+\]</span> where <span class="math display">\[
+\tilde{e}(x) = \frac{\mathbb{E}[D_i / \sigma^2(D_i, X_i) | X_i = x]}{\mathbb{E}[1 / \sigma^2(D_i, X_i) | X_i = x]}
+\]</span> and <span class="math display">\[
+\lambda = \mathbb{E}\left[\frac{D_i - \tilde{e}(X_i)D_i}{\sigma^2(D_i, X_i)}\right]^{-1}.
+\]</span></p>
+<p>If <span class="math inline">\(\sigma^2(D_i, X_i) = \sigma^2\)</span>, the optimal WADE reduces to <span class="math inline">\(\tau_{ls}\)</span> under unconfoundedness.</p>
+<p>For <span class="math inline">\(D_i \in \{0, 1\}\)</span>, <span class="math display">\[
+\tilde{e}(x) = \frac{e(x)\sigma^2(0, x)}{e(x)\sigma^2(0, x) + (1 - e(x))\sigma^2(1, x)}
+\]</span> and hence, the optimal WATE is <span class="math display">\[
+\mathbb{E}\left[\frac{\tilde{w}(x)}{\mathbb{E}[\tilde{w}(X_i)]}\frac{(D_i - e(x))Y_i}{e(x)(1 - e(x))}\right], \ \text{where} \ \tilde{w}(x) = \left(\frac{\sigma^2(1, x)}{e(x)} + \frac{\sigma^2(0, x)}{1 - e(x)}\right)^{-1}
+\]</span></p>
+</section><section id="estimation-of-plr" class="slide level2"><h2>Estimation of PLR</h2>
+<ul>
+<li>Follow the Estimating Equation approach</li>
+<li>Let <span class="math inline">\(\rho(x) = \mathbb{E}[Y_i | X_i = x]\)</span>. Derive the influence function of <span class="math inline">\(\tau_{ls}\)</span>
+</li>
+</ul>
+<p><span class="math display">\[
+\phi_{ls}(Y_i, D_i, X_i) = \frac{D_i - e(X_i)}{\mathbb{E}[(D_i - e(X_i))^2]}(Y_i - \rho(X_i) - \tau_{ls}(D_i - e(X_i)))
+\]</span></p>
+<ul>
+<li>Set the sample mean of <span class="math inline">\(\phi_{ls}\)</span> to zero and solve for <span class="math inline">\(\tau_{ls}\)</span>
+</li>
+</ul>
+<p><span class="math display">\[
+\hat\tau_{ls} = \frac{\sum_{i=1}^n(D_i - \hat{e}(X_i))(Y_i - \hat\rho(X_i))}{\sum_{i=1}^n(D_i - \hat{e}(X_i))^2}
+\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(\hat\tau_{ls}\)</span> has been considered in the literature. The difficulty is in dealing with plug-in bias from <span class="math inline">\(\hat{e}\)</span> and <span class="math inline">\(\hat\rho\)</span>
+</li>
+<li>Traditional routine is to assume Donsker condition on <span class="math inline">\(\hat{e}\)</span> and <span class="math inline">\(\hat\rho\)</span> <span class="citation" data-cites="robins1994estimation">(<a href="#/references" role="doc-biblioref" onclick="">Robins, Rotnitzky, and Zhao 1994</a>)</span>
+<ul>
+<li>But usually fail to hold with machine learning methods</li>
+</ul>
+</li>
+<li>Modern approach is to use cross-fitting <span class="citation" data-cites="chernozhukov2018double">(<a href="#/references" role="doc-biblioref" onclick="">Chernozhukov et al. 2018</a>)</span>
+</li>
+</ul></section><section id="estimation-of-plr-1" class="slide level2"><h2>Estimation of PLR</h2>
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Proposition 2</strong></p>
+</div>
+<div class="callout-content">
+<p>Assume that the following conditions hold:</p>
+<ol type="a">
+<li>
+<span class="math inline">\(\Vert e - \hat{e} \Vert = o_P(n^{-a/4})\)</span> and <span class="math inline">\(\Vert \rho - \hat{\rho} \Vert = o_P(n^{-b/4})\)</span> where <span class="math inline">\(a \geqslant 1, \ b\geqslant 0\)</span> and <span class="math inline">\(a + b \geqslant 2\)</span>.</li>
+<li>
+<span class="math inline">\(n^{-1}\sum_{i = 1}^n(D_i - \hat{e}(X_i)) &gt; 0\)</span> and <span class="math inline">\(\mathbb{E}[D_i - e(X_i)] &gt; 0\)</span>.</li>
+<li>There exists a constant <span class="math inline">\(0 &lt; C &lt; \infty\)</span> such that <span class="math inline">\(Var(D_i | X_i) &lt; C\)</span> and <span class="math inline">\(Var(Y_i | X_i) &lt; C\)</span>.</li>
+</ol>
+<p>And assume that at least one of <span class="math inline">\(d\)</span> or <span class="math inline">\(e\)</span> holds:</p>
+<ol start="4" type="a">
+<li>(Donsker condition) The quantities <span class="math inline">\((D_i - \hat{e}(X_i))(Y_i - \hat\rho(X_i))\)</span> and <span class="math inline">\((D_i - \hat{e}(X_i))^2\)</span> fall within a P-Donsker class with probability approaching <span class="math inline">\(1\)</span>.</li>
+<li>(Cross-fitting) The sample used to estimate <span class="math inline">\(\hat{e}(x)\)</span> and <span class="math inline">\(\hat{\rho}(x)\)</span> is independent of the sample used to construct <span class="math inline">\(\hat\tau_{ls}\)</span>.</li>
+</ol>
+<p>Then, <span class="math inline">\(\hat\tau_{ls}\)</span> is a regular asymptotically linear estimator of <span class="math inline">\(\tau_{ls}\)</span> with influence function <span class="math inline">\(\phi_{ls}\)</span>. Hence, <span class="math inline">\(\sqrt{n}(\hat\tau_{ls} - \tau_{ls}) \xrightarrow{d} N(0, V)\)</span> and <span class="math inline">\(V = Var(\phi_{ls}(Y_i, D_i, X_i))\)</span>.</p>
+</div>
+</div>
+</div>
+</section><section id="estimation-of-plr-2" class="slide level2 scrollable"><h2>Estimation of PLR</h2>
+<p>Sketch of proof:</p>
+<p><span class="math display">\[
+\hat\tau_{ls} = \frac{\sum_{i=1}^n(D_i - \hat{e}(X_i))(Y_i - \hat\rho(X_i))}{\sum_{i=1}^n(D_i - \hat{e}(X_i))^2} = \frac{\hat\gamma}{\hat\eta}
+\]</span></p>
+<p>The strategy is to show that <span class="math inline">\(\hat\gamma\)</span> and <span class="math inline">\(\hat\eta\)</span> are regular asymptotically linear estimators and then the desired result follows from Slutsky’s theorem.</p>
+<p>Note <span class="math inline">\(\hat\eta\)</span> can be seen as a special case of <span class="math inline">\(\hat\gamma\)</span> with <span class="math inline">\(Y_i\)</span> = <span class="math inline">\(D_i\)</span>.</p>
+<p>For <span class="math inline">\(\hat\gamma\)</span>, we have the empirical process decomposition <span class="math display">\[\begin{aligned}
+\hat\gamma - \gamma &amp;= (P_n - P)\phi_\gamma(W_i; P) + E_n + R_n \\
+E_n &amp;= (P_n - P)[\phi_\gamma(W_i; \hat{P}) - \phi_\gamma(W_i; P)] \\
+R_n &amp;= \gamma(\hat{P}) - \gamma(P) + P[\hat\phi_\gamma(W_i; \hat{P})].
+\end{aligned}\]</span></p>
+<p>The first term is well-behaved sample mean of influence function.</p>
+<p>By Assumption <span class="math inline">\(a\)</span> and Holder’s inequality, the empirical process term <span class="math inline">\(E_n\)</span> is <span class="math inline">\(o_P(n^{-1/2})\)</span> under the Donsker condition and Lemma 19.24 of <span class="citation" data-cites="van1998functional">Van der Vaart (<a href="#/references" role="doc-biblioref" onclick="">1998</a>)</span>, or under cross-fitting condition and Lemma 2 of <span class="citation" data-cites="kennedy2020sharp">Kennedy, Balakrishnan, and G’sell (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>.</p>
+<p><span class="math inline">\(R_n = \mathbb{E}[(\rho(X_i) - \hat\rho(X_i))(e(X_i) - \hat{e}(X_i))]\)</span>. By Cauchy-Schwarz inequality and Assumption <span class="math inline">\(a\)</span>, <span class="math inline">\(R_n\)</span> is <span class="math inline">\(o_P(n^{-1/2})\)</span>.</p>
+</section><section id="application" class="slide level2"><h2>Application</h2>
+<p><br></p>
+<ul>
+<li>NSW-CPS data constructed by <span class="citation" data-cites="lalonde1986evaluating">LaLonde (<a href="#/references" role="doc-biblioref" onclick="">1986</a>)</span>
+</li>
+<li>
+<span class="math inline">\(Y_i\)</span> is post-treatment earnings, <span class="math inline">\(D_i\)</span> is binary treatment of joining NSW training</li>
+<li>
+<span class="math inline">\(X_i\)</span> are demographics and pre-treatment earnings</li>
+<li>Treatment group from the experiment of NSW job training program</li>
+<li>Control group from the CPS data</li>
+<li>Target is WATE of job training on earnings</li>
+</ul>
+<p><br></p>
+<ul>
+<li>Four sets of covariates, same as those in <span class="citation" data-cites="angrist2009mostly">Angrist and Pischke (<a href="#/references" role="doc-biblioref" onclick="">2009</a>)</span>
+</li>
+<li>All four specifications can be regarded as model- or design-based</li>
+</ul></section><section id="application-1" class="slide level2"><h2>Application</h2>
+<p><br></p>
+<ul>
+<li>Compare various estimators</li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 75%">
+</colgroup>
+<thead><tr class="header">
+<th></th>
+<th>Estimators</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\hat\tau_{ols}\)</span></td>
+<td>OLS estimator</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\hat\tau_{ls, logit}\)</span></td>
+<td>Design-based PLR estimator, regress <span class="math inline">\(Y_i\)</span> on <span class="math inline">\(D_i\)</span> and logistic estimator <span class="math inline">\(\hat{e}(X_i)\)</span>
+</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat\tau_{ipw}\)</span></td>
+<td>Hajek-type IPW estimator of ATE</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\hat\tau_{ls, cf}\)</span></td>
+<td>PLR estimator with <span class="math inline">\(\hat{e}\)</span> and <span class="math inline">\(\hat\rho\)</span> estimated by random forest with cross-fitting</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat\tau_{ls, donsker}\)</span></td>
+<td>Same as above but without cross-fitting</td>
+</tr>
+</tbody>
+</table></section><section id="application-2" class="slide level2"><h2>Application</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="fig/tbl2alt.png" class="quarto-figure quarto-figure-center" style="width:32.0%"></p>
+</figure>
+</div>
+</section><section id="application-3" class="slide level2"><h2>Application</h2>
+<p><br></p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img data-src="fig/fig1.png"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img data-src="fig/fig2.png"></p>
+</div>
+</div>
+</div>
+</section><section id="application-4" class="slide level2"><h2>Application</h2>
+<p><br></p>
+<p>The Projection of <span class="math inline">\(D_i\)</span> on <span class="math inline">\(X_i\)</span> (Earnings in 1974)</p>
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="fig/Dfit.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</section><section id="conclusion" class="slide level2"><h2>Conclusion</h2>
+<p><br></p>
+<ul>
+<li>This paper explores the role of least square estimands in causal inference</li>
+<li>OLS/PLR Identifies WADE(WATE) with continuous(binary) treatment and is optimally efficient</li>
+<li>The weights convey different causal interpretations under model- and design-based specifications</li>
+</ul>
+<p><br></p>
+<p>Final notes:</p>
+<ul>
+<li>I study the case of single treatment. Negative weights arise in the case of multiple treatments even under design-based specification <span class="citation" data-cites="goldsmith2022contamination">(<a href="#/references" role="doc-biblioref" onclick="">Goldsmith-Pinkham, Hull, and Kolesár 2022</a>)</span>
+</li>
+<li>Heterogeneity in treatment effects is a key component in the result
+<ul>
+<li>Deviation from identifying the ATE is essentially due to model misspecification</li>
+<li>If treatment effect is homogeneous, least squares estimands are correctly specified and identify the ATE</li>
+</ul>
 </li>
 </ul></section><section id="references" class="slide level2 smaller scrollable" data-visibility="uncounted"><h2>References</h2>
 <div class="quarto-auto-generated-content">
@@ -771,6 +1113,9 @@ Angrist. 1998. <span>“Estimating the <span>Labor</span> <span>Market</span> <s
 </div>
 <div id="ref-angrist1996identification" class="csl-entry" role="listitem">
 Angrist, Joshua D, Guido W Imbens, and Donald B Rubin. 1996. <span>“Identification of Causal Effects Using Instrumental Variables.”</span> <em>Journal of the American Statistical Association</em> 91 (434): 444–55.
+</div>
+<div id="ref-angrist2009mostly" class="csl-entry" role="listitem">
+Angrist, and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics: An Empiricist’s Companion</em>. Princeton university press.
 </div>
 <div id="ref-aronow2016does" class="csl-entry" role="listitem">
 Aronow, Peter M, and Cyrus Samii. 2016. <span>“Does Regression Produce Representative Estimates of Causal Effects?”</span> <em>American Journal of Political Science</em> 60 (1): 250–67.
@@ -811,8 +1156,14 @@ Härdle, Wolfgang, and Thomas M Stoker. 1989. <span>“Investigating Smooth Mult
 <div id="ref-imbens1994identification" class="csl-entry" role="listitem">
 Imbens, Guido W, and Joshua D Angrist. 1994. <span>“Identification and Estimation of Local Average Treatment Effects.”</span> <em>Econometrica</em> 62 (2): 467–75.
 </div>
+<div id="ref-kennedy2020sharp" class="csl-entry" role="listitem">
+Kennedy, Edward H, Sivaraman Balakrishnan, and Max G’sell. 2020. <span>“Sharp Instruments for Classifying Compliers and Generalizing Causal Effects.”</span>
+</div>
 <div id="ref-kline2011oaxaca" class="csl-entry" role="listitem">
 Kline, Patrick. 2011. <span>“Oaxaca-Blinder as a Reweighting Estimator.”</span> <em>American Economic Review</em> 101 (3): 532–37.
+</div>
+<div id="ref-lalonde1986evaluating" class="csl-entry" role="listitem">
+LaLonde, Robert J. 1986. <span>“Evaluating the Econometric Evaluations of Training Programs with Experimental Data.”</span> <em>The American Economic Review</em>, 604–20.
 </div>
 <div id="ref-li2018balancing" class="csl-entry" role="listitem">
 Li, Fan, Kari Lock Morgan, and Alan M Zaslavsky. 2018. <span>“Balancing Covariates via Propensity Score Weighting.”</span> <em>Journal of the American Statistical Association</em> 113 (521): 390–400.
@@ -840,6 +1191,9 @@ Small, Dylan S, Zhiqiang Tan, Roland R Ramsahai, Scott A Lorch, and M Alan Brook
 </div>
 <div id="ref-sun2021estimating" class="csl-entry" role="listitem">
 Sun, Liyang, and Sarah Abraham. 2021. <span>“Estimating Dynamic Treatment Effects in Event Studies with Heterogeneous Treatment Effects.”</span> <em>Journal of Econometrics</em> 225 (2): 175–99.
+</div>
+<div id="ref-van1998functional" class="csl-entry" role="listitem">
+Van der Vaart, AW. 1998. <span>“Functional Delta Method.”</span> <em>Asymptotic Statistics</em>, 291–303.
 </div>
 </div>
 </section>
