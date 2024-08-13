@@ -409,9 +409,10 @@ proof of IPW.
 
 <br>
 
-Further follow @small2017instrumental, assume
+Assume a slightly weaker version of stochastic monotonicity than @small2017instrumental
 
 ::: callout-warning
+
 ## Assumption 3 (Stochastic First-Stage Monotonicity)
 
 $$
