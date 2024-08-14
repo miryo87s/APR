@@ -221,8 +221,6 @@ by some features $X_i$. $\tau_i$ is intention-to-treat effect.
 
 ## OLS Model-Based Weight
 
-<br>
-
 -   Under either specification, $\mathbb{E}[\tilde{D}_iY_i(0)] = 0$ by
     mean-independence
 
