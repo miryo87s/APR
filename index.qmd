@@ -79,7 +79,7 @@ Design-Based Specification</h1>
     Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
     $$ {#eq-ols} for outcome $Y_i$, single treatment $D_i$, and
     covariates $X_i$.
--   @borusyak2024negative show that $\tau$ identifies weighted average
+-   @borusyak2024negative show that $\tau_{ols}$ identifies weighted average
     of treatment effects
     -   Negative weights generally exist if the specification is
         [model-based]{.blue}, <br> i.e. @eq-ols leverages a correct
