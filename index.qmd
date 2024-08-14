@@ -484,7 +484,7 @@ topic
 
 @callaway2024difference & @borusyak2024negative:
 
--   Restrict treatment value $D_i \neq 0$
+-   Restrict treatment value $D_i \geqslant 0$
 -   Define causal effect as average causal derivative
     $\partial\mathbb{E}[Y_i(d)]/\partial d$ or the direct derivative
     $\partial Y_i(d)/ \partial d$
