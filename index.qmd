@@ -4,7 +4,7 @@ format:
     theme: ["theme/q-theme.scss"]
     slide-number: c/t
     logo: "unsw-long.png"
-    footer: "PhD Seminar"
+    footer: "MEG Conference"
     code-copy: true
     center-title-slide: false
     include-in-header: heading-meta.html
@@ -841,17 +841,21 @@ $o_P(n^{-1/2})$.
 
 <br>
 
-The Projection of $D_i$ on $X_i$ (Earnings in 1974)
+Linear model-based specification can be less strict than linear design-based specification
 
-![](fig/Dfit.png){fig-align="center"}
+::: {style="text-align: center;"}
+
+![The Projection of $D_i$ on $X_i$ (Earnings in 1974)](fig/Dfit.png){fig-align="center"}
+
+:::
 
 ## Conclusion
 
 <br>
 
 -   This paper explores the role of least square estimands in causal inference
+-   Negative weights are not necessarily a concern with model-based specifications
 -   OLS/PLR Identifies WADE(WATE) with continuous(binary) treatment and is optimally efficient
--   The weights convey different causal interpretations under model- and design-based specifications
 
 <br>
 
