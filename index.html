@@ -374,7 +374,7 @@ PhD Seminar
 Fangzhou Yu
 </h3>
 <h3>
-2024-08-14
+2024-11-02
 </h3>
 <p><br></p>
 <p><img data-src="unsw.png" class="absolute" style="top: 550px; left: 1400px; width: 400px; "></p>
@@ -497,26 +497,47 @@ Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
 \tag{2}\]</span></span></p>
 </section><section id="ols-with-binary-treatment-1" class="slide level2"><h2>OLS with Binary Treatment</h2>
 <p><br></p>
-<p>Model-based specification:</p>
+<p><strong>Model-based specification:</strong></p>
 <p><span id="eq-model"><span class="math display">\[
 \mathbb{E}[Y_i(0)|D_i, X_i] = X_i\eta.
 \tag{3}\]</span></span></p>
 <p><strong>Example:</strong> parallel trend assumptions. <span class="math inline">\(X_i\)</span> includes time and unit dummies with <span class="math inline">\(i\)</span> indexing a pair of time and unit.</p>
 <p><br></p>
-<p>Design-based specification:</p>
+<p><strong>Design-based specification:</strong></p>
 <p><span id="eq-design"><span class="math display">\[
 \mathbb{E}[D_i|Y_i(0), Y_i(1), X_i] = X_i\gamma.
 \tag{4}\]</span></span></p>
 <p><strong>Example:</strong> <span class="math inline">\(D_i\)</span> is the eligibility for a program which is determined by some features <span class="math inline">\(X_i\)</span>. <span class="math inline">\(\tau_i\)</span> is intention-to-treat effect.</p>
 <p><br></p>
 <ul>
+<li>Same as <span class="citation" data-cites="borusyak2024negative">Borusyak and Hull (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span>
+</li>
 <li>Both can be seen as a combination of <strong>conditional mean-independence and linearity</strong>
 </li>
 <li>Both are weaker than what is usually assumed in empirical research</li>
-</ul></section><section id="ols-model-based-weight" class="slide level2"><h2>OLS Model-Based Weight</h2>
+</ul></section><section id="ols-design-based-weight" class="slide level2"><h2>OLS Design-Based Weight</h2>
 <ul>
 <li>Under either specification, <span class="math inline">\(\mathbb{E}[\tilde{D}_iY_i(0)] = 0\)</span> by mean-independence</li>
 </ul>
+<p><br></p>
+<ul>
+<li>Under design-based specification</li>
+<li>By the law of total expectation,</li>
+</ul>
+<p><span class="math display">\[
+\mathbb{E}[\tau_i\tilde{D}_iD_i] = \mathbb{E}[\mathbb{E}[\tilde{D}_iD_i|Y_i(0), Y_i(1), X_i]\tau_i]
+\]</span></p>
+<ul>
+<li>Therefore, we have</li>
+</ul>
+<p><span class="math display">\[
+\tau_{ols} = \frac{\mathbb{E}[\omega_i\tau_i]}{\mathbb{E}[\omega_i]}, \quad \omega_i = Var(D_i | Y_i(0), Y_i(1), X_i)
+\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(\omega_i\)</span> is guaranteed to be convex because <span class="math inline">\(Var(D_i | Y_i(0), Y_i(1), X_i) \geqslant 0\)</span>
+</li>
+</ul></section><section id="ols-model-based-weight" class="slide level2"><h2>OLS Model-Based Weight</h2>
 <p><br></p>
 <ul>
 <li>Under model-based specification, <span class="math display">\[
@@ -535,26 +556,8 @@ Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
 <li>But <span class="citation" data-cites="borusyak2024negative">Borusyak and Hull (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span> overstated the concern
 <ul>
 <li>“… (model-based) weighting scheme is not convex. This is because <span class="math inline">\(\tilde{D}_i\)</span> necessarily takes on both positive and negative values, since <span class="math inline">\(\mathbb{E}[\tilde{D}_i] = 0\)</span>”</li>
+<li>In practice, can be even less concerning than design-based (will show in application)</li>
 </ul>
-</li>
-</ul></section><section id="ols-design-based-weight" class="slide level2"><h2>OLS Design-Based Weight</h2>
-<p><br></p>
-<ul>
-<li>Under design-based specification</li>
-<li>By the law of total expectation,</li>
-</ul>
-<p><span class="math display">\[
-\mathbb{E}[\tau_i\tilde{D}_iD_i] = \mathbb{E}[\mathbb{E}[\tilde{D}_iD_i|Y_i(0), Y_i(1), X_i]\tau_i]
-\]</span></p>
-<ul>
-<li>Therefore, we have</li>
-</ul>
-<p><span class="math display">\[
-\tau_{ols} = \frac{\mathbb{E}[\omega_i\tau_i]}{\mathbb{E}[\omega_i]}, \quad \omega_i = Var(D_i | Y_i(0), Y_i(1), X_i)
-\]</span></p>
-<ul>
-<li>
-<span class="math inline">\(\omega_i\)</span> is guaranteed to be convex because <span class="math inline">\(Var(D_i | Y_i(0), Y_i(1), X_i) \geqslant 0\)</span>
 </li>
 </ul></section><section id="special-model-based-assumptions" class="slide level2"><h2>Special Model-Based Assumptions</h2>
 <p>Special cases where model-based assumptions can guarantee convex weights</p>
@@ -734,7 +737,7 @@ Pr(D_i = 1 | Y_i(0), Y_i(1), Z_i = 1, X_i = x) \geqslant Pr(D_i = 1 | Y_i(0), Y_
 <li>There are special cases where negative weights are no concern</li>
 </ul>
 <p><br></p>
-<p>Next, extend to partially linear regression with continuous treatment</p>
+<p>Next, extend to <strong>partially linear regression with continuous treatment</strong></p>
 </section><section id="set-up" class="slide level2"><h2>Set Up</h2>
 <p><br></p>
 <ul>
@@ -771,7 +774,7 @@ Y_i = \tau_{ls}D_i + g(X_i) + \epsilon_i.
 </ul>
 <p>I follow <span class="citation" data-cites="rothenhausler2019incremental">Rothenhäusler and Yu (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span>:</p>
 <ul>
-<li>First define incremental effect:</li>
+<li>First consider incremental effect by <span class="citation" data-cites="kennedy2019nonparametric">Kennedy (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span>:</li>
 </ul>
 <p><span class="math display">\[
 \tau^\nu = \frac{\mathbb{E}[Y_i(d + \nu)] - \mathbb{E}[Y_i(d)]}{\nu}
@@ -808,10 +811,7 @@ Y_i = \tau_{ls}D_i + g(X_i) + \epsilon_i.
 <p><span class="math display">\[
 \mathcal{A} = \{\alpha \in \mathcal{H} | \mathbb{E}[\alpha(D_i, X_i)D_i] = 1, \mathbb{E}[\alpha(D_i, X_i) | X_i] = 0\}.
 \]</span></p>
-<ul>
-<li>First condition ensures normalized weight</li>
-<li>Second is the property of Riesz Representer</li>
-</ul></section><section id="plr-with-continuous-treatment" class="slide level2"><h2>PLR with Continuous Treatment</h2>
+</section><section id="plr-with-continuous-treatment" class="slide level2"><h2>PLR with Continuous Treatment</h2>
 <p><br></p>
 <div class="callout callout-warning no-icon callout-titled callout-style-simple">
 <div class="callout-body">
@@ -971,15 +971,15 @@ w(d, z) = \frac{-1}{f(d|x)}\int_{\underline{d}}^{\bar{d}}\alpha_w(d^*, x)\mathbb
 </div>
 <div class="callout-content">
 <p>Assume that the following conditions hold:</p>
-<ol type="a">
+<ol type="i">
 <li>
 <span class="math inline">\(\Vert e - \hat{e} \Vert = o_P(n^{-a/4})\)</span> and <span class="math inline">\(\Vert \rho - \hat{\rho} \Vert = o_P(n^{-b/4})\)</span> where <span class="math inline">\(a \geqslant 1, \ b\geqslant 0\)</span> and <span class="math inline">\(a + b \geqslant 2\)</span>.</li>
 <li>
 <span class="math inline">\(n^{-1}\sum_{i = 1}^n(D_i - \hat{e}(X_i)) &gt; 0\)</span> and <span class="math inline">\(\mathbb{E}[D_i - e(X_i)] &gt; 0\)</span>.</li>
 <li>There exists a constant <span class="math inline">\(0 &lt; C &lt; \infty\)</span> such that <span class="math inline">\(Var(D_i | X_i) &lt; C\)</span> and <span class="math inline">\(Var(Y_i | X_i) &lt; C\)</span>.</li>
 </ol>
-<p>And assume that at least one of <span class="math inline">\(d\)</span> or <span class="math inline">\(e\)</span> holds:</p>
-<ol start="4" type="a">
+<p>And assume that at least one of iv or v holds:</p>
+<ol start="4" type="i">
 <li>(Donsker condition) The quantities <span class="math inline">\((D_i - \hat{e}(X_i))(Y_i - \hat\rho(X_i))\)</span> and <span class="math inline">\((D_i - \hat{e}(X_i))^2\)</span> fall within a P-Donsker class with probability approaching <span class="math inline">\(1\)</span>.</li>
 <li>(Cross-fitting) The sample used to estimate <span class="math inline">\(\hat{e}(x)\)</span> and <span class="math inline">\(\hat{\rho}(x)\)</span> is independent of the sample used to construct <span class="math inline">\(\hat\tau_{ls}\)</span>.</li>
 </ol>
@@ -1027,8 +1027,8 @@ R_n &amp;= \gamma(\hat{P}) - \gamma(P) + P[\hat\phi_\gamma(W_i; \hat{P})].
 </ul>
 <table>
 <colgroup>
-<col style="width: 25%">
-<col style="width: 75%">
+<col style="width: 22%">
+<col style="width: 77%">
 </colgroup>
 <thead><tr class="header">
 <th></th>
@@ -1154,6 +1154,9 @@ Härdle, Wolfgang, and Thomas M Stoker. 1989. <span>“Investigating Smooth Mult
 </div>
 <div id="ref-imbens1994identification" class="csl-entry" role="listitem">
 Imbens, Guido W, and Joshua D Angrist. 1994. <span>“Identification and Estimation of Local Average Treatment Effects.”</span> <em>Econometrica</em> 62 (2): 467–75.
+</div>
+<div id="ref-kennedy2019nonparametric" class="csl-entry" role="listitem">
+Kennedy, Edward H. 2019. <span>“Nonparametric Causal Effects Based on Incremental Propensity Score Interventions.”</span> <em>Journal of the American Statistical Association</em> 114 (526): 645–56.
 </div>
 <div id="ref-kennedy2020sharp" class="csl-entry" role="listitem">
 Kennedy, Edward H, Sivaraman Balakrishnan, and Max G’sell. 2020. <span>“Sharp Instruments for Classifying Compliers and Generalizing Causal Effects.”</span>

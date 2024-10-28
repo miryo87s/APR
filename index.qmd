@@ -45,7 +45,7 @@ Design-Based Specification</h1>
 
 <h3>Fangzhou Yu</h3>
 
-<h3>2024-08-14</h3>
+<h3>2024-11-02</h3>
 
 <br>
 
@@ -193,7 +193,7 @@ $$ {#eq-tau}
 
 <br>
 
-Model-based specification:
+**Model-based specification:**
 
 $$
 \mathbb{E}[Y_i(0)|D_i, X_i] = X_i\eta.
@@ -204,41 +204,25 @@ dummies with $i$ indexing a pair of time and unit.
 
 <br>
 
-Design-based specification:
+**Design-based specification:**
 
 $$
 \mathbb{E}[D_i|Y_i(0), Y_i(1), X_i] = X_i\gamma.
 $$ {#eq-design}
 
-**Example:** $D_i$ is the eligibility for a program which is determined
-by some features $X_i$. $\tau_i$ is intention-to-treat effect.
+**Example:** $D_i$ is the eligibility for a program which is determined by some features $X_i$. $\tau_i$ is intention-to-treat effect.
 
 <br>
 
+-   Same as @borusyak2024negative
 -   Both can be seen as a combination of **conditional mean-independence
     and linearity**
 -   Both are weaker than what is usually assumed in empirical research
 
-## OLS Model-Based Weight
+## OLS Design-Based Weight
 
 -   Under either specification, $\mathbb{E}[\tilde{D}_iY_i(0)] = 0$ by
     mean-independence
-
-<br>
-
--   Under model-based specification, $$
-    \tau_{ols} = \frac{\mathbb{E}[\lambda_i\tau_i]}{\mathbb{E}[\lambda_i]}, \quad \lambda_i = \tilde{D}_i D_i
-    $$
--   $\lambda_i = 0$ when $D_i = 0$, so $\tau_{ols}$ is **weighted ATT**
--   $\lambda_i = 0$ cannot preclude negative values
-    -   Negative when $D_i = 1$ and $\tilde{D}_i < 0$, i.e. the
-        projection of $D_i$ on $X_i$ exceeds unit value
--   But @borusyak2024negative overstated the concern
-    -   "... (model-based) weighting scheme is not convex. This is
-        because $\tilde{D}_i$ necessarily takes on both positive and
-        negative values, since $\mathbb{E}[\tilde{D}_i] = 0$"
-
-## OLS Design-Based Weight
 
 <br>
 
@@ -257,6 +241,23 @@ $$
 
 -   $\omega_i$ is guaranteed to be convex because
     $Var(D_i | Y_i(0), Y_i(1), X_i) \geqslant 0$
+    
+## OLS Model-Based Weight
+
+<br>
+
+-   Under model-based specification, $$
+    \tau_{ols} = \frac{\mathbb{E}[\lambda_i\tau_i]}{\mathbb{E}[\lambda_i]}, \quad \lambda_i = \tilde{D}_i D_i
+    $$
+-   $\lambda_i = 0$ when $D_i = 0$, so $\tau_{ols}$ is **weighted ATT**
+-   $\lambda_i = 0$ cannot preclude negative values
+    -   Negative when $D_i = 1$ and $\tilde{D}_i < 0$, i.e. the
+        projection of $D_i$ on $X_i$ exceeds unit value
+-   But @borusyak2024negative overstated the concern
+    -   "... (model-based) weighting scheme is not convex. This is
+        because $\tilde{D}_i$ necessarily takes on both positive and
+        negative values, since $\mathbb{E}[\tilde{D}_i] = 0$"
+    -   In practice, can be even less concerning than design-based (will show in application)
 
 ## Special Model-Based Assumptions
 
@@ -448,7 +449,7 @@ Model-based specification:
 
 <br>
 
-Next, extend to partially linear regression with continuous treatment
+Next, extend to **partially linear regression with continuous treatment**
 
 ## Set Up
 
@@ -492,7 +493,7 @@ topic
 
 I follow @rothenhausler2019incremental:
 
--   First define incremental effect:
+-   First consider incremental effect by @kennedy2019nonparametric:
 
 $$
 \tau^\nu = \frac{\mathbb{E}[Y_i(d + \nu)] - \mathbb{E}[Y_i(d)]}{\nu}
@@ -537,9 +538,6 @@ hence $\mathbb{E}[\alpha_w(D_i, X_i)Y_i]$
 $$
 \mathcal{A} = \{\alpha \in \mathcal{H} | \mathbb{E}[\alpha(D_i, X_i)D_i] = 1, \mathbb{E}[\alpha(D_i, X_i) | X_i] = 0\}.
 $$
-
--   First condition ensures normalized weight
--   Second is the property of Riesz Representer
 
 ## PLR with Continuous Treatment
 
@@ -737,21 +735,21 @@ $$
 
 Assume that the following conditions hold:
 
-a.  $\Vert e - \hat{e} \Vert = o_P(n^{-a/4})$ and
+i.  $\Vert e - \hat{e} \Vert = o_P(n^{-a/4})$ and
     $\Vert \rho - \hat{\rho} \Vert = o_P(n^{-b/4})$ where
     $a \geqslant 1, \ b\geqslant 0$ and $a + b \geqslant 2$.
-b.  $n^{-1}\sum_{i = 1}^n(D_i - \hat{e}(X_i)) > 0$ and
+ii.  $n^{-1}\sum_{i = 1}^n(D_i - \hat{e}(X_i)) > 0$ and
     $\mathbb{E}[D_i - e(X_i)] > 0$.
-c.  There exists a constant $0 < C < \infty$ such that
+iii.  There exists a constant $0 < C < \infty$ such that
     $Var(D_i | X_i) < C$ and $Var(Y_i | X_i) < C$.
 
-And assume that at least one of $d$ or $e$ holds:
+And assume that at least one of iv or v holds:
 
-d.  (Donsker condition) The quantities
+iv.  (Donsker condition) The quantities
     $(D_i - \hat{e}(X_i))(Y_i - \hat\rho(X_i))$ and
     $(D_i - \hat{e}(X_i))^2$ fall within a P-Donsker class with
     probability approaching $1$.
-e.  (Cross-fitting) The sample used to estimate $\hat{e}(x)$ and
+v.  (Cross-fitting) The sample used to estimate $\hat{e}(x)$ and
     $\hat{\rho}(x)$ is independent of the sample used to construct
     $\hat\tau_{ls}$.
 
@@ -818,7 +816,7 @@ $o_P(n^{-1/2})$.
 -   Compare various estimators
 
 |                          | Estimators                                                                                |
-|------------------|------------------------------------------------------|
+|--------------------------|-------------------------------------------------------------------------------------------|
 | $\hat\tau_{ols}$         | OLS estimator                                                                             |
 | $\hat\tau_{ls, logit}$   | Design-based PLR estimator, regress $Y_i$ on $D_i$ and logistic estimator $\hat{e}(X_i)$  |
 | $\hat\tau_{ipw}$         | Hajek-type IPW estimator of ATE                                                           |
