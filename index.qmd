@@ -823,19 +823,17 @@ $o_P(n^{-1/2})$.
 | $\hat\tau_{ls, cf}$      | PLR estimator with $\hat{e}$ and $\hat\rho$ estimated by random forest with cross-fitting |
 | $\hat\tau_{ls, donsker}$ | Same as above but without cross-fitting                                                   |
 
+##
+
+![](fig/tbl2alt.png){fig-align="center" width="35%"}
+
 ## Application
 
-![](fig/tbl2alt.png){fig-align="center" width="32%"}
+![](fig/fig1.png){fig-align="center" width="75%"}
 
 ## Application
 
-<br>
-
-::: {layout-ncol="2"}
-![](fig/fig1.png)
-
-![](fig/fig2.png)
-:::
+![](fig/fig2.png){fig-align="center" width="75%"}
 
 ## Application
 
