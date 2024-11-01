@@ -653,7 +653,7 @@ Theorem 1 can be obtained by letting
 $w(x) = \mathbb{E}[\alpha_w(D_i, X_i)D_i | X_i = x]$ and
 $\mathbb{E}[w(X_i)(\mu(1, X_i) - \mu(0, X_i)]$ be the WATE
 
-## Design-Based LS is Optimally Efficient
+## LS is Optimally Efficient
 
 <br>
 
