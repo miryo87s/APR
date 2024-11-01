@@ -251,7 +251,7 @@ $$
 -   $\lambda_i = 0$ when $D_i = 0$, so $\tau_{ols}$ is **weighted ATT**
 -   $\lambda_i$ cannot preclude negative values
     -   Negative when $D_i = 1$ and $\tilde{D}_i < 0$, i.e. the
-        projection of $D_i$ on $X_i$ exceeds unit value
+        projection of $D_i$ on $X_i$ exceeds 1
 -   But @borusyak2024negative overstated the concern
     -   "... (model-based) weighting scheme is not convex. This is
         because $\tilde{D}_i$ necessarily takes on both positive and
