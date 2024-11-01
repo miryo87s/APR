@@ -461,7 +461,7 @@ Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
 <ul>
 <li>Design-based OLS is shown to be equivalent to overlap-weighted IPW</li>
 </ul></section><section id="more-connection-to-literature-continuous-treatment" class="slide level2"><h2>More Connection to Literature: Continuous Treatment</h2>
-<p><span class="blue">Identification of continuous treatment</span> <br><span style="font-size: 70%"> <span class="citation" data-cites="rothenhausler2019incremental">Rothenhäusler and Yu (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span>; <span class="citation" data-cites="callaway2024difference">Callaway, Goodman-Bacon, and Sant’Anna (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span>; <span class="citation" data-cites="borusyak2024negative">Borusyak and Hull (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span> <span></span></span></p>
+<p><span class="blue">Identification of continuous treatment</span> <br><span style="font-size: 70%"> <span class="citation" data-cites="rothenhausler2019incremental">Rothenhäusler and Yu (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span>;<span class="citation" data-cites="d2023nonparametric">D’Haultfœuille, Hoderlein, and Sasaki (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span>; <span class="citation" data-cites="callaway2024difference">Callaway, Goodman-Bacon, and Sant’Anna (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span>; <span class="citation" data-cites="borusyak2024negative">Borusyak and Hull (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span> <span></span></span></p>
 <ul>
 <li>I show continuous treatment generally identifies derivative effects introduced by <span class="citation" data-cites="rothenhausler2019incremental">Rothenhäusler and Yu (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span>
 </li>
@@ -548,7 +548,7 @@ Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
 <span class="math inline">\(\lambda_i = 0\)</span> when <span class="math inline">\(D_i = 0\)</span>, so <span class="math inline">\(\tau_{ols}\)</span> is <strong>weighted ATT</strong>
 </li>
 <li>
-<span class="math inline">\(\lambda_i = 0\)</span> cannot preclude negative values
+<span class="math inline">\(\lambda_i\)</span> cannot preclude negative values
 <ul>
 <li>Negative when <span class="math inline">\(D_i = 1\)</span> and <span class="math inline">\(\tilde{D}_i &lt; 0\)</span>, i.e.&nbsp;the projection of <span class="math inline">\(D_i\)</span> on <span class="math inline">\(X_i\)</span> exceeds unit value</li>
 </ul>
@@ -1129,6 +1129,9 @@ Chernozhukov, Victor, Denis Chetverikov, Mert Demirer, Esther Duflo, Christian H
 </div>
 <div id="ref-crump2006moving" class="csl-entry" role="listitem">
 Crump, Richard K, V Joseph Hotz, Guido Imbens, and Oscar Mitnik. 2006. <span>“Moving the Goalposts: Addressing Limited Overlap in the Estimation of Average Treatment Effects by Changing the Estimand.”</span> National Bureau of Economic Research Cambridge, Mass., USA.
+</div>
+<div id="ref-d2023nonparametric" class="csl-entry" role="listitem">
+D’Haultfœuille, Xavier, Stefan Hoderlein, and Yuya Sasaki. 2023. <span>“Nonparametric Difference-in-Differences in Repeated Cross-Sections with Continuous Treatments.”</span> <em>Journal of Econometrics</em> 234 (2): 664–90.
 </div>
 <div id="ref-de2020two" class="csl-entry" role="listitem">
 De Chaisemartin, Clément, and Xavier d’Haultfoeuille. 2020. <span>“Two-Way Fixed Effects Estimators with Heterogeneous Treatment Effects.”</span> <em>American Economic Review</em> 110 (9): 2964–96.

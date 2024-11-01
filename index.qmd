@@ -149,8 +149,7 @@ treatment/instrument]{.blue} <br> <span style="font-size: 70%"> e.g.
 ## More Connection to Literature: Continuous Treatment
 
 [Identification of continuous treatment]{.blue} <br>
-<span style="font-size: 70%"> @rothenhausler2019incremental;
-@callaway2024difference; @borusyak2024negative <span>
+<span style="font-size: 70%"> @rothenhausler2019incremental;@d2023nonparametric; @callaway2024difference; @borusyak2024negative <span>
 
 -   I show continuous treatment generally identifies derivative effects
     introduced by @rothenhausler2019incremental
@@ -250,7 +249,7 @@ $$
     \tau_{ols} = \frac{\mathbb{E}[\lambda_i\tau_i]}{\mathbb{E}[\lambda_i]}, \quad \lambda_i = \tilde{D}_i D_i
     $$
 -   $\lambda_i = 0$ when $D_i = 0$, so $\tau_{ols}$ is **weighted ATT**
--   $\lambda_i = 0$ cannot preclude negative values
+-   $\lambda_i$ cannot preclude negative values
     -   Negative when $D_i = 1$ and $\tilde{D}_i < 0$, i.e. the
         projection of $D_i$ on $X_i$ exceeds unit value
 -   But @borusyak2024negative overstated the concern
