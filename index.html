@@ -536,7 +536,75 @@ Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
 <li>
 <span class="math inline">\(\omega_i\)</span> is guaranteed to be convex because <span class="math inline">\(Var(D_i | Y_i(0), Y_i(1), X_i) \geqslant 0\)</span>
 </li>
-</ul></section><section id="ols-model-based-weight" class="slide level2"><h2>OLS Model-Based Weight</h2>
+</ul></section><section id="stronger-design-based-assumption" class="slide level2"><h2>Stronger Design-Based Assumption</h2>
+<p>Stronger design-based assumption is not necessary for convex weights, but can connect between OLS and IPW</p>
+<p><br></p>
+<div class="callout callout-warning no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Assumption 1 (Linear Propensity)</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[
+e(x) = \mathbb{E}[D_i | X_i = x] = X_i\delta
+\]</span> where <span class="math inline">\(e(x)\)</span> is the propensity score of treatment.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-warning no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Assumption 2 (Unconfoundedness and Overlap)</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>Unconfoundedness: <span class="math inline">\(D_i \perp (Y_i(0), Y_i(1)) | X_i\)</span> .</li>
+<li>Overlap: <span class="math inline">\(\exists \ \xi &gt; 0, \ \text{s.t.} \ \xi \leqslant e(x) \leqslant 1 - \xi\)</span> .</li>
+</ol>
+</div>
+</div>
+</div>
+</section><section id="stronger-design-based-assumption-1" class="slide level2"><h2>Stronger Design-Based Assumption</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby">
+<li><a data-tabby-default="" href="#tabset-1-1">Proposition</a></li>
+<li><a href="#tabset-1-2">Proof</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div id="prp-wipw">
+<div id="prp-wipw" class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Proposition 1 (Equivalence of OLS Estimand and Overlap Weighted IPW)</strong></p>
+</div>
+<div class="callout-content">
+<p>Under Assumption 1 <span class="math display">\[
+\tau_{ols} = \tau_{overlap}
+\]</span> where <span class="math inline">\(\tau_{overlap}\)</span> is the estimand of overlap-weighted IPW <span class="math display">\[
+\tau_{overlap} = \mathbb{E}\left[\frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[e(X_i)(1 - e(X_i))]} \cdot \left(\frac{Y_iD_i}{e(X_i)} - \frac{Y_i(1 - D_i)}{1 - e(X_i)}\right)\right] .
+\]</span></p>
+<p>Assumption 2 further yields the identification of overlap-weighted ATE (<span class="citation" data-cites="li2018balancing">Li, Morgan, and Zaslavsky (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span>): <span class="math display">\[
+\tau_{ols} = \mathbb{E}\left[\frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[e(X_i)(1 - e(X_i))]} \cdot \tau_i\right] .
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2">
+<p>By the projection or the Frisch-Waugh-Lovell theorem, we have <span class="math display">\[
+\tau_{ols} = \frac{\mathbb{E}[Y_i\tilde{D}_i]}{\mathbb{E}[\tilde{D}_i^2]}
+\]</span> where <span class="math inline">\(\tilde{D}_i = D_i - X_i\beta_e\)</span> with <span class="math inline">\(\beta_e = \mathbb{E}[X'X]^{-1}\mathbb{E}[X'D]\)</span>. Then we have <span class="math display">\[\begin{aligned}
+\tau_{ols} &amp;= \frac{\mathbb{E}[Y_i(D_i - e(X_i))]}{\mathbb{E}[(D_i - e(X_i))^2]} \\
+&amp;= \frac{\mathbb{E}[Y_i(D_i - e(X_i))]}{\mathbb{E}[e(X_i)(1 - e(X_i))]} \\
+&amp;= \mathbb{E}\left[\frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[e(X_i)(1 - e(X_i))]} \frac{Y_i(D_i - e(X_i))}{e(X_i)(1 - e(X_i))}\right]  = \tau_{overlap}
+\end{aligned}\]</span></p>
+<p>Identification of <span class="math inline">\(\tau_{overlap}\)</span> under Assumption 2 follows standard proof of IPW.</p>
+</div>
+</div>
+</div>
+</section><section id="ols-model-based-weight" class="slide level2"><h2>OLS Model-Based Weight</h2>
 <p><br></p>
 <ul>
 <li>Under model-based specification, <span class="math display">\[
@@ -560,12 +628,15 @@ Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
 </ul></section><section id="ols-model-based-weight-1" class="slide level2"><h2>OLS Model-Based Weight</h2>
 <p><br></p>
 <ul>
-<li>A suﬀicient and necessary condition for convex weights is having all fitted values of <span class="math inline">\(D_i\)</span> less than 1 (negative values allowed)</li>
+<li>In practice, model-based can be less concerning than design-based
+<ul>
+<li>A suﬀicient and necessary condition for convex weights is having all fitted values of <span class="math inline">\(D_i\)</span> less than 1 for treated units (negative values allowed)</li>
 <li>Less restrictive than design-based specification</li>
-<li>Thus, in practice, model-based can be less concerning than design-based</li>
 <li>Will show in application</li>
+</ul>
+</li>
+<li>There are special cases where negative weights are no concern</li>
 </ul></section><section id="special-model-based-assumptions" class="slide level2"><h2>Special Model-Based Assumptions</h2>
-<p>Special cases where model-based assumptions can guarantee convex weights</p>
 <p><br></p>
 <p><span class="blue">Special Case 1: Saturated <span class="math inline">\(X_i\)</span></span></p>
 <ul>
@@ -637,75 +708,7 @@ Y_{it} = \beta_i + \gamma_t + \tau_{twfe} D_{it} + \epsilon_{it}
 <span class="math inline">\(D_{it} = 1\)</span> for treated in post-period</li>
 <li>
 <span class="math inline">\(\lambda_{it} = (1-p)/2\)</span> for all treated in post-period and <span class="math inline">\(0\)</span> otherwise. Therefore, <span class="math inline">\(\tau_{twfe}\)</span> is ATT</li>
-</ul></section><section id="stronger-design-based-assumption" class="slide level2"><h2>Stronger Design-Based Assumption</h2>
-<p>Stronger design-based assumption is not necessary for convex weights, but can connect between OLS and IPW</p>
-<p><br></p>
-<div class="callout callout-warning no-icon callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Assumption 1 (Linear Propensity)</strong></p>
-</div>
-<div class="callout-content">
-<p><span class="math display">\[
-e(x) = \mathbb{E}[D_i | X_i = x] = X_i\delta
-\]</span> where <span class="math inline">\(e(x)\)</span> is the propensity score of treatment.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-warning no-icon callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Assumption 2 (Unconfoundedness and Overlap)</strong></p>
-</div>
-<div class="callout-content">
-<ol type="1">
-<li>Unconfoundedness: <span class="math inline">\(D_i \perp (Y_i(0), Y_i(1)) | X_i\)</span> .</li>
-<li>Overlap: <span class="math inline">\(\exists \ \xi &gt; 0, \ \text{s.t.} \ \xi \leqslant e(x) \leqslant 1 - \xi\)</span> .</li>
-</ol>
-</div>
-</div>
-</div>
-</section><section id="stronger-design-based-assumption-1" class="slide level2"><h2>Stronger Design-Based Assumption</h2>
-<div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby">
-<li><a data-tabby-default="" href="#tabset-1-1">Proposition</a></li>
-<li><a href="#tabset-1-2">Proof</a></li>
-</ul>
-<div class="tab-content">
-<div id="tabset-1-1">
-<div id="prp-wipw">
-<div id="prp-wipw" class="callout callout-note no-icon callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Proposition 1 (Equivalence of OLS Estimand and Overlap Weighted IPW)</strong></p>
-</div>
-<div class="callout-content">
-<p>Under Assumption 1 <span class="math display">\[
-\tau_{ols} = \tau_{overlap}
-\]</span> where <span class="math inline">\(\tau_{overlap}\)</span> is the estimand of overlap-weighted IPW <span class="math display">\[
-\tau_{overlap} = \mathbb{E}\left[\frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[e(X_i)(1 - e(X_i))]} \cdot \left(\frac{Y_iD_i}{e(X_i)} - \frac{Y_i(1 - D_i)}{1 - e(X_i)}\right)\right] .
-\]</span></p>
-<p>Assumption 2 further yields the identification of overlap-weighted ATE (<span class="citation" data-cites="li2018balancing">Li, Morgan, and Zaslavsky (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span>): <span class="math display">\[
-\tau_{ols} = \mathbb{E}\left[\frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[e(X_i)(1 - e(X_i))]} \cdot \tau_i\right] .
-\]</span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-1-2">
-<p>By the projection or the Frisch-Waugh-Lovell theorem, we have <span class="math display">\[
-\tau_{ols} = \frac{\mathbb{E}[Y_i\tilde{D}_i]}{\mathbb{E}[\tilde{D}_i^2]}
-\]</span> where <span class="math inline">\(\tilde{D}_i = D_i - X_i\beta_e\)</span> with <span class="math inline">\(\beta_e = \mathbb{E}[X'X]^{-1}\mathbb{E}[X'D]\)</span>. Then we have <span class="math display">\[\begin{aligned}
-\tau_{ols} &amp;= \frac{\mathbb{E}[Y_i(D_i - e(X_i))]}{\mathbb{E}[(D_i - e(X_i))^2]} \\
-&amp;= \frac{\mathbb{E}[Y_i(D_i - e(X_i))]}{\mathbb{E}[e(X_i)(1 - e(X_i))]} \\
-&amp;= \mathbb{E}\left[\frac{e(X_i)(1 - e(X_i))}{\mathbb{E}[e(X_i)(1 - e(X_i))]} \frac{Y_i(D_i - e(X_i))}{e(X_i)(1 - e(X_i))}\right]  = \tau_{overlap}
-\end{aligned}\]</span></p>
-<p>Identification of <span class="math inline">\(\tau_{overlap}\)</span> under Assumption 2 follows standard proof of IPW.</p>
-</div>
-</div>
-</div>
-</section><section id="extension-to-iv" class="slide level2"><h2>Extension to IV</h2>
+</ul></section><section id="extension-to-iv" class="slide level2"><h2>Extension to IV</h2>
 <p><br></p>
 <p>Assume a slightly weaker version of stochastic monotonicity than <span class="citation" data-cites="small2017instrumental">Small et al. (<a href="#/references" role="doc-biblioref" onclick="">2017</a>)</span></p>
 <div class="callout callout-warning no-icon callout-titled callout-style-simple">
