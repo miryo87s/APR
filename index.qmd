@@ -121,9 +121,7 @@ continuous treatment
     -   Continuous treatment identifies **weighted average derivative
         effects (WADE)**
     -   Weights depend on the marginal distribution of treatment
--   The weights of PLR is optimally efficient in the class of WADE when
-    outcome is homoskedastic
-    -   Under standard design-based assumption
+-   The weights of PLR is optimally efficient in the class of WADE when outcome is homoskedastic
     -   Encourage the use of PLR/OLS for estimating causal effect
 
 ## More Connection to Literature: Binary Treatment
@@ -256,7 +254,16 @@ $$
     -   "... (model-based) weighting scheme is not convex. This is
         because $\tilde{D}_i$ necessarily takes on both positive and
         negative values, since $\mathbb{E}[\tilde{D}_i] = 0$"
-    -   In practice, can be even less concerning than design-based (will show in application)
+    
+## OLS Model-Based Weight
+
+<br>
+
+-   A suﬀicient and necessary condition for convex weights
+is having all fitted values of $D_i$ less than 1 (negative values allowed)
+-   Less restrictive than design-based specification
+-   Thus, in practice, model-based can be less concerning than design-based
+-   Will show in application
 
 ## Special Model-Based Assumptions
 
@@ -278,7 +285,7 @@ $$
     control group for $d = 1, 0$ in stratum $s$
 
 $$
-\tau_{owfe} = \frac{\mathbb{E}[\lambda_{owfe, s}\tau_s]}{\mathbb{E}[\lambda_{owfe, s}]}, \quad \lambda_s = \frac{n_{1s}n_{0s}}{n_{1s} + n_{0s}}, \ \tau_s = \bar{Y}_{1s} - \bar{Y}_{0s}
+\tau_{owfe} = \frac{\mathbb{E}[\lambda_{owfe, s}\tau_s]}{\mathbb{E}[\lambda_{owfe, s}]}, \quad \lambda_{owfe, s} = \frac{n_{1s}n_{0s}}{n_{1s} + n_{0s}}, \ \tau_s = \bar{Y}_{1s} - \bar{Y}_{0s}
 $$
 
 ## Special Model-Based Assumptions
@@ -418,17 +425,17 @@ Pr(D_i = 1 | Y_i(0), Y_i(1), Z_i = 1, X_i = x) \geqslant Pr(D_i = 1 | Y_i(0), Y_
 $$
 :::
 
-Model-based specification: $\mathbb{E}[Y_i(0)|Z_i, X_i] = X_i\eta$
-
-$$
-\tau_{iv} = \frac{\mathbb{E}[\lambda_i\tau_i]}{\mathbb{E}[\lambda_i]}, \quad \text{where} \ \lambda_i = \tilde{Z_i}D_i. 
-$$
-
 Design-based specification:
 $\mathbb{E}[Z_i|Y_i(0), Y_i(1), X_i] = X_i\gamma$
 
 $$
 \tau_{iv} = \frac{\mathbb{E}[\omega_i\tau_i]}{\mathbb{E}[\omega_i]}, \quad \text{where} \ \omega_i = Cov(\tilde{Z}_i, Pr(D_i = 1 | Y_i(0), Y_i(1), Z_i, X_i)). 
+$$
+
+Model-based specification: $\mathbb{E}[Y_i(0)|Z_i, X_i] = X_i\eta$
+
+$$
+\tau_{iv} = \frac{\mathbb{E}[\lambda_i\tau_i]}{\mathbb{E}[\lambda_i]}, \quad \text{where} \ \lambda_i = \tilde{Z_i}D_i. 
 $$
 
 ## Summary of OLS with Binary Treatment
@@ -555,10 +562,10 @@ $$
 ::: callout-warning
 ## Assumption 5 (Design-Based Specification)
 
-Let $q(X_i) = \mathbb{E}[D_i |X_i]$.
+Let $e(X_i) = \mathbb{E}[D_i |X_i]$.
 
 $$
-\mathbb{E}[D_i | Y_i(d), X_i] = q(X_i) \ \text{for all} \ d, \ \text{and} \ q \in \mathcal{G}.
+\mathbb{E}[D_i | Y_i(d), X_i] = e(X_i) \ \text{for all} \ d, \ \text{and} \ e \in \mathcal{G}.
 $$
 :::
 
@@ -591,13 +598,14 @@ Either specification yields convex weight
 
 Sketch of proof:
 
-1.  Show $\mu'(D_i, X_i)$ identifies $\tau^0$ under either Assumption 4
-    or 5
+1.  Show $\mu'(D_i, X_i)$ identifies $\tau^0$ under either Assumption 4 or 5
 
 By conditional mean-independence of $Y_i(d)$ and $D_i$ 
 $$
 \mathbb{E}[Y_i(d + \nu) - Y_i(d) | D_i = d, X_i] = \mathbb{E}[Y_i(d + \nu) | D_i = d + \nu, X_i] - \mathbb{E}[Y_i(d) | D_i = d, X_i]
 $$ 
+Both sides divide by $d$ and take limit,
+
 $\text{LHS} = \mathbb{E}[Y_i'(d)|D_i = d, X_i]$, which equals
 $\tau^0$ by dominated convergence
 
@@ -662,7 +670,7 @@ is $\tau_{ls}$.
 -   Incorporates the efficiency result for binary treatment
     -   Theorem 5.4 in @crump2006moving; Theorem 2 in @li2018balancing
 
-## Design-Based LS is Optimally Efficient {.scrollable}
+## LS is Optimally Efficient {.scrollable}
 
 Sketch of proof:
 
