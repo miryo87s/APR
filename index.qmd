@@ -409,7 +409,7 @@ Identification of $\tau_{overlap}$ under Assumption 2 follows standard
 proof of IPW.
 :::
 
-## Extension to IV
+## Extension to Binary IV
 
 <br>
 
