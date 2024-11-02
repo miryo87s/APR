@@ -513,7 +513,7 @@ $$
 -   Will show $\mu'(D_i, X_i)$ identifies $\tau^0$ under model- and
     design-based specification
 $$
-\mathbb{E}[Y_i'(d)|D_i = d, X_i] = (\partial/\partial d) \mathbb{E}[Y_i | D_i = d, X_i].
+(\partial/\partial d) \mathbb{E}[Y_i | D_i = d, X_i] = \mathbb{E}[Y_i'(d)|D_i = d, X_i] 
 $$
 -   Target is to show $\tau_{ls}$ is WADE
     $\tau_{wade} = \mathbb{E}[w(D_i, X_i)\mu'(D_i, X_i)]$ for some
