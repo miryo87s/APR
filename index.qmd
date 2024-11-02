@@ -424,17 +424,17 @@ Pr(D_i = 1 | Y_i(0), Y_i(1), Z_i = 1, X_i = x) \geqslant Pr(D_i = 1 | Y_i(0), Y_
 $$
 :::
 
+Model-based specification: $\mathbb{E}[Y_i(0)|Z_i, X_i] = X_i\eta$
+
+$$
+\tau_{iv} = \frac{\mathbb{E}[\lambda_i\tau_i]}{\mathbb{E}[\lambda_i]}, \quad \text{where} \ \lambda_i = \tilde{Z_i}D_i. 
+$$
+
 Design-based specification:
 $\mathbb{E}[Z_i|Y_i(0), Y_i(1), X_i] = X_i\gamma$
 
 $$
 \tau_{iv} = \frac{\mathbb{E}[\omega_i\tau_i]}{\mathbb{E}[\omega_i]}, \quad \text{where} \ \omega_i = Cov(\tilde{Z}_i, Pr(D_i = 1 | Y_i(0), Y_i(1), Z_i, X_i)). 
-$$
-
-Model-based specification: $\mathbb{E}[Y_i(0)|Z_i, X_i] = X_i\eta$
-
-$$
-\tau_{iv} = \frac{\mathbb{E}[\lambda_i\tau_i]}{\mathbb{E}[\lambda_i]}, \quad \text{where} \ \lambda_i = \tilde{Z_i}D_i. 
 $$
 
 ## Summary of OLS with Binary Treatment
