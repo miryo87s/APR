@@ -458,8 +458,6 @@ Next, extend to **partially linear regression with continuous treatment**
 
 ## Set Up
 
-<br>
-
 -   Suppose we observe iid observations of $(Y_i, D_i, X_i)$ with
     unknown distribution $P$
 -   $Y_i \in \mathbb{R}$, $D_i \in \mathbb{R}$, $X_i \in \mathbb{R}^p$
@@ -523,8 +521,6 @@ $$
 -   The target $\tau_{wade}$ can be seen as a weighted index coefficient
 
 ## Set Up
-
-<br>
 
 **Riesz Representation Theorem:**
 
