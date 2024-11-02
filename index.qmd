@@ -241,7 +241,7 @@ $$ {#eq-design}
 -   In practice, model-based can be less restrictive than design-based
     -   A suﬀicient and necessary condition for convex weights
        is having all fitted values of $D_i$ less than 1 for treated units              (negative values allowed)
-    -   While esign-based specification requires all fitted values in $[0, 1]$
+    -   While design-based specification requires all fitted values in $[0, 1]$
     -   Will show in application
 -   There are special cases where negative weights are no concern
 
