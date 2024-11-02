@@ -220,6 +220,9 @@ $$ {#eq-design}
 
 ## OLS Model-Based Weight
 
+-   Under either specification, $\mathbb{E}[\tilde{D}_iY_i(0)] = 0$ by
+    mean-independence
+
 <br>
 
 -   Under model-based specification, $$
@@ -326,11 +329,6 @@ $$
     otherwise. Therefore, $\tau_{twfe}$ is ATT
 
 ## OLS Design-Based Weight
-
--   Under either specification, $\mathbb{E}[\tilde{D}_iY_i(0)] = 0$ by
-    mean-independence
-
-<br>
 
 -   Under design-based specification
 -   By the law of total expectation,

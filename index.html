@@ -516,6 +516,9 @@ Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
 </li>
 <li>Both are weaker than what is usually assumed in empirical research</li>
 </ul></section><section id="ols-model-based-weight" class="slide level2"><h2>OLS Model-Based Weight</h2>
+<ul>
+<li>Under either specification, <span class="math inline">\(\mathbb{E}[\tilde{D}_iY_i(0)] = 0\)</span> by mean-independence</li>
+</ul>
 <p><br></p>
 <ul>
 <li>Under model-based specification, <span class="math display">\[
@@ -621,10 +624,6 @@ Y_{it} = \beta_i + \gamma_t + \tau_{twfe} D_{it} + \epsilon_{it}
 <li>
 <span class="math inline">\(\lambda_{it} = (1-p)/2\)</span> for all treated in post-period and <span class="math inline">\(0\)</span> otherwise. Therefore, <span class="math inline">\(\tau_{twfe}\)</span> is ATT</li>
 </ul></section><section id="ols-design-based-weight" class="slide level2"><h2>OLS Design-Based Weight</h2>
-<ul>
-<li>Under either specification, <span class="math inline">\(\mathbb{E}[\tilde{D}_iY_i(0)] = 0\)</span> by mean-independence</li>
-</ul>
-<p><br></p>
 <ul>
 <li>Under design-based specification</li>
 <li>By the law of total expectation,</li>
