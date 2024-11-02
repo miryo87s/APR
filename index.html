@@ -515,6 +515,110 @@ Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
 <li>Both can be seen as a combination of <strong>conditional mean-independence and linearity</strong>
 </li>
 <li>Both are weaker than what is usually assumed in empirical research</li>
+</ul></section><section id="ols-model-based-weight" class="slide level2"><h2>OLS Model-Based Weight</h2>
+<p><br></p>
+<ul>
+<li>Under model-based specification, <span class="math display">\[
+\tau_{ols} = \frac{\mathbb{E}[\lambda_i\tau_i]}{\mathbb{E}[\lambda_i]}, \quad \lambda_i = \tilde{D}_i D_i
+\]</span>
+</li>
+<li>
+<span class="math inline">\(\lambda_i = 0\)</span> when <span class="math inline">\(D_i = 0\)</span>, so <span class="math inline">\(\tau_{ols}\)</span> is <strong>weighted ATT</strong>
+</li>
+<li>
+<span class="math inline">\(\lambda_i\)</span> cannot preclude negative values
+<ul>
+<li>Negative when <span class="math inline">\(D_i = 1\)</span> and <span class="math inline">\(\tilde{D}_i &lt; 0\)</span>, i.e.&nbsp;the fitted values of <span class="math inline">\(D_i\)</span> on <span class="math inline">\(X_i\)</span> exceeds 1</li>
+</ul>
+</li>
+<li>But <span class="citation" data-cites="borusyak2024negative">Borusyak and Hull (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span> overstated the concern
+<ul>
+<li>“… (model-based) weighting scheme is not convex. This is because <span class="math inline">\(\tilde{D}_i\)</span> necessarily takes on both positive and negative values, since <span class="math inline">\(\mathbb{E}[\tilde{D}_i] = 0\)</span>”</li>
+</ul>
+</li>
+</ul></section><section id="ols-model-based-weight-1" class="slide level2"><h2>OLS Model-Based Weight</h2>
+<p><br></p>
+<ul>
+<li>In practice, model-based can be less restrictive than design-based
+<ul>
+<li>A suﬀicient and necessary condition for convex weights is having all fitted values of <span class="math inline">\(D_i\)</span> less than 1 for treated units (negative values allowed)</li>
+<li>Less restrictive than design-based specification</li>
+<li>Will show in application</li>
+</ul>
+</li>
+<li>There are special cases where negative weights are no concern</li>
+</ul></section><section id="special-model-based-assumptions" class="slide level2"><h2>Special Model-Based Assumptions</h2>
+<p><br></p>
+<p><span class="blue">Special Case 1: Saturated <span class="math inline">\(X_i\)</span></span></p>
+<ul>
+<li>This case was studied in <span class="citation" data-cites="angrist1998estimating">Angrist (<a href="#/references" role="doc-biblioref" onclick="">1998</a>)</span>
+</li>
+<li>A common example of saturated <span class="math inline">\(X_i\)</span> is One-Way Fixed Effect</li>
+</ul>
+<p><span class="math display">\[
+Y_i = \beta_s + \tau_{owfe} D_i + \epsilon_i
+\]</span></p>
+<ul>
+<li>Let <span class="math inline">\(n_{1s} = \sum_{i \in s}D_i\)</span>, <span class="math inline">\(n_{0s} = \sum_{i \in s}1 - D_i\)</span>
+</li>
+<li>Let <span class="math inline">\(\bar{Y}_{ds}\)</span> be the sample mean of <span class="math inline">\(Y_i\)</span> in the treatment and control group for <span class="math inline">\(d = 1, 0\)</span> in stratum <span class="math inline">\(s\)</span>
+</li>
+</ul>
+<p><span class="math display">\[
+\tau_{owfe} = \frac{\mathbb{E}[\lambda_{owfe, s}\tau_s]}{\mathbb{E}[\lambda_{owfe, s}]}, \quad \lambda_{owfe, s} = \frac{n_{1s}n_{0s}}{n_{1s} + n_{0s}}, \ \tau_s = \bar{Y}_{1s} - \bar{Y}_{0s}
+\]</span></p>
+</section><section id="special-model-based-assumptions-1" class="slide level2"><h2>Special Model-Based Assumptions</h2>
+<p><br></p>
+<p><span class="blue">Special Case 2: Full Interaction Regression</span></p>
+<ul>
+<li>Consider an extra assumption <span class="math inline">\(\mathbb{E}[\tau_i | D_i, X_i] = X_i\xi\)</span> and the flexible specification</li>
+</ul>
+<p><span class="math display">\[
+Y_i = \tau_{ob}D_i + (X_i - \bar{X})\beta + D_i(X_i - \bar{X})\xi + \epsilon_i
+\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(\tau_{ob}\)</span> identifies the ATE</li>
+<li>This method is equivalent to regressing <span class="math inline">\(Y_i\)</span> on <span class="math inline">\(X_i\)</span> using treatment group and control group separately</li>
+<li>Also equivalent to Oaxaca-Blinder method <span class="citation" data-cites="oaxaca1973male blinder1973wage">(<a href="#/references" role="doc-biblioref" onclick="">Oaxaca 1973</a>; <a href="#/references" role="doc-biblioref" onclick="">Blinder 1973</a>)</span>
+</li>
+<li>
+<span class="citation" data-cites="kline2011oaxaca">Kline (<a href="#/references" role="doc-biblioref" onclick="">2011</a>)</span> showed <span class="math inline">\(\tau_{ob}\)</span> is equivalent to IPW with a linear model for the conditional odds of being treated</li>
+</ul></section><section id="special-model-based-assumptions-2" class="slide level2"><h2>Special Model-Based Assumptions</h2>
+<p><br></p>
+<p><span class="blue">Special Case 3: Canonical DiD</span></p>
+<ul>
+<li>Canonical DiD refers to the TWFE model of <span class="math inline">\(2 \times 2\)</span> DiD</li>
+</ul>
+<p><span class="math display">\[
+Y_{it} = \beta_i + \gamma_t + \tau_{twfe} D_{it} + \epsilon_{it}
+\]</span></p>
+<ul>
+<li>Parallel trend assumption: <span class="math inline">\(Y_{it}(0)\)</span> is a linear function of <span class="math inline">\(\beta_i\)</span> and <span class="math inline">\(\gamma_t\)</span>
+</li>
+<li>Assume balanced panel data and proportion of treatment group is <span class="math inline">\(p\)</span>
+</li>
+</ul>
+<p><span class="math display">\[
+\tilde{D}_{it} = D_{it} - \bar{D}_i - \bar{D}_t + \bar{D}
+\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(\bar{D}_i\)</span> is mean over time, <span class="math inline">\(\bar{D}_t\)</span> is mean over group, and <span class="math inline">\(\bar{D}\)</span> is total mean</li>
+</ul></section><section id="special-model-based-assumptions-3" class="slide level2"><h2>Special Model-Based Assumptions</h2>
+<p><br></p>
+<p><span class="blue">Special Case 3: Canonical DiD cont’d</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="fig/tbl1.png" class="quarto-figure quarto-figure-center" style="width:40.0%"></p>
+</figure>
+</div>
+<ul>
+<li>
+<span class="math inline">\(\tilde{D}_i\)</span> is negative for treated in pre-period, or control in post-period</li>
+<li>
+<span class="math inline">\(D_{it} = 1\)</span> for treated in post-period</li>
+<li>
+<span class="math inline">\(\lambda_{it} = (1-p)/2\)</span> for all treated in post-period and <span class="math inline">\(0\)</span> otherwise. Therefore, <span class="math inline">\(\tau_{twfe}\)</span> is ATT</li>
 </ul></section><section id="ols-design-based-weight" class="slide level2"><h2>OLS Design-Based Weight</h2>
 <ul>
 <li>Under either specification, <span class="math inline">\(\mathbb{E}[\tilde{D}_iY_i(0)] = 0\)</span> by mean-independence</li>
@@ -605,111 +709,7 @@ e(x) = \mathbb{E}[D_i | X_i = x] = X_i\delta
 </div>
 </div>
 </div>
-</section><section id="ols-model-based-weight" class="slide level2"><h2>OLS Model-Based Weight</h2>
-<p><br></p>
-<ul>
-<li>Under model-based specification, <span class="math display">\[
-\tau_{ols} = \frac{\mathbb{E}[\lambda_i\tau_i]}{\mathbb{E}[\lambda_i]}, \quad \lambda_i = \tilde{D}_i D_i
-\]</span>
-</li>
-<li>
-<span class="math inline">\(\lambda_i = 0\)</span> when <span class="math inline">\(D_i = 0\)</span>, so <span class="math inline">\(\tau_{ols}\)</span> is <strong>weighted ATT</strong>
-</li>
-<li>
-<span class="math inline">\(\lambda_i\)</span> cannot preclude negative values
-<ul>
-<li>Negative when <span class="math inline">\(D_i = 1\)</span> and <span class="math inline">\(\tilde{D}_i &lt; 0\)</span>, i.e.&nbsp;the projection of <span class="math inline">\(D_i\)</span> on <span class="math inline">\(X_i\)</span> exceeds 1</li>
-</ul>
-</li>
-<li>But <span class="citation" data-cites="borusyak2024negative">Borusyak and Hull (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span> overstated the concern
-<ul>
-<li>“… (model-based) weighting scheme is not convex. This is because <span class="math inline">\(\tilde{D}_i\)</span> necessarily takes on both positive and negative values, since <span class="math inline">\(\mathbb{E}[\tilde{D}_i] = 0\)</span>”</li>
-</ul>
-</li>
-</ul></section><section id="ols-model-based-weight-1" class="slide level2"><h2>OLS Model-Based Weight</h2>
-<p><br></p>
-<ul>
-<li>In practice, model-based can be less concerning than design-based
-<ul>
-<li>A suﬀicient and necessary condition for convex weights is having all fitted values of <span class="math inline">\(D_i\)</span> less than 1 for treated units (negative values allowed)</li>
-<li>Less restrictive than design-based specification</li>
-<li>Will show in application</li>
-</ul>
-</li>
-<li>There are special cases where negative weights are no concern</li>
-</ul></section><section id="special-model-based-assumptions" class="slide level2"><h2>Special Model-Based Assumptions</h2>
-<p><br></p>
-<p><span class="blue">Special Case 1: Saturated <span class="math inline">\(X_i\)</span></span></p>
-<ul>
-<li>This case was studied in <span class="citation" data-cites="angrist1998estimating">Angrist (<a href="#/references" role="doc-biblioref" onclick="">1998</a>)</span>
-</li>
-<li>A common example of saturated <span class="math inline">\(X_i\)</span> is One-Way Fixed Effect</li>
-</ul>
-<p><span class="math display">\[
-Y_i = \beta_s + \tau_{owfe} D_i + \epsilon_i
-\]</span></p>
-<ul>
-<li>Let <span class="math inline">\(n_{1s} = \sum_{i \in s}D_i\)</span>, <span class="math inline">\(n_{0s} = \sum_{i \in s}1 - D_i\)</span>
-</li>
-<li>Let <span class="math inline">\(\bar{Y}_{ds}\)</span> be the sample mean of <span class="math inline">\(Y_i\)</span> in the treatment and control group for <span class="math inline">\(d = 1, 0\)</span> in stratum <span class="math inline">\(s\)</span>
-</li>
-</ul>
-<p><span class="math display">\[
-\tau_{owfe} = \frac{\mathbb{E}[\lambda_{owfe, s}\tau_s]}{\mathbb{E}[\lambda_{owfe, s}]}, \quad \lambda_{owfe, s} = \frac{n_{1s}n_{0s}}{n_{1s} + n_{0s}}, \ \tau_s = \bar{Y}_{1s} - \bar{Y}_{0s}
-\]</span></p>
-</section><section id="special-model-based-assumptions-1" class="slide level2"><h2>Special Model-Based Assumptions</h2>
-<p><br></p>
-<p><span class="blue">Special Case 2: Full Interaction Regression</span></p>
-<ul>
-<li>Consider an extra assumption <span class="math inline">\(\mathbb{E}[\tau_i | D_i, X_i] = X_i\xi\)</span> and the flexible specification</li>
-</ul>
-<p><span class="math display">\[
-Y_i = \tau_{ob}D_i + (X_i - \bar{X})\beta + D_i(X_i - \bar{X})\xi + \epsilon_i
-\]</span></p>
-<ul>
-<li>
-<span class="math inline">\(\tau_{ob}\)</span> identifies the ATE</li>
-<li>This method is equivalent to regressing <span class="math inline">\(Y_i\)</span> on <span class="math inline">\(X_i\)</span> using treatment group and control group separately</li>
-<li>Also equivalent to Oaxaca-Blinder method <span class="citation" data-cites="oaxaca1973male blinder1973wage">(<a href="#/references" role="doc-biblioref" onclick="">Oaxaca 1973</a>; <a href="#/references" role="doc-biblioref" onclick="">Blinder 1973</a>)</span>
-</li>
-<li>
-<span class="citation" data-cites="kline2011oaxaca">Kline (<a href="#/references" role="doc-biblioref" onclick="">2011</a>)</span> showed <span class="math inline">\(\tau_{ob}\)</span> is equivalent to IPW with a linear model for the conditional odds of being treated</li>
-</ul></section><section id="special-model-based-assumptions-2" class="slide level2"><h2>Special Model-Based Assumptions</h2>
-<p><br></p>
-<p><span class="blue">Special Case 3: Canonical DiD</span></p>
-<ul>
-<li>Canonical DiD refers to the TWFE model of <span class="math inline">\(2 \times 2\)</span> DiD</li>
-</ul>
-<p><span class="math display">\[
-Y_{it} = \beta_i + \gamma_t + \tau_{twfe} D_{it} + \epsilon_{it}
-\]</span></p>
-<ul>
-<li>Parallel trend assumption: <span class="math inline">\(Y_{it}(0)\)</span> is a linear function of <span class="math inline">\(\beta_i\)</span> and <span class="math inline">\(\gamma_t\)</span>
-</li>
-<li>Assume balanced panel data and proportion of treatment group is <span class="math inline">\(p\)</span>
-</li>
-</ul>
-<p><span class="math display">\[
-\tilde{D}_{it} = D_{it} - \bar{D}_i - \bar{D}_t + \bar{D}
-\]</span></p>
-<ul>
-<li>
-<span class="math inline">\(\bar{D}_i\)</span> is mean over time, <span class="math inline">\(\bar{D}_t\)</span> is mean over group, and <span class="math inline">\(\bar{D}\)</span> is total mean</li>
-</ul></section><section id="special-model-based-assumptions-3" class="slide level2"><h2>Special Model-Based Assumptions</h2>
-<p><br></p>
-<p><span class="blue">Special Case 3: Canonical DiD cont’d</span></p>
-<div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="fig/tbl1.png" class="quarto-figure quarto-figure-center" style="width:40.0%"></p>
-</figure>
-</div>
-<ul>
-<li>
-<span class="math inline">\(\tilde{D}_i\)</span> is negative for treated in pre-period, or control in post-period</li>
-<li>
-<span class="math inline">\(D_{it} = 1\)</span> for treated in post-period</li>
-<li>
-<span class="math inline">\(\lambda_{it} = (1-p)/2\)</span> for all treated in post-period and <span class="math inline">\(0\)</span> otherwise. Therefore, <span class="math inline">\(\tau_{twfe}\)</span> is ATT</li>
-</ul></section><section id="extension-to-iv" class="slide level2"><h2>Extension to IV</h2>
+</section><section id="extension-to-iv" class="slide level2"><h2>Extension to IV</h2>
 <p><br></p>
 <p>Assume a slightly weaker version of stochastic monotonicity than <span class="citation" data-cites="small2017instrumental">Small et al. (<a href="#/references" role="doc-biblioref" onclick="">2017</a>)</span></p>
 <div class="callout callout-warning no-icon callout-titled callout-style-simple">
