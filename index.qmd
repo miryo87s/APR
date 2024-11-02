@@ -91,6 +91,8 @@ Design-Based Specification</h1>
 
 <br>
 
+Binary and continuous treatment are discussed separately
+
 I show that negative weights are not **necessarily a concern** when
 specification is model-based
 
@@ -514,13 +516,19 @@ $$
 -   Let $\mu'(D_i, X_i)$ be the partial derivative with respect to $D_i$
 -   Will show $\mu'(D_i, X_i)$ identifies $\tau^0$ under model- and
     design-based specification
+$$
+\mathbb{E}[Y_i'(d)|D_i = d, X_i] = (\partial/\partial d) \mathbb{E}[Y_i | D_i = d, X_i].
+$$
 -   Target is to show $\tau_{ls}$ is WADE
     $\tau_{wade} = \mathbb{E}[w(D_i, X_i)\mu'(D_i, X_i)]$ for some
     weight $w(d, x)$
+-   The target $\tau_{wade}$ can be seen as a weighted index coefficient
+
+## Set Up
 
 <br>
 
-Riesz Representation Theorem:
+**Riesz Representation Theorem:**
 
 There exists a unique Riesz Representer $\alpha_w \in \mathcal{H}$ such
 that $\tau_{wade} = \mathbb{E}[\alpha_w(D_i, X_i)\mu(D_i, X_i)]$ and
@@ -530,8 +538,6 @@ hence $\mathbb{E}[\alpha_w(D_i, X_i)Y_i]$
     index model
 -   In my context, Riesz Representation is given by PLR
 -   Then the target is to backtrack $w(D_i, X_i)$
-
-## Set Up
 
 <br>
 
@@ -640,6 +646,7 @@ $$
 -   The weight depends on the conditional density $f(D_i|X_i)$
     -   Design-based specification adds interpretability on the weight
     -   Further assume parametric $f(D_i|X_i)$ can simplify the weight
+        -   E.g. $f(D_i|X_i)$ is conditional normal distribution, then $\omega(d, z) = 1$
 
 <br>
 
@@ -795,7 +802,7 @@ $E_n$ is $o_P(n^{-1/2})$ under the Donsker condition and Lemma 19.24 of
 @kennedy2020sharp.
 
 $R_n = \mathbb{E}[(\rho(X_i) - \hat\rho(X_i))(e(X_i) - \hat{e}(X_i))]$.
-By Cauchy-Schwarz inequality and Assumption $a$, $R_n$ is
+By Cauchy-Schwarz inequality and Assumption $i$, $R_n$ is
 $o_P(n^{-1/2})$.
 
 ## Application
@@ -813,7 +820,7 @@ $o_P(n^{-1/2})$.
 <br>
 
 -   Four sets of covariates, same as those in @angrist2009mostly
--   All four specifications can be regarded as model- or design-based
+-   All four specifications are regarded as model- or design-based
 
 ## Application
 
@@ -853,7 +860,7 @@ Linear model-based specification can be less strict than linear design-based spe
 
 :::
 
-## Conclusion
+## Takeaways
 
 <br>
 

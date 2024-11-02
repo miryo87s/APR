@@ -413,6 +413,7 @@ Y_i = \tau_{ols} D_i + X_i \beta + \epsilon_i
 </li>
 </ul></section><section id="this-paper" class="slide level2"><h2>This Paper</h2>
 <p><br></p>
+<p>Binary and continuous treatment are discussed separately</p>
 <p>I show that negative weights are not <strong>necessarily a concern</strong> when specification is model-based</p>
 <p><br></p>
 <ul>
@@ -795,12 +796,16 @@ Y_i = \tau_{ls}D_i + g(X_i) + \epsilon_i.
 <ul>
 <li>Let <span class="math inline">\(\mu'(D_i, X_i)\)</span> be the partial derivative with respect to <span class="math inline">\(D_i\)</span>
 </li>
-<li>Will show <span class="math inline">\(\mu'(D_i, X_i)\)</span> identifies <span class="math inline">\(\tau^0\)</span> under model- and design-based specification</li>
+<li>Will show <span class="math inline">\(\mu'(D_i, X_i)\)</span> identifies <span class="math inline">\(\tau^0\)</span> under model- and design-based specification <span class="math display">\[
+\mathbb{E}[Y_i'(d)|D_i = d, X_i] = (\partial/\partial d) \mathbb{E}[Y_i | D_i = d, X_i].
+\]</span>
+</li>
 <li>Target is to show <span class="math inline">\(\tau_{ls}\)</span> is WADE <span class="math inline">\(\tau_{wade} = \mathbb{E}[w(D_i, X_i)\mu'(D_i, X_i)]\)</span> for some weight <span class="math inline">\(w(d, x)\)</span>
 </li>
-</ul>
+<li>The target <span class="math inline">\(\tau_{wade}\)</span> can be seen as a weighted index coefficient</li>
+</ul></section><section id="set-up-3" class="slide level2"><h2>Set Up</h2>
 <p><br></p>
-<p>Riesz Representation Theorem:</p>
+<p><strong>Riesz Representation Theorem:</strong></p>
 <p>There exists a unique Riesz Representer <span class="math inline">\(\alpha_w \in \mathcal{H}\)</span> such that <span class="math inline">\(\tau_{wade} = \mathbb{E}[\alpha_w(D_i, X_i)\mu(D_i, X_i)]\)</span> and hence <span class="math inline">\(\mathbb{E}[\alpha_w(D_i, X_i)Y_i]\)</span></p>
 <ul>
 <li>
@@ -808,7 +813,7 @@ Y_i = \tau_{ls}D_i + g(X_i) + \epsilon_i.
 <li>In my context, Riesz Representation is given by PLR</li>
 <li>Then the target is to backtrack <span class="math inline">\(w(D_i, X_i)\)</span>
 </li>
-</ul></section><section id="set-up-3" class="slide level2"><h2>Set Up</h2>
+</ul>
 <p><br></p>
 <ul>
 <li>Need to restrict to normalized weights such that <span class="math inline">\(\mathbb{E}[w(D_i, X_i)] = 1\)</span>
@@ -895,7 +900,12 @@ w(d, z) = \frac{-1}{f(d|x)}\int_{\underline{d}}^{\bar{d}}\alpha_w(d^*, x)\mathbb
 <li>The weight depends on the conditional density <span class="math inline">\(f(D_i|X_i)\)</span>
 <ul>
 <li>Design-based specification adds interpretability on the weight</li>
-<li>Further assume parametric <span class="math inline">\(f(D_i|X_i)\)</span> can simplify the weight</li>
+<li>Further assume parametric <span class="math inline">\(f(D_i|X_i)\)</span> can simplify the weight
+<ul>
+<li>E.g. <span class="math inline">\(f(D_i|X_i)\)</span> is conditional normal distribution, then <span class="math inline">\(\omega(d, z) = 1\)</span>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1010,7 +1020,7 @@ R_n &amp;= \gamma(\hat{P}) - \gamma(P) + P[\hat\phi_\gamma(W_i; \hat{P})].
 \end{aligned}\]</span></p>
 <p>The first term is well-behaved sample mean of influence function.</p>
 <p>By Assumption <span class="math inline">\(a\)</span> and Holder’s inequality, the empirical process term <span class="math inline">\(E_n\)</span> is <span class="math inline">\(o_P(n^{-1/2})\)</span> under the Donsker condition and Lemma 19.24 of <span class="citation" data-cites="van1998functional">Van der Vaart (<a href="#/references" role="doc-biblioref" onclick="">1998</a>)</span>, or under cross-fitting condition and Lemma 2 of <span class="citation" data-cites="kennedy2020sharp">Kennedy, Balakrishnan, and G’sell (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>.</p>
-<p><span class="math inline">\(R_n = \mathbb{E}[(\rho(X_i) - \hat\rho(X_i))(e(X_i) - \hat{e}(X_i))]\)</span>. By Cauchy-Schwarz inequality and Assumption <span class="math inline">\(a\)</span>, <span class="math inline">\(R_n\)</span> is <span class="math inline">\(o_P(n^{-1/2})\)</span>.</p>
+<p><span class="math inline">\(R_n = \mathbb{E}[(\rho(X_i) - \hat\rho(X_i))(e(X_i) - \hat{e}(X_i))]\)</span>. By Cauchy-Schwarz inequality and Assumption <span class="math inline">\(i\)</span>, <span class="math inline">\(R_n\)</span> is <span class="math inline">\(o_P(n^{-1/2})\)</span>.</p>
 </section><section id="application" class="slide level2"><h2>Application</h2>
 <p><br></p>
 <ul>
@@ -1028,7 +1038,7 @@ R_n &amp;= \gamma(\hat{P}) - \gamma(P) + P[\hat\phi_\gamma(W_i; \hat{P})].
 <ul>
 <li>Four sets of covariates, same as those in <span class="citation" data-cites="angrist2009mostly">Angrist and Pischke (<a href="#/references" role="doc-biblioref" onclick="">2009</a>)</span>
 </li>
-<li>All four specifications can be regarded as model- or design-based</li>
+<li>All four specifications are regarded as model- or design-based</li>
 </ul></section><section id="application-1" class="slide level2"><h2>Application</h2>
 <p><br></p>
 <ul>
@@ -1090,7 +1100,7 @@ R_n &amp;= \gamma(\hat{P}) - \gamma(P) + P[\hat\phi_\gamma(W_i; \hat{P})].
 <figcaption>The Projection of <span class="math inline">\(D_i\)</span> on <span class="math inline">\(X_i\)</span> (Earnings in 1974)</figcaption></figure>
 </div>
 </div>
-</section><section id="conclusion" class="slide level2"><h2>Conclusion</h2>
+</section><section id="takeaways" class="slide level2"><h2>Takeaways</h2>
 <p><br></p>
 <ul>
 <li>This paper explores the role of least square estimands in causal inference</li>
