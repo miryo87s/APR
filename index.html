@@ -898,22 +898,44 @@ w(d, z) = \frac{-1}{f(d|x)}\int_{\underline{d}}^{\bar{d}}\alpha_w(d^*, x)\mathbb
 <li>The weight depends on the conditional density <span class="math inline">\(f(D_i|X_i)\)</span>
 <ul>
 <li>Design-based specification adds interpretability on the weight</li>
-<li>Further assume parametric <span class="math inline">\(f(D_i|X_i)\)</span> can simplify the weight
+<li>Further assume parametric <span class="math inline">\(f(D_i|X_i)\)</span> can simplify the weight</li>
+</ul>
+</li>
+</ul>
+<p>E.g.</p>
 <ul>
-<li>E.g. <span class="math inline">\(f(D_i|X_i)\)</span> is conditional normal distribution, then <span class="math inline">\(\omega(d, z) = 1\)</span>
-</li>
+<li>Normal distribution <span class="math inline">\(f(d|m, v)\)</span> with mean <span class="math inline">\(m = m(x)\)</span> and variance <span class="math inline">\(v = v(x)\)</span>:
+<ul>
+<li><span class="math inline">\(\omega(d, x) = \frac{Var(D_i | X_i)}{\mathbb{E}[Var(D_i | X_i)]}\)</span></li>
 </ul>
 </li>
+<li>Gamma distribution <span class="math inline">\(f(d|a, b)\)</span> with shape <span class="math inline">\(a = a(x)\)</span> and rate <span class="math inline">\(b = b(x)\)</span>:
+<ul>
+<li><span class="math inline">\(\omega(d, x) = \frac{Var(D_i | X_i)}{\mathbb{E}[Var(D_i | X_i)]} \frac{d}{m(x)}\)</span></li>
 </ul>
 </li>
+<li>Beta distribution <span class="math inline">\(f(d|a, b)\)</span> with shape <span class="math inline">\(a = a(x)\)</span> and <span class="math inline">\(b = b(x)\)</span>:
+<ul>
+<li><span class="math inline">\(\omega(d, x) = \frac{Var(D_i | X_i)}{\mathbb{E}[Var(D_i | X_i)]} \frac{d(1 - d)}{m(x)(1 - m(x)) - v(x)}\)</span></li>
 </ul>
+</li>
+</ul></section><section id="plr-with-continuous-treatment-4" class="slide level2"><h2>PLR with Continuous Treatment</h2>
 <p><br></p>
 <ul>
 <li>The set up incorporates binary treatment</li>
+<li>When <span class="math inline">\(D_i \in \{0, 1\}\)</span>
+<ul>
+<li>
+<span class="math inline">\(\mu(1, X_i) - \mu(0, X_i)\)</span> identifies treatment effect under model- or design-based specifications.</li>
 </ul>
-<p>When <span class="math inline">\(D_i \in \{0, 1\}\)</span>, <span class="math inline">\(\mu(1, X_i) - \mu(0, X_i)\)</span> identifies treatment effect under model- and design-based specifications.</p>
-<p>Theorem 1 can be obtained by letting <span class="math inline">\(w(x) = \mathbb{E}[\alpha_w(D_i, X_i)D_i | X_i = x]\)</span> and <span class="math inline">\(\mathbb{E}[w(X_i)(\mu(1, X_i) - \mu(0, X_i)]\)</span> be the WATE</p>
-</section><section id="ls-is-optimally-efficient" class="slide level2"><h2>LS is Optimally Efficient</h2>
+</li>
+<li>Theorem 1 can be obtained by
+<ul>
+<li><span class="math inline">\(w(x) = \mathbb{E}[\alpha_w(D_i, X_i)D_i | X_i = x]\)</span></li>
+<li>and <span class="math inline">\(\mathbb{E}[w(X_i)(\mu(1, X_i) - \mu(0, X_i)]\)</span> be the WATE</li>
+</ul>
+</li>
+</ul></section><section id="ls-is-optimally-efficient" class="slide level2"><h2>LS is Optimally Efficient</h2>
 <p><br></p>
 <div class="callout callout-tip no-icon callout-titled callout-style-simple">
 <div class="callout-body">

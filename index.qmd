@@ -640,18 +640,26 @@ $$
 -   The weight depends on the conditional density $f(D_i|X_i)$
     -   Design-based specification adds interpretability on the weight
     -   Further assume parametric $f(D_i|X_i)$ can simplify the weight
-        -   E.g. $f(D_i|X_i)$ is conditional normal distribution, then $\omega(d, z) = 1$
+
+E.g.
+
+-   Normal distribution $f(d|m, v)$ with mean $m = m(x)$ and variance $v = v(x)$: 
+    -   $\omega(d, x) = \frac{Var(D_i | X_i)}{\mathbb{E}[Var(D_i | X_i)]}$
+-   Gamma distribution $f(d|a, b)$ with shape $a = a(x)$ and rate $b = b(x)$: 
+    -   $\omega(d, x) = \frac{Var(D_i | X_i)}{\mathbb{E}[Var(D_i | X_i)]} \frac{d}{m(x)}$
+-   Beta distribution $f(d|a, b)$ with shape $a = a(x)$ and $b = b(x)$: 
+    -   $\omega(d, x) = \frac{Var(D_i | X_i)}{\mathbb{E}[Var(D_i | X_i)]} \frac{d(1 - d)}{m(x)(1 - m(x)) - v(x)}$
+
+## PLR with Continuous Treatment
 
 <br>
 
 -   The set up incorporates binary treatment
-
-When $D_i \in \{0, 1\}$, $\mu(1, X_i) - \mu(0, X_i)$ identifies
-treatment effect under model- and design-based specifications.
-
-Theorem 1 can be obtained by letting
-$w(x) = \mathbb{E}[\alpha_w(D_i, X_i)D_i | X_i = x]$ and
-$\mathbb{E}[w(X_i)(\mu(1, X_i) - \mu(0, X_i)]$ be the WATE
+-   When $D_i \in \{0, 1\}$
+    -   $\mu(1, X_i) - \mu(0, X_i)$ identifies treatment effect under model- or design-based specifications.
+-   Theorem 1 can be obtained by 
+    -   $w(x) = \mathbb{E}[\alpha_w(D_i, X_i)D_i | X_i = x]$
+    -   and $\mathbb{E}[w(X_i)(\mu(1, X_i) - \mu(0, X_i)]$ be the WATE
 
 ## LS is Optimally Efficient
 
