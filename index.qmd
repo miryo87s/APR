@@ -869,8 +869,17 @@ Linear model-based specification can be less strict than linear design-based spe
 -   This paper explores the role of least square estimands in causal inference
 -   Negative weights are not necessarily a concern with model-based specifications
 -   OLS/PLR Identifies WADE(WATE) with continuous(binary) treatment and is optimally efficient
--   In practice, PLR is recommended over OLS
--   Using either method, researchers should estimate the weights and check the distribution
+
+<br>
+
+### Recommendations for Empirical Research
+
+<br>
+
+-   PLR is recommended over OLS
+-   No concern with continuous treatment. For binary treatment:
+    -   Weights can be estimated, and the distribution of weights should be examined
+
 
 
 ## References {visibility="uncounted"}
