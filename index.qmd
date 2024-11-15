@@ -4,7 +4,7 @@ format:
     theme: ["theme/q-theme.scss"]
     slide-number: c/t
     logo: "unsw-long.png"
-    footer: "MEG Conference"
+    footer: "PhD Conference"
     code-copy: true
     center-title-slide: false
     include-in-header: heading-meta.html
@@ -39,13 +39,13 @@ Design-Based Specification</h1>
 
 <br>
 
-<h2>MEG Conference</h2>
+<h2>PhD Conference</h2>
 
 <hr>
 
 <h3>Fangzhou Yu</h3>
 
-<h3>2024-11-02</h3>
+<h3>2024-11-19</h3>
 
 <br>
 
