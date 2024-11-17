@@ -322,7 +322,7 @@ $$
 
 ![](fig/tbl1.png){fig-align="center" width="40%"}
 
--   $\tilde{D}_i$ is negative for treated in pre-period, or control in
+-   $\tilde{D}_{it}$ is negative for treated in pre-period, or control in
     post-period
 -   $D_{it} = 1$ for treated in post-period
 -   $\lambda_{it} = (1-p)/2$ for all treated in post-period and $0$
